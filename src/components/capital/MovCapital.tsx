@@ -161,7 +161,6 @@ export default function TablaMovimientos() {
   const [orderBy, setOrderBy] = React.useState<keyof Data>("Monto");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [movimientos, setMovimientos] = useState<Data[]>([]);
-  const [fetchError, setFetchError] = useState("");
 
   useEffect(() => {
     fetchMovimientosData();
@@ -173,7 +172,6 @@ export default function TablaMovimientos() {
       setMovimientos(resp.data);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setFetchError("An error occurred while fetching data.");
     }
   };
 
@@ -195,12 +193,12 @@ export default function TablaMovimientos() {
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, email: string) => {
-    const selectedIndex = selected.indexOf(email);
+  const handleClick = (event: React.MouseEvent<unknown>, Email: string) => {
+    const selectedIndex = selected.indexOf(Email);
     let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, email);
+      newSelected = newSelected.concat(selected, Email);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
