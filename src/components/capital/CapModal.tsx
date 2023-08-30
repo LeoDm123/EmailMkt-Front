@@ -32,8 +32,9 @@ const CapModal = ({ open, onClose }) => {
       console.log(resp);
       SwAlert();
       onClose();
+      window.location.reload();
     } catch (error) {
-      console.log(error);
+      SwAlertErrorFondos();
     }
   };
 
@@ -68,6 +69,14 @@ const CapModal = ({ open, onClose }) => {
       title: "¡Exito!",
       text: "El movimiento se agregó correctamente",
       icon: "success",
+    });
+  };
+
+  const SwAlertErrorFondos = () => {
+    swal({
+      title: "¡Error!",
+      text: "No posee los fondos suficientes para realizar la operación",
+      icon: "error",
     });
   };
 

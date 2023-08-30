@@ -19,12 +19,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Capital from "../components/capital/CapDisp";
-import "../css/App.css";
 import { useNavigate } from "react-router-dom";
+import "../css/App.css";
+import TablaMovimientos from "../components/capital/MovCapital";
+import TablaOps from "../components/opreaciones/Ops";
 import CapButton from "../components/capital/CapButton";
-import OpCard from "../components/opreaciones/OpCard";
-import ArticleIcon from "@mui/icons-material/Article";
-import { AddOp } from "../components/opreaciones/OpButtons";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import { ListItemButton, ListItemIcon } from "@mui/material";
 
 const drawerWidth: number = 240;
@@ -80,14 +80,14 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const Dashboard = () => {
+const Informacion = () => {
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/informacion");
+    navigate("/dashboard");
   };
 
   return (
@@ -146,9 +146,9 @@ const Dashboard = () => {
             <ListItem disablePadding>
               <ListItemButton onClick={handleClick}>
                 <ListItemIcon>
-                  <ArticleIcon />
+                  <DashboardIcon />
                 </ListItemIcon>
-                <ListItemText primary="Informes" />
+                <ListItemText primary="Tablero de Control" />
               </ListItemButton>
             </ListItem>
           </List>
@@ -168,60 +168,39 @@ const Dashboard = () => {
           <Toolbar />
           <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Capital disponible */}
-              <Grid item xs={12} md={8} lg={4}>
-                <Paper
-                  sx={{
-                    paddingX: 3,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 310,
-                  }}
-                >
-                  <h2 className="titulo my-3">Capital Disponible</h2>
-                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                  <Capital />
-                  <CapButton />
-                </Paper>
-              </Grid>
-              {/* Operaciones Vigentes */}
-              <Grid item xs={12} md={4} lg={8}>
+              {/* Operaciones */}
+              <Grid item xs={12} md={4} lg={12}>
                 <Paper
                   sx={{
                     paddingX: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 610,
+                    height: 285,
                   }}
                 >
-                  <div className="d-flex align-items-center">
-                    <h2 className="titulo my-3 w-75">Operaciones Activas</h2>
-                    <AddOp />
-                  </div>
+                  <h2 className="titulo my-3">Operaciones</h2>
+
                   <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                  <Box
-                    sx={{ width: "100%", maxHeight: "500px", overflow: "auto" }}
-                  >
-                    <OpCard />
-                  </Box>
+                  <TablaOps />
+                </Paper>
+              </Grid>
+              {/* Operaciones Vigentes */}
+              <Grid item xs={12} md={4} lg={12}>
+                <Paper
+                  sx={{
+                    paddingX: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 285,
+                  }}
+                >
+                  <h2 className="titulo my-3">Movimientos de Capital</h2>
+
+                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
+                  <TablaMovimientos />
                 </Paper>
               </Grid>
             </Grid>
-            {/* <Grid item xs={12} md={8} lg={4} className="mt-3">
-              <Paper
-                sx={{
-                  paddingX: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  height: 285,
-                }}
-              >
-                <h2 className="titulo my-3">Movimientos de Capital</h2>
-
-                <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                <TablaMovimientos />
-              </Paper>
-            </Grid> */}
           </Container>
         </Box>
       </Box>
@@ -229,4 +208,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Informacion;

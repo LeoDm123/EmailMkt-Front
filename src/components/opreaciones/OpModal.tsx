@@ -43,8 +43,9 @@ const OpModal = ({ open, onClose }) => {
       console.log(resp);
       SwAlert();
       onClose();
+      window.location.reload();
     } catch (error) {
-      console.log(error);
+      SwAlertErrorFondos();
     }
   };
 
@@ -83,6 +84,14 @@ const OpModal = ({ open, onClose }) => {
       title: "¡Exito!",
       text: "La operación se agregó correctamente",
       icon: "success",
+    });
+  };
+
+  const SwAlertErrorFondos = () => {
+    swal({
+      title: "¡Error!",
+      text: "No posee los fondos suficientes para realizar la operación",
+      icon: "error",
     });
   };
 

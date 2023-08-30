@@ -14,9 +14,12 @@ interface Data {
   Detalle: string;
   Divisa: string;
   Monto: number;
+  TipoCambio: number;
+  MontoTotal: number;
   Fecha: string;
   email: string;
   Comentarios: string;
+  Estado: string;
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -84,7 +87,18 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Monto",
   },
-
+  {
+    id: "TipoCambio",
+    numeric: true,
+    disablePadding: false,
+    label: "Tipo de Cambio",
+  },
+  {
+    id: "MontoTotal",
+    numeric: true,
+    disablePadding: false,
+    label: "Monto Total",
+  },
   {
     id: "Fecha",
     numeric: false,
@@ -102,6 +116,13 @@ const headCells: readonly HeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: "Comentarios",
+  },
+
+  {
+    id: "Estado",
+    numeric: false,
+    disablePadding: false,
+    label: "Estado",
   },
 ];
 
@@ -143,21 +164,21 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function TablaMovimientos() {
+export default function TablaOps() {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("Monto");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
-  const [movimientos, setMovimientos] = useState<Data[]>([]);
+  const [operaciones, setOperaciones] = useState<Data[]>([]);
   const [fetchError, setFetchError] = useState("");
 
   useEffect(() => {
-    fetchMovimientosData();
+    fetchOperacionesData();
   }, []);
 
-  const fetchMovimientosData = async () => {
+  const fetchOperacionesData = async () => {
     try {
-      const resp = await serverAPI.get("/cap/obtenerMovimientos");
-      setMovimientos(resp.data);
+      const resp = await serverAPI.get("/op/obtenerOperaciones");
+      setOperaciones(resp.data);
     } catch (error) {
       console.error("Error fetching data:", error);
       setFetchError("An error occurred while fetching data.");
@@ -175,7 +196,7 @@ export default function TablaMovimientos() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = movimientos.map((n) => n.email);
+      const newSelected = operaciones.map((n) => n.email);
       setSelected(newSelected);
       return;
     }
@@ -202,10 +223,9 @@ export default function TablaMovimientos() {
     setSelected(newSelected);
   };
 
-  console.log("movimientos:", movimientos);
   const visibleRows = React.useMemo(
-    () => stableSort(movimientos, getComparator(order, orderBy)),
-    [order, orderBy, movimientos]
+    () => stableSort(operaciones, getComparator(order, orderBy)),
+    [order, orderBy, operaciones]
   );
 
   const formatCurrency = (value, currencyCode) => {
@@ -226,7 +246,7 @@ export default function TablaMovimientos() {
             orderBy={orderBy}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
-            rowCount={movimientos.length}
+            rowCount={operaciones.length}
           />
           <TableBody>
             {visibleRows.map((row, index) => {
@@ -250,10 +270,17 @@ export default function TablaMovimientos() {
                   <TableCell align="center">
                     {formatCurrency(row.Monto, row.Divisa)}
                   </TableCell>
+                  <TableCell align="center">
+                    {formatCurrency(row.TipoCambio, "ARS")}
+                  </TableCell>
+                  <TableCell align="center">
+                    {formatCurrency(row.MontoTotal, "ARS")}
+                  </TableCell>
                   <TableCell align="center">{row.Fecha}</TableCell>
                   <TableCell align="center">{row.email}</TableCell>
 
                   <TableCell align="center">{row.Comentarios}</TableCell>
+                  <TableCell align="center">{row.Estado}</TableCell>
                 </TableRow>
               );
             })}

@@ -46,6 +46,7 @@ export default function OpCard() {
       console.log(_id);
       console.log(resp);
       SwAlertOk();
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -77,9 +78,16 @@ export default function OpCard() {
 
   const SwAlertCancel = () => {
     swal({
-      title: "¡Exito!",
-      text: "Operación Cancelada",
-      icon: "error",
+      title: "¿Desea cancelar la operación?",
+      text: "Una vez cancelada, esta se borrará y no podrá ser recuperada",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(() => {
+      swal("¡Operación cancelada con éxito!", {
+        icon: "success",
+      });
+      window.location.reload();
     });
   };
 
