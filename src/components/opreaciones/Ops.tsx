@@ -17,7 +17,7 @@ interface Data {
   TipoCambio: number;
   MontoTotal: number;
   Fecha: string;
-  email: string;
+  Email: string;
   Comentarios: string;
   Estado: string;
 }
@@ -106,7 +106,7 @@ const headCells: readonly HeadCell[] = [
     label: "Fecha",
   },
   {
-    id: "email",
+    id: "Email",
     numeric: false,
     disablePadding: false,
     label: "Email",
@@ -125,6 +125,18 @@ const headCells: readonly HeadCell[] = [
     label: "Estado",
   },
 ];
+
+const cellWidths = {
+  Detalle: "5%",
+  Divisa: "5%",
+  Monto: "10%",
+  TipoCambio: "15%",
+  MontoTotal: "10%",
+  Fecha: "20%",
+  Email: "20%",
+  Comentarios: "20%",
+  Estado: "5%",
+};
 
 interface EnhancedTableProps {
   numSelected: number;
@@ -149,7 +161,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     <TableHead>
       <TableRow>
         {headCells.map((headCell) => (
-          <TableCell key={headCell.id} align="center">
+          <TableCell
+            key={headCell.id}
+            align="center"
+            style={{ width: cellWidths[headCell.id], marginLeft: 0 }}
+          >
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
@@ -255,32 +271,34 @@ export default function TablaOps() {
               return (
                 <TableRow
                   hover
-                  onClick={(event) => handleClick(event, row.email)}
+                  onClick={(event) => handleClick(event, row.Email)}
                   sx={{ cursor: "pointer" }}
                 >
                   <TableCell
                     component="th"
                     id={labelId}
                     scope="row"
-                    align="center"
+                    align="left"
                   >
                     {row.Detalle}
                   </TableCell>
-                  <TableCell align="center">{row.Divisa}</TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" className="pe-5">
+                    {row.Divisa}
+                  </TableCell>
+                  <TableCell align="center" className="pe-5">
                     {formatCurrency(row.Monto, row.Divisa)}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     {formatCurrency(row.TipoCambio, "ARS")}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     {formatCurrency(row.MontoTotal, "ARS")}
                   </TableCell>
                   <TableCell align="center">{row.Fecha}</TableCell>
-                  <TableCell align="center">{row.email}</TableCell>
+                  <TableCell align="center">{row.Email}</TableCell>
 
                   <TableCell align="center">{row.Comentarios}</TableCell>
-                  <TableCell align="center">{row.Estado}</TableCell>
+                  <TableCell align="left">{row.Estado}</TableCell>
                 </TableRow>
               );
             })}

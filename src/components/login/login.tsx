@@ -29,6 +29,8 @@ export const LogIn = () => {
         password,
       });
 
+      localStorage.setItem("loggedInUserEmail", email);
+
       window.location.href = "/dashboard";
 
       console.log(resp);

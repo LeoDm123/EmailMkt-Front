@@ -18,14 +18,22 @@ const CapModal = ({ open, onClose }) => {
   const [Monto, setMonto] = useState("");
   const [Comentarios, setComentarios] = useState("");
 
-  const movimientoCapital = async (Detalle, Divisa, Monto, Comentarios) => {
+  const Email = localStorage.getItem("loggedInUserEmail");
+
+  const movimientoCapital = async (
+    Detalle,
+    Divisa,
+    Monto,
+    Comentarios,
+    Email
+  ) => {
     try {
       const resp = await serverAPI.post("/cap/movimientoCapital", {
         Detalle,
         Divisa,
         Monto: parseFloat(Monto), // Convert to a number
         Comentarios,
-        email: "",
+        Email,
         Fecha: "",
       });
 
@@ -87,12 +95,13 @@ const CapModal = ({ open, onClose }) => {
     console.log("Divisa:", Divisa);
     console.log("Monto:", Monto);
     console.log("Comentarios:", Comentarios);
+    console.log("Email:", Email);
 
     if (Detalle === "" || Divisa === "" || Monto === "") {
       return console.log("todos los campos son obligatorios");
     }
 
-    movimientoCapital(Detalle, Divisa, Monto, Comentarios);
+    movimientoCapital(Detalle, Divisa, Monto, Comentarios, Email);
     setDetalle("");
     setDivisa("");
     setMonto("");

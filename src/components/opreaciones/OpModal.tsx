@@ -20,13 +20,16 @@ const OpModal = ({ open, onClose }) => {
   const [Comentarios, setComentarios] = useState("");
   const [MontoTotal, setMontoTotal] = useState("");
 
+  const Email = localStorage.getItem("loggedInUserEmail");
+
   const movimientoCapital = async (
     Detalle,
     Divisa,
     Monto,
     Comentarios,
     TipoCambio,
-    MontoTotal
+    MontoTotal,
+    Email
   ) => {
     try {
       const resp = await serverAPI.post("/op/Operacion", {
@@ -36,7 +39,7 @@ const OpModal = ({ open, onClose }) => {
         TipoCambio: parseFloat(TipoCambio),
         MontoTotal: parseFloat(MontoTotal),
         Comentarios,
-        email: "",
+        Email,
         Fecha: "",
       });
 
@@ -115,7 +118,8 @@ const OpModal = ({ open, onClose }) => {
       Monto,
       Comentarios,
       TipoCambio,
-      MontoTotal
+      MontoTotal,
+      Email
     );
     setDetalle("");
     setDivisa("");

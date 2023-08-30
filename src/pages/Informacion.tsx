@@ -33,6 +33,10 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
+window.onbeforeunload = () => {
+  localStorage.removeItem("loggedUser");
+};
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
@@ -77,6 +81,8 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
+const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
+
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
@@ -119,7 +125,7 @@ const Informacion = () => {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              ¡Bienvenido!
+              ¡Bienvenido {loggedInUserEmail}!
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">

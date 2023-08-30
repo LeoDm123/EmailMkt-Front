@@ -105,6 +105,15 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
+const cellWidths = {
+  Detalle: "10%",
+  Divisa: "10%",
+  Monto: "15%",
+  Fecha: "25%",
+  Email: "20%",
+  Comentarios: "30%",
+};
+
 interface EnhancedTableProps {
   numSelected: number;
   onRequestSort: (
@@ -128,7 +137,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     <TableHead>
       <TableRow>
         {headCells.map((headCell) => (
-          <TableCell key={headCell.id} align="center">
+          <TableCell
+            key={headCell.id}
+            align="center"
+            style={{ width: cellWidths[headCell.id], marginLeft: 0 }}
+          >
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
@@ -242,12 +255,15 @@ export default function TablaMovimientos() {
                     component="th"
                     id={labelId}
                     scope="row"
-                    align="center"
+                    align="left"
+                    sx={{ paddingLeft: 4 }}
                   >
                     {row.Detalle}
                   </TableCell>
-                  <TableCell align="center">{row.Divisa}</TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left" sx={{ paddingLeft: 5 }}>
+                    {row.Divisa}
+                  </TableCell>
+                  <TableCell align="center" sx={{ paddingLeft: 0 }}>
                     {formatCurrency(row.Monto, row.Divisa)}
                   </TableCell>
                   <TableCell align="center">{row.Fecha}</TableCell>
