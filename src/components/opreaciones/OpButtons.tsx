@@ -6,7 +6,11 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import OpModal from "./OpModal";
 
-export function OpOkButton({ handleClick }) {
+interface OpOkButtonProps {
+  handleClick: () => void;
+}
+
+export function OpOkButton({ handleClick }: OpOkButtonProps) {
   return (
     <Stack direction="row" spacing={2}>
       <Button
@@ -22,7 +26,11 @@ export function OpOkButton({ handleClick }) {
   );
 }
 
-export function OpCancelButton({ handleClick }) {
+interface OpCancelButtonProps {
+  handleClick: () => void;
+}
+
+export function OpCancelButton({ handleClick }: OpCancelButtonProps) {
   return (
     <Stack direction="row" spacing={2}>
       <Button

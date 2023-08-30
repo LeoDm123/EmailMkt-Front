@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -7,8 +6,17 @@ import serverAPI from "../../api/serverAPI";
 import { OpCancelButton, OpOkButton } from "./OpButtons";
 import swal from "sweetalert";
 
+interface Operation {
+  _id: string;
+  Detalle: string;
+  Divisa: string;
+  Monto: number;
+  TipoCambio: number;
+  Estado: string;
+}
+
 export default function OpCard() {
-  const [operaciones, setOperaciones] = useState([]);
+  const [operaciones, setOperaciones] = useState<Operation[]>([]);
   const [fetchError, setFetchError] = useState("");
 
   useEffect(() => {
@@ -25,7 +33,7 @@ export default function OpCard() {
     }
   };
 
-  const formatCurrency = (value, currencyCode) => {
+  const formatCurrency = (value: number, currencyCode: string) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: currencyCode,
@@ -33,13 +41,19 @@ export default function OpCard() {
     }).format(value);
   };
 
-  const AcceptOp = async (_id, Detalle, Divisa, Monto, MontoTotal) => {
+  const AcceptOp = async (
+    _id: string,
+    Detalle: string,
+    Divisa: string,
+    Monto: number,
+    MontoTotal: number
+  ) => {
     try {
       const resp = await serverAPI.post("/op/AcceptOp", {
         Detalle,
         Divisa,
-        Monto: parseFloat(Monto),
-        MontoTotal: parseFloat(MontoTotal),
+        Monto,
+        MontoTotal,
         _id,
       });
 
@@ -60,11 +74,11 @@ export default function OpCard() {
     });
   };
 
-  const CancelOp = async (_id, Divisa, Monto) => {
+  const CancelOp = async (_id: string, Divisa: string, Monto: number) => {
     try {
       const resp = await serverAPI.post("/op/CancelOp", {
         Divisa,
-        Monto: parseFloat(Monto),
+        Monto,
         _id,
       });
 
@@ -81,13 +95,15 @@ export default function OpCard() {
       title: "¿Desea cancelar la operación?",
       text: "Una vez cancelada, esta se borrará y no podrá ser recuperada",
       icon: "warning",
-      buttons: true,
+      buttons: ["No", "Sí"],
       dangerMode: true,
-    }).then(() => {
-      swal("¡Operación cancelada con éxito!", {
-        icon: "success",
-      });
-      window.location.reload();
+    }).then((willCancel) => {
+      if (willCancel) {
+        swal("¡Operación cancelada con éxito!", {
+          icon: "success",
+        });
+        window.location.reload();
+      }
     });
   };
 
@@ -97,7 +113,7 @@ export default function OpCard() {
         const MontoTotal = operacion.TipoCambio * operacion.Monto;
 
         if (
-          operacion.Estado === "Cerrada" ||
+          operacion.Estado === "Realizada" ||
           operacion.Estado === "Cancelada"
         ) {
           return null;

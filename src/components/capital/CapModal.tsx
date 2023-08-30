@@ -12,26 +12,31 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import serverAPI from "../../api/serverAPI";
 
-const CapModal = ({ open, onClose }) => {
+interface CapModalProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+const CapModal: React.FC<CapModalProps> = ({ open, onClose }) => {
   const [Detalle, setDetalle] = useState("");
   const [Divisa, setDivisa] = useState("");
   const [Monto, setMonto] = useState("");
   const [Comentarios, setComentarios] = useState("");
 
-  const Email = localStorage.getItem("loggedInUserEmail");
+  const Email = localStorage.getItem("loggedInUserEmail") || "";
 
   const movimientoCapital = async (
-    Detalle,
-    Divisa,
-    Monto,
-    Comentarios,
-    Email
+    Detalle: string,
+    Divisa: string,
+    Monto: number,
+    Comentarios: string,
+    Email: string
   ) => {
     try {
       const resp = await serverAPI.post("/cap/movimientoCapital", {
         Detalle,
         Divisa,
-        Monto: parseFloat(Monto), // Convert to a number
+        Monto,
         Comentarios,
         Email,
         Fecha: "",
@@ -101,7 +106,7 @@ const CapModal = ({ open, onClose }) => {
       return console.log("todos los campos son obligatorios");
     }
 
-    movimientoCapital(Detalle, Divisa, Monto, Comentarios, Email);
+    movimientoCapital(Detalle, Divisa, parseFloat(Monto), Comentarios, Email);
     setDetalle("");
     setDivisa("");
     setMonto("");

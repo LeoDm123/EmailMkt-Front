@@ -212,7 +212,7 @@ export default function TablaOps() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = operaciones.map((n) => n.email);
+      const newSelected = operaciones.map((n) => n.Email);
       setSelected(newSelected);
       return;
     }
@@ -244,7 +244,7 @@ export default function TablaOps() {
     [order, orderBy, operaciones]
   );
 
-  const formatCurrency = (value, currencyCode) => {
+  const formatCurrency = (value: number, currencyCode: string) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: currencyCode,

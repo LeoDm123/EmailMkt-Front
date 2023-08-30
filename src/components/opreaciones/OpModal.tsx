@@ -12,7 +12,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import serverAPI from "../../api/serverAPI";
 
-const OpModal = ({ open, onClose }) => {
+interface CapModalProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+const OpModal: React.FC<CapModalProps> = ({ open, onClose }) => {
   const [Detalle, setDetalle] = useState("");
   const [Divisa, setDivisa] = useState("");
   const [Monto, setMonto] = useState("");
@@ -20,24 +25,24 @@ const OpModal = ({ open, onClose }) => {
   const [Comentarios, setComentarios] = useState("");
   const [MontoTotal, setMontoTotal] = useState("");
 
-  const Email = localStorage.getItem("loggedInUserEmail");
+  const Email = localStorage.getItem("loggedInUserEmail") || "";
 
   const movimientoCapital = async (
-    Detalle,
-    Divisa,
-    Monto,
-    Comentarios,
-    TipoCambio,
-    MontoTotal,
-    Email
+    Detalle: string,
+    Divisa: string,
+    Monto: number,
+    Comentarios: string,
+    TipoCambio: number,
+    MontoTotal: number,
+    Email: string
   ) => {
     try {
       const resp = await serverAPI.post("/op/Operacion", {
         Detalle,
         Divisa,
-        Monto: parseFloat(Monto),
-        TipoCambio: parseFloat(TipoCambio),
-        MontoTotal: parseFloat(MontoTotal),
+        Monto: Monto.toString(),
+        TipoCambio: TipoCambio.toString(),
+        MontoTotal: MontoTotal.toString(),
         Comentarios,
         Email,
         Fecha: "",
@@ -56,7 +61,7 @@ const OpModal = ({ open, onClose }) => {
     // Calculate the total amount when Monto or TipoCambio changes
     if (Monto !== "" && TipoCambio !== "") {
       const MontoTotal = parseFloat(Monto) * parseFloat(TipoCambio);
-      setMontoTotal(MontoTotal);
+      setMontoTotal(MontoTotal.toString());
     }
   }, [Monto, TipoCambio]);
 
@@ -112,15 +117,20 @@ const OpModal = ({ open, onClose }) => {
       return console.log("todos los campos son obligatorios");
     }
 
+    const parsedMonto = parseFloat(Monto);
+    const parsedTipoCambio = parseFloat(TipoCambio);
+    const parsedMontoTotal = parseFloat(MontoTotal);
+
     movimientoCapital(
       Detalle,
       Divisa,
-      Monto,
+      parsedMonto,
       Comentarios,
-      TipoCambio,
-      MontoTotal,
+      parsedTipoCambio,
+      parsedMontoTotal,
       Email
     );
+
     setDetalle("");
     setDivisa("");
     setMonto("");

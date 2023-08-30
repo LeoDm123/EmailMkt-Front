@@ -15,7 +15,7 @@ interface Data {
   Divisa: string;
   Monto: number;
   Fecha: string;
-  email: string;
+  Email: string;
   Comentarios: string;
 }
 
@@ -92,7 +92,7 @@ const headCells: readonly HeadCell[] = [
     label: "Fecha",
   },
   {
-    id: "email",
+    id: "Email",
     numeric: false,
     disablePadding: false,
     label: "Email",
@@ -140,7 +140,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
           <TableCell
             key={headCell.id}
             align="center"
-            style={{ width: cellWidths[headCell.id], marginLeft: 0 }}
+            style={{ width: cellWidths[headCell.id] }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -188,7 +188,7 @@ export default function TablaMovimientos() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = movimientos.map((n) => n.email);
+      const newSelected = movimientos.map((n) => n.Email);
       setSelected(newSelected);
       return;
     }
@@ -221,7 +221,7 @@ export default function TablaMovimientos() {
     [order, orderBy, movimientos]
   );
 
-  const formatCurrency = (value, currencyCode) => {
+  const formatCurrency = (value: number, currencyCode: string) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: currencyCode,
@@ -248,7 +248,7 @@ export default function TablaMovimientos() {
               return (
                 <TableRow
                   hover
-                  onClick={(event) => handleClick(event, row.email)}
+                  onClick={(event) => handleClick(event, row.Email)}
                   sx={{ cursor: "pointer" }}
                 >
                   <TableCell
@@ -267,7 +267,7 @@ export default function TablaMovimientos() {
                     {formatCurrency(row.Monto, row.Divisa)}
                   </TableCell>
                   <TableCell align="center">{row.Fecha}</TableCell>
-                  <TableCell align="center">{row.email}</TableCell>
+                  <TableCell align="center">{row.Email}</TableCell>
 
                   <TableCell align="center">{row.Comentarios}</TableCell>
                 </TableRow>
