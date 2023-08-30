@@ -17,7 +17,6 @@ interface Operation {
 
 export default function OpCard() {
   const [operaciones, setOperaciones] = useState<Operation[]>([]);
-  const [fetchError, setFetchError] = useState("");
 
   useEffect(() => {
     fetchOperacionesData();
@@ -29,7 +28,6 @@ export default function OpCard() {
       setOperaciones(resp.data);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setFetchError("An error occurred while fetching data.");
     }
   };
 

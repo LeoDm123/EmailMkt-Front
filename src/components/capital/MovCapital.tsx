@@ -182,6 +182,7 @@ export default function TablaMovimientos() {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
+    event.preventDefault();
   };
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -196,6 +197,7 @@ export default function TablaMovimientos() {
   const handleClick = (event: React.MouseEvent<unknown>, Email: string) => {
     const selectedIndex = selected.indexOf(Email);
     let newSelected: readonly string[] = [];
+    event.preventDefault();
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, Email);

@@ -185,7 +185,6 @@ export default function TablaOps() {
   const [orderBy, setOrderBy] = React.useState<keyof Data>("Monto");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [operaciones, setOperaciones] = useState<Data[]>([]);
-  const [fetchError, setFetchError] = useState("");
 
   useEffect(() => {
     fetchOperacionesData();
@@ -197,7 +196,6 @@ export default function TablaOps() {
       setOperaciones(resp.data);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setFetchError("An error occurred while fetching data.");
     }
   };
 
@@ -208,6 +206,7 @@ export default function TablaOps() {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
+    event.preventDefault();
   };
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -221,6 +220,7 @@ export default function TablaOps() {
 
   const handleClick = (event: React.MouseEvent<unknown>, email: string) => {
     const selectedIndex = selected.indexOf(email);
+    event.preventDefault();
     let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {

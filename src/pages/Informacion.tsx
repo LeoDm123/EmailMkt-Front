@@ -18,12 +18,10 @@ import Paper from "@mui/material/Paper";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import Capital from "../components/capital/CapDisp";
 import { useNavigate } from "react-router-dom";
 import "../css/App.css";
 import TablaMovimientos from "../components/capital/MovCapital";
 import TablaOps from "../components/opreaciones/Ops";
-import CapButton from "../components/capital/CapButton";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { ListItemButton, ListItemIcon } from "@mui/material";
 
