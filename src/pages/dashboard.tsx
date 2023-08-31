@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -22,10 +23,12 @@ import Capital from "../components/capital/CapDisp";
 import "../css/App.css";
 import { useNavigate } from "react-router-dom";
 import CapButton from "../components/capital/CapButton";
-import OpCard from "../components/opreaciones/OpCard";
+import OpCard from "../components/operaciones/OpCard";
 import ArticleIcon from "@mui/icons-material/Article";
-import { AddOp } from "../components/opreaciones/OpButtons";
+import { AddOp } from "../components/operaciones/OpButtons";
 import { ListItemButton, ListItemIcon } from "@mui/material";
+import OpModal from "../components/operaciones/OpModal";
+import CapModal from "../components/capital/CapModal";
 
 const drawerWidth: number = 240;
 
@@ -95,7 +98,31 @@ const Dashboard = () => {
   const handleClick = () => {
     navigate("/informacion");
   };
+  const [operationStatusChanged, setOperationStatusChanged] = useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [modalCapOpen, setModalCapOpen] = React.useState(false);
 
+  const OnClick = () => {
+    setModalOpen(true);
+  };
+
+  const OnClickCap = () => {
+    setModalCapOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleCloseModalCap = () => {
+    setModalCapOpen(false);
+  };
+
+  const handleOperationChange = () => {
+    setOperationStatusChanged(!operationStatusChanged);
+  };
+
+  console.log(operationStatusChanged);
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
@@ -186,8 +213,13 @@ const Dashboard = () => {
                 >
                   <h2 className="titulo my-3">Capital Disponible</h2>
                   <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                  <Capital />
-                  <CapButton />
+                  <Capital operationStatus={handleOperationChange} />
+                  <CapModal
+                    open={modalCapOpen}
+                    onClose={handleCloseModalCap}
+                    onOperationChange={handleOperationChange}
+                  />
+                  <CapButton handleClick={OnClickCap} />
                 </Paper>
               </Grid>
               {/* Operaciones Vigentes */}
@@ -202,32 +234,22 @@ const Dashboard = () => {
                 >
                   <div className="d-flex align-items-center">
                     <h2 className="titulo my-3 w-75">Operaciones Activas</h2>
-                    <AddOp />
+                    <OpModal
+                      open={modalOpen}
+                      onClose={handleCloseModal}
+                      onOperationChange={handleOperationChange}
+                    />
+                    <AddOp handleClick={OnClick} />
                   </div>
                   <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
                   <Box
                     sx={{ width: "100%", maxHeight: "500px", overflow: "auto" }}
                   >
-                    <OpCard />
+                    <OpCard onOperationChange={handleOperationChange} />
                   </Box>
                 </Paper>
               </Grid>
             </Grid>
-            {/* <Grid item xs={12} md={8} lg={4} className="mt-3">
-              <Paper
-                sx={{
-                  paddingX: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  height: 285,
-                }}
-              >
-                <h2 className="titulo my-3">Movimientos de Capital</h2>
-
-                <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                <TablaMovimientos />
-              </Paper>
-            </Grid> */}
           </Container>
         </Box>
       </Box>

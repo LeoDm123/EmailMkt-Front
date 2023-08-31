@@ -15,9 +15,14 @@ import serverAPI from "../../api/serverAPI";
 interface CapModalProps {
   open: boolean;
   onClose: () => void;
+  onOperationChange: () => void;
 }
 
-const OpModal: React.FC<CapModalProps> = ({ open, onClose }) => {
+const OpModal: React.FC<CapModalProps> = ({
+  open,
+  onClose,
+  onOperationChange,
+}) => {
   const [Detalle, setDetalle] = useState("");
   const [Divisa, setDivisa] = useState("");
   const [Monto, setMonto] = useState("");
@@ -57,7 +62,6 @@ const OpModal: React.FC<CapModalProps> = ({ open, onClose }) => {
   };
 
   useEffect(() => {
-    // Calculate the total amount when Monto or TipoCambio changes
     if (Monto !== "" && TipoCambio !== "") {
       const MontoTotal = parseFloat(Monto) * parseFloat(TipoCambio);
       setMontoTotal(MontoTotal.toString());
@@ -129,6 +133,8 @@ const OpModal: React.FC<CapModalProps> = ({ open, onClose }) => {
       parsedMontoTotal,
       Email
     );
+
+    onOperationChange();
 
     setDetalle("");
     setDivisa("");

@@ -1,10 +1,8 @@
-import React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import OpModal from "./OpModal";
 
 interface OpOkButtonProps {
   handleClick: () => void;
@@ -46,17 +44,11 @@ export function OpCancelButton({ handleClick }: OpCancelButtonProps) {
   );
 }
 
-export function AddOp() {
-  const [modalOpen, setModalOpen] = React.useState(false);
+interface AddOpProps {
+  handleClick: () => void;
+}
 
-  const handleClick = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
+export function AddOp({ handleClick }: AddOpProps) {
   return (
     <div className="mt-2 w-100">
       <div className="d-flex justify-content-end">
@@ -68,7 +60,6 @@ export function AddOp() {
           >
             Nueva Operación
           </Button>
-          <OpModal open={modalOpen} onClose={handleCloseModal} />
         </div>
       </div>
     </div>

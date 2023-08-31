@@ -15,12 +15,12 @@ interface Operation {
   Estado: string;
 }
 
-export default function OpCard() {
-  const [operaciones, setOperaciones] = useState<Operation[]>([]);
+interface OpCardProps {
+  onOperationChange: () => void;
+}
 
-  useEffect(() => {
-    fetchOperacionesData();
-  }, []);
+const OpCard = ({ onOperationChange }: OpCardProps) => {
+  const [operaciones, setOperaciones] = useState<Operation[]>([]);
 
   const fetchOperacionesData = async () => {
     try {
@@ -58,7 +58,7 @@ export default function OpCard() {
       console.log(_id);
       console.log(resp);
       SwAlertOk();
-      window.location.reload();
+      onOperationChange();
     } catch (error) {
       console.log(error);
     }
@@ -72,23 +72,42 @@ export default function OpCard() {
     });
   };
 
-  const CancelOp = async (_id: string, Divisa: string, Monto: number) => {
+  const CancelOp = async (
+    _id: string,
+    Detalle: string,
+    Divisa: string,
+    Monto: number,
+    MontoTotal: number
+  ) => {
     try {
       const resp = await serverAPI.post("/op/CancelOp", {
+        Detalle,
         Divisa,
         Monto,
+        MontoTotal,
         _id,
       });
 
       console.log(_id);
       console.log(resp);
-      SwAlertCancel();
+      console.log(Detalle);
+      console.log(Monto);
+      console.log(MontoTotal);
+      console.log(Divisa);
+
+      onOperationChange();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const SwAlertCancel = () => {
+  const SwAlertCancel = (
+    _id: string,
+    Detalle: string,
+    Divisa: string,
+    Monto: number,
+    MontoTotal: number
+  ) => {
     swal({
       title: "¿Desea cancelar la operación?",
       text: "Una vez cancelada, esta se borrará y no podrá ser recuperada",
@@ -100,10 +119,14 @@ export default function OpCard() {
         swal("¡Operación cancelada con éxito!", {
           icon: "success",
         });
-        window.location.reload();
+        CancelOp(_id, Detalle, Divisa, Monto, MontoTotal);
       }
     });
   };
+
+  useEffect(() => {
+    fetchOperacionesData();
+  }, [AcceptOp, CancelOp]);
 
   return (
     <div>
@@ -163,10 +186,12 @@ export default function OpCard() {
                     <div className="mt-2">
                       <OpCancelButton
                         handleClick={() =>
-                          CancelOp(
+                          SwAlertCancel(
                             operacion._id,
+                            operacion.Detalle,
                             operacion.Divisa,
-                            operacion.Monto
+                            operacion.Monto,
+                            MontoTotal
                           )
                         }
                       />
@@ -180,4 +205,6 @@ export default function OpCard() {
       })}
     </div>
   );
-}
+};
+
+export default OpCard;

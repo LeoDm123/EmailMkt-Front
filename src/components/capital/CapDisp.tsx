@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import serverAPI from "../../api/serverAPI";
 
-const Capital = () => {
+interface CapitalProps {
+  operationStatus: () => void;
+}
+
+const Capital = ({ operationStatus }: CapitalProps) => {
   const [currencies, setCurrencies] = useState({
     Dolares: 0,
     Euros: 0,
@@ -10,15 +14,11 @@ const Capital = () => {
   });
   const [fetchError, setFetchError] = useState("");
 
-  useEffect(() => {
-    fetchCurrencyData();
-  }, []);
-
   const fetchCurrencyData = async () => {
     try {
-      const resp = await serverAPI.get("/cap/obtenerDivisas"); // Assuming you're using a GET request here
+      const resp = await serverAPI.get("/cap/obtenerDivisas");
 
-      setCurrencies(resp.data); // Assuming the response contains Dolares, Euros, and Pesos properties
+      setCurrencies(resp.data);
     } catch (error) {
       console.error("Error fetching currency data:", error);
       setFetchError("An error occurred while fetching currency data.");
@@ -32,6 +32,10 @@ const Capital = () => {
       minimumFractionDigits: 2,
     }).format(value);
   };
+
+  useEffect(() => {
+    fetchCurrencyData();
+  }, [operationStatus]);
 
   return (
     <Grid container>

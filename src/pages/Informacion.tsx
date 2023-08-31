@@ -21,7 +21,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
 import "../css/App.css";
 import TablaMovimientos from "../components/capital/MovCapital";
-import TablaOps from "../components/opreaciones/Ops";
+import TablaOps from "../components/operaciones/Ops";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { ListItemButton, ListItemIcon } from "@mui/material";
 

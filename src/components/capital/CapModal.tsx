@@ -15,9 +15,14 @@ import serverAPI from "../../api/serverAPI";
 interface CapModalProps {
   open: boolean;
   onClose: () => void;
+  onOperationChange: () => void;
 }
 
-const CapModal: React.FC<CapModalProps> = ({ open, onClose }) => {
+const CapModal: React.FC<CapModalProps> = ({
+  open,
+  onClose,
+  onOperationChange,
+}) => {
   const [Detalle, setDetalle] = useState("");
   const [Divisa, setDivisa] = useState("");
   const [Monto, setMonto] = useState("");
@@ -110,6 +115,8 @@ const CapModal: React.FC<CapModalProps> = ({ open, onClose }) => {
     setDivisa("");
     setMonto("");
     setComentarios("");
+
+    onOperationChange();
   };
 
   return (
