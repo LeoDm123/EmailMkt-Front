@@ -2,7 +2,7 @@ import axios from "axios";
 
 const serverAPI = axios.create({
   baseURL:
-    "https://sa-east-1.aws.data.mongodb-api.com/app/data-vigln/endpoint/data/v1",
+    "mongodb+srv://leomeiners1:6SWQ3vV8PJudTm82@portaldm.a5dtqas.mongodb.net/Exchange",
 });
 
 export default serverAPI;
