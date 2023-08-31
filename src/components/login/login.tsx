@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import serverAPI from "../../api/serverAPI";
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
@@ -21,6 +22,7 @@ export const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
 
   const startLogin = async (email: string, password: string) => {
     try {
@@ -31,7 +33,7 @@ export const LogIn = () => {
 
       localStorage.setItem("loggedInUserEmail", email);
 
-      window.location.href = "/dashboard";
+      navigate("/dashboard");
 
       console.log(resp);
       setLoginError(resp.data.msg);
