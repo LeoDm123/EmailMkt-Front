@@ -51,7 +51,6 @@ const OpModal: React.FC<CapModalProps> = ({ open, onClose }) => {
       console.log(resp);
       SwAlert();
       onClose();
-      window.location.reload();
     } catch (error) {
       SwAlertErrorFondos();
     }
