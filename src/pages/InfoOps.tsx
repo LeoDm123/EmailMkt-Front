@@ -5,9 +5,6 @@ import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -18,12 +15,9 @@ import Paper from "@mui/material/Paper";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { useNavigate } from "react-router-dom";
 import "../css/App.css";
-import TablaMovimientos from "../components/capital/MovCapital";
 import TablaOps from "../components/operaciones/Ops";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import { ListItemButton, ListItemIcon } from "@mui/material";
+import ListItems from "../components/ListItems";
 
 const drawerWidth: number = 240;
 
@@ -84,14 +78,10 @@ const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const Informacion = () => {
+const InfoOps = () => {
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
-  };
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/dashboard");
   };
 
   return (
@@ -146,16 +136,7 @@ const Informacion = () => {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">
-            <ListItem disablePadding>
-              <ListItemButton onClick={handleClick}>
-                <ListItemIcon>
-                  <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="Tablero de Control" />
-              </ListItemButton>
-            </ListItem>
-          </List>
+          <ListItems />
         </Drawer>
         <Box
           component="main"
@@ -179,29 +160,13 @@ const Informacion = () => {
                     paddingX: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 285,
+                    height: 600,
                   }}
                 >
                   <h2 className="titulo my-3">Operaciones</h2>
 
                   <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
                   <TablaOps />
-                </Paper>
-              </Grid>
-              {/* Operaciones Vigentes */}
-              <Grid item xs={12} md={4} lg={12}>
-                <Paper
-                  sx={{
-                    paddingX: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 285,
-                  }}
-                >
-                  <h2 className="titulo my-3">Movimientos de Capital</h2>
-
-                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                  <TablaMovimientos />
                 </Paper>
               </Grid>
             </Grid>
@@ -212,4 +177,4 @@ const Informacion = () => {
   );
 };
 
-export default Informacion;
+export default InfoOps;
