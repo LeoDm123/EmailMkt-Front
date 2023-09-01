@@ -80,7 +80,7 @@ const OpCard = ({ onOperationChange }: OpCardProps) => {
     MontoTotal: number
   ) => {
     try {
-      const resp = await serverAPI.post("/op/CancelOp", {
+      const cancelResp = await serverAPI.post("/op/CancelOp", {
         Detalle,
         Divisa,
         Monto,
@@ -88,16 +88,20 @@ const OpCard = ({ onOperationChange }: OpCardProps) => {
         _id,
       });
 
-      console.log(_id);
-      console.log(resp);
-      console.log(Detalle);
-      console.log(Monto);
-      console.log(MontoTotal);
-      console.log(Divisa);
+      console.log(cancelResp.data);
+      // console.log(_id);
 
+      // if (cancelResp.data.message === "Operation canceled successfully") {
+      //   const deleteResp = await serverAPI.delete(`/op/DeleteOp/${_id}`);
+
+      //   console.log(deleteResp);
+
+      // } else {
+      //   console.log("Cancel operation failed.");
+      // }
       onOperationChange();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -129,7 +133,7 @@ const OpCard = ({ onOperationChange }: OpCardProps) => {
   }, [AcceptOp, CancelOp]);
 
   return (
-    <div>
+    <div className="mt-2" style={{ height: 150 }}>
       {operaciones.map((operacion, index) => {
         const MontoTotal = operacion.TipoCambio * operacion.Monto;
 
@@ -141,7 +145,7 @@ const OpCard = ({ onOperationChange }: OpCardProps) => {
         }
 
         return (
-          <Card sx={{ minWidth: 275, marginTop: 1 }} key={index}>
+          <Card key={index} sx={{ backgroundColor: "#fafafa" }}>
             <CardContent>
               <div className="d-flex">
                 <div className="w-75 me-5">
