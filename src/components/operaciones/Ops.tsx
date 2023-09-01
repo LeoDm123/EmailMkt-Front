@@ -130,9 +130,9 @@ const cellWidths = {
   Detalle: "5%",
   Divisa: "5%",
   Monto: "10%",
-  TipoCambio: "15%",
+  TipoCambio: "16%",
   MontoTotal: "10%",
-  Fecha: "20%",
+  Fecha: "22%",
   Email: "20%",
   Comentarios: "20%",
   Estado: "5%",
@@ -164,7 +164,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
           <TableCell
             key={headCell.id}
             align="center"
-            style={{ width: cellWidths[headCell.id], marginLeft: 0 }}
+            style={{
+              width: cellWidths[headCell.id],
+              marginLeft: 0,
+              fontWeight: "bold",
+            }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -288,7 +292,7 @@ export default function TablaOps() {
                   <TableCell align="center" className="pe-5">
                     {formatCurrency(row.Monto, row.Divisa)}
                   </TableCell>
-                  <TableCell align="left">
+                  <TableCell align="center" className="pe-5">
                     {formatCurrency(row.TipoCambio, "ARS")}
                   </TableCell>
                   <TableCell align="left">

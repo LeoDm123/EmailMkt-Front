@@ -10,6 +10,7 @@ import Collapse from "@mui/material/Collapse";
 import ArticleIcon from "@mui/icons-material/Article";
 import PaidIcon from "@mui/icons-material/Paid";
 import RepeatOnIcon from "@mui/icons-material/RepeatOn";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { useNavigate } from "react-router-dom";
 
 function ListItems() {
@@ -52,6 +53,12 @@ function ListItems() {
               <RepeatOnIcon />
             </ListItemIcon>
             <ListItemText primary="Mov. de Capital" />
+          </ListItemButton>
+          <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("/Balance")}>
+            <ListItemIcon>
+              <AccountBalanceWalletIcon />
+            </ListItemIcon>
+            <ListItemText primary="Balance" />
           </ListItemButton>
         </List>
       </Collapse>

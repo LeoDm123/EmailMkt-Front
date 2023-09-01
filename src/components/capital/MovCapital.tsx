@@ -140,7 +140,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
           <TableCell
             key={headCell.id}
             align="center"
-            style={{ width: cellWidths[headCell.id] }}
+            style={{ width: cellWidths[headCell.id], fontWeight: "bold" }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
