@@ -24,6 +24,7 @@ import { AddOp } from "../components/operaciones/OpButtons";
 import OpModal from "../components/operaciones/OpModal";
 import CapModal from "../components/capital/CapModal";
 import ListItems from "../components/ListItems";
+import InfoExtraCap from "../components/capital/CapInfoExtra";
 
 const drawerWidth: number = 240;
 
@@ -183,29 +184,51 @@ const Dashboard = () => {
           <Toolbar />
           <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Capital disponible */}
-              <Grid item xs={12} md={8} lg={4}>
-                <Paper
-                  sx={{
-                    paddingX: 3,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 310,
-                  }}
-                >
-                  <h2 className="titulo my-3">Capital Disponible</h2>
-                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                  <Capital operationStatus={handleOperationChange} />
-                  <CapModal
-                    open={modalCapOpen}
-                    onClose={handleCloseModalCap}
-                    onOperationChange={handleOperationChange}
-                  />
-                  <CapButton handleClick={OnClickCap} />
-                </Paper>
+              <Grid item xs={12} md={8} lg={5}>
+                {/* Capital disponible */}
+                <Grid item xs={12} md={12} lg={12}>
+                  <Paper
+                    sx={{
+                      paddingX: 3,
+                      display: "flex",
+                      flexDirection: "column",
+                      height: 310,
+                    }}
+                  >
+                    <h2 className="titulo my-3">Capital Disponible</h2>
+                    <Divider
+                      sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }}
+                    />
+                    <Capital operationStatus={handleOperationChange} />
+                    <CapModal
+                      open={modalCapOpen}
+                      onClose={handleCloseModalCap}
+                      onOperationChange={handleOperationChange}
+                    />
+                    <CapButton handleClick={OnClickCap} />
+                  </Paper>
+                </Grid>
+                {/* Detalle de Capital */}
+                <Grid item xs={12} md={12} lg={12}>
+                  <Paper
+                    sx={{
+                      marginTop: 1.3,
+                      paddingX: 3,
+                      display: "flex",
+                      flexDirection: "column",
+                      height: 290,
+                    }}
+                  >
+                    <h2 className="titulo my-3">Información Extra</h2>
+                    <Divider
+                      sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }}
+                    />
+                    <InfoExtraCap operationStatus={handleOperationChange} />
+                  </Paper>
+                </Grid>
               </Grid>
               {/* Operaciones Vigentes */}
-              <Grid item xs={12} md={4} lg={8}>
+              <Grid item xs={12} md={4} lg={7}>
                 <Paper
                   sx={{
                     paddingX: 2,

@@ -157,8 +157,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 export default function TablaMovimientos() {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("Monto");
+  const [order, setOrder] = React.useState<Order>("desc");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("Fecha");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [movimientos, setMovimientos] = useState<Data[]>([]);
 

@@ -141,9 +141,15 @@ export default function BalanceComp() {
             } else if (row.Detalle === "Venta") {
               saldoDolares -= row.Monto;
               saldoPesos += row.MontoTotal || 0;
-            } else if (row.Detalle === "Ingreso") {
+            } else if (
+              row.Detalle === "Ingreso" ||
+              row.Detalle === "Prestamo"
+            ) {
               saldoDolares += row.Monto;
-            } else if (row.Detalle === "Retiro") {
+            } else if (
+              row.Detalle === "Retiro" ||
+              row.Detalle === "Devolucion"
+            ) {
               saldoDolares += row.Monto;
             }
           } else if (row.Divisa === "ARS") {
@@ -151,9 +157,15 @@ export default function BalanceComp() {
               saldoPesos -= row.MontoTotal || 0;
             } else if (row.Detalle === "Venta") {
               saldoPesos += row.MontoTotal || 0;
-            } else if (row.Detalle === "Ingreso") {
+            } else if (
+              row.Detalle === "Ingreso" ||
+              row.Detalle === "Prestamo"
+            ) {
               saldoPesos += row.Monto;
-            } else if (row.Detalle === "Retiro") {
+            } else if (
+              row.Detalle === "Retiro" ||
+              row.Detalle === "Devolucion"
+            ) {
               saldoPesos += row.Monto;
             }
           }

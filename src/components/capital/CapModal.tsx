@@ -73,11 +73,19 @@ const CapModal: React.FC<CapModalProps> = ({
   const detalles = [
     {
       value: "Ingreso",
-      label: "Ingreso",
+      label: "Ingreso de Capital",
     },
     {
       value: "Retiro",
-      label: "Retiro",
+      label: "Retiro de Capital",
+    },
+    {
+      value: "Prestamo",
+      label: "Ingreso de Prestamo",
+    },
+    {
+      value: "Devolucion",
+      label: "Devolución de Prestamo",
     },
   ];
 
