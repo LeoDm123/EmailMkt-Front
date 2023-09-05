@@ -89,16 +89,15 @@ const OpCard = ({ onOperationChange }: OpCardProps) => {
       });
 
       console.log(cancelResp.data);
-      // console.log(_id);
+      console.log(_id);
 
-      // if (cancelResp.data.message === "Operation canceled successfully") {
-      //   const deleteResp = await serverAPI.delete(`/op/DeleteOp/${_id}`);
+      if (cancelResp.data.message === "Operation canceled successfully") {
+        const deleteResp = await serverAPI.delete(`/op/DeleteOp/${_id}`);
 
-      //   console.log(deleteResp);
-
-      // } else {
-      //   console.log("Cancel operation failed.");
-      // }
+        console.log(deleteResp);
+      } else {
+        console.log("Cancel operation failed.");
+      }
       onOperationChange();
     } catch (error) {
       console.error(error);
