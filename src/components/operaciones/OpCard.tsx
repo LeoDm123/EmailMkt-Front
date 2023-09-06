@@ -144,7 +144,7 @@ const OpCard = ({ onOperationChange }: OpCardProps) => {
         }
 
         return (
-          <Card key={index} sx={{ backgroundColor: "#fafafa" }}>
+          <Card key={index} sx={{ backgroundColor: "#fafafa", marginTop: 1 }}>
             <CardContent>
               <div className="d-flex">
                 <div className="w-75 me-5">

@@ -247,9 +247,7 @@ const Dashboard = () => {
                     <AddOp handleClick={OnClick} />
                   </div>
                   <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                  <Box
-                    sx={{ width: "100%", maxHeight: "500px", overflow: "auto" }}
-                  >
+                  <Box sx={{ width: "100%", Height: "500px" }}>
                     <OpCard onOperationChange={handleOperationChange} />
                   </Box>
                 </Paper>
