@@ -22,10 +22,13 @@ export const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Nuevo estado para controlar la carga
   const navigate = useNavigate();
 
   const startLogin = async (email: string, password: string) => {
     try {
+      setIsLoading(true); // Mostrar el spinner cuando se inicia sesión
+
       const resp = await serverAPI.post("/auth/login", {
         email,
         password,
@@ -39,10 +42,12 @@ export const LogIn = () => {
       setLoginError(resp.data.msg);
     } catch (error) {
       console.log(loginError);
+    } finally {
+      setIsLoading(false); // Ocultar el spinner cuando se completa la solicitud
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (email === "" || password === "") {
@@ -107,8 +112,20 @@ export const LogIn = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading} // Desactiva el botón mientras isLoading sea true
             >
-              Iniciar sesión
+              {isLoading && (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    aria-hidden="true"
+                  ></span>
+                  <span className="visually-hidden" role="status">
+                    Loading...
+                  </span>
+                </>
+              )}
+              {!isLoading ? "Iniciar sesión" : "Iniciando sesión..."}
             </Button>
             <Grid container>
               <Grid item xs>
