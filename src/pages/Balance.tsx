@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -18,6 +19,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import "../css/App.css";
 import ListItems from "../components/ListItems";
 import BalanceComp from "../components/BalanceComp";
+import Skeleton from "@mui/material/Skeleton";
 
 const drawerWidth: number = 240;
 
@@ -83,6 +85,20 @@ const Balance = () => {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -166,7 +182,16 @@ const Balance = () => {
                   <h2 className="titulo my-3">Balance</h2>
 
                   <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                  <BalanceComp />
+                  {loading ? (
+                    <Skeleton
+                      animation="wave"
+                      variant="rectangular"
+                      width={"100%"}
+                      height={600}
+                    />
+                  ) : (
+                    <BalanceComp />
+                  )}
                 </Paper>
               </Grid>
             </Grid>

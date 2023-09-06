@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -17,6 +17,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Capital from "../components/capital/CapDisp";
+import Skeleton from "@mui/material/Skeleton";
 import "../css/App.css";
 import CapButton from "../components/capital/CapButton";
 import OpCard from "../components/operaciones/OpCard";
@@ -93,6 +94,7 @@ const Dashboard = () => {
   const [operationStatusChanged, setOperationStatusChanged] = useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
   const [modalCapOpen, setModalCapOpen] = React.useState(false);
+  const [loading, setLoading] = useState(true);
 
   const OnClick = () => {
     setModalOpen(true);
@@ -113,6 +115,19 @@ const Dashboard = () => {
   const handleOperationChange = () => {
     setOperationStatusChanged(!operationStatusChanged);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   console.log(operationStatusChanged);
   return (
@@ -247,8 +262,17 @@ const Dashboard = () => {
                     <AddOp handleClick={OnClick} />
                   </div>
                   <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                  <Box sx={{ width: "100%", Height: "500px" }}>
-                    <OpCard onOperationChange={handleOperationChange} />
+                  <Box sx={{ width: "100%", height: 500, overflow: "auto" }}>
+                    {loading ? (
+                      <Skeleton
+                        animation="wave"
+                        variant="rectangular"
+                        width={"100%"}
+                        height={500}
+                      />
+                    ) : (
+                      <OpCard onOperationChange={handleOperationChange} />
+                    )}
                   </Box>
                 </Paper>
               </Grid>

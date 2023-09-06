@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import Skeleton from "@mui/material/Skeleton";
 import serverAPI from "../../api/serverAPI";
 
 interface CapitalProps {
@@ -24,6 +25,7 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
   const [prestamos, setPrestamos] = useState<number>(0);
   const [ganancia, setGanancia] = useState<number>(0);
   const [fetchError, setFetchError] = useState("");
+  const [dataLoaded, setDataLoaded] = useState(false); // Nuevo estado
   const [promTC, setPromTC] = useState<number>(0);
   const [currency, setCurrency] = useState({
     Dolares: 0,
@@ -125,25 +127,54 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
   };
 
   useEffect(() => {
-    fetchCapitalData();
-    fetchOperationsData();
-    fetchCurrencyData();
+    const fetchData = async () => {
+      try {
+        await Promise.all([
+          fetchCapitalData(),
+          fetchOperationsData(),
+          fetchCurrencyData(),
+        ]);
+        setDataLoaded(true);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setFetchError("An error occurred while fetching data.");
+      }
+    };
+
+    fetchData();
   }, [operationStatus]);
 
   return (
     <Grid container>
-      <div className=" w-100">
-        <div className="currencies mt-3 justify-content-between">
-          <h3>Deuda Prestamos:</h3>
-          <h3 className="ms-2">{formatCurrency(prestamos, "ARS")}</h3>
+      {dataLoaded ? (
+        <div className="w-100">
+          <div className="currencies mt-3 justify-content-between">
+            <h3>Deuda Prestamos:</h3>
+            <h3 className="ms-2">{formatCurrency(prestamos, "ARS")}</h3>
+          </div>
+          <div className="currencies mt-3 justify-content-between">
+            <h3>Ganancia:</h3>
+            <h3 className="ms-2">{formatCurrency(Ganancia, "USD")}</h3>
+          </div>
+          {fetchError && <p>{fetchError}</p>}
         </div>
-        <div className="currencies mt-3 justify-content-between">
-          <h3>Ganancia:</h3>
-          <h3 className="ms-2">{formatCurrency(Ganancia, "USD")}</h3>
+      ) : (
+        <div className="w-100">
+          <Skeleton animation="wave" height={60} width="100%">
+            <div className="currencies mt-3 justify-content-between">
+              <h3>Deuda Prestamos:</h3>
+              <h3 className="ms-2">Cargando...</h3>
+            </div>
+          </Skeleton>
+          <Skeleton animation="wave" height={60} width="100%">
+            <div className="currencies mt-3 justify-content-between">
+              <h3>Ganancia:</h3>
+              <h3 className="ms-2">Cargando...</h3>
+            </div>
+          </Skeleton>
+          {fetchError && <p>{fetchError}</p>}
         </div>
-
-        {fetchError && <p>{fetchError}</p>}
-      </div>
+      )}
     </Grid>
   );
 };
