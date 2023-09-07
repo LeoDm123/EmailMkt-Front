@@ -19,13 +19,14 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Capital from "../components/capital/CapDisp";
 import Skeleton from "@mui/material/Skeleton";
 import "../css/App.css";
-import CapButton from "../components/capital/CapButton";
+import { CapButton, EditCapButton } from "../components/capital/CapButton";
 import OpCard from "../components/operaciones/OpCard";
 import { AddOp } from "../components/operaciones/OpButtons";
 import OpModal from "../components/operaciones/OpModal";
 import CapModal from "../components/capital/CapModal";
 import ListItems from "../components/ListItems";
 import InfoExtraCap from "../components/capital/CapInfoExtra";
+import CapEditModal from "../components/capital/EditCapModal";
 
 const drawerWidth: number = 240;
 
@@ -95,6 +96,7 @@ const Dashboard = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [modalCapOpen, setModalCapOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const OnClick = () => {
     setModalOpen(true);
@@ -110,6 +112,14 @@ const Dashboard = () => {
 
   const handleCloseModalCap = () => {
     setModalCapOpen(false);
+  };
+
+  const handleOpenModalEdit = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModalEdit = () => {
+    setIsModalOpen(false);
   };
 
   const handleOperationChange = () => {
@@ -220,7 +230,14 @@ const Dashboard = () => {
                       onClose={handleCloseModalCap}
                       onOperationChange={handleOperationChange}
                     />
-                    <CapButton handleClick={OnClickCap} />
+                    <div className="d-flex align-items-center">
+                      <EditCapButton handleOpenModal={handleOpenModalEdit} />
+                      <CapButton handleClick={OnClickCap} />
+                    </div>
+                    <CapEditModal
+                      open={isModalOpen}
+                      onClose={handleCloseModalEdit}
+                    />
                   </Paper>
                 </Grid>
                 {/* Detalle de Capital */}
@@ -231,6 +248,7 @@ const Dashboard = () => {
                       paddingX: 3,
                       display: "flex",
                       flexDirection: "column",
+
                       height: 290,
                     }}
                   >

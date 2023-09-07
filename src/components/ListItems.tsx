@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -11,15 +12,38 @@ import ArticleIcon from "@mui/icons-material/Article";
 import PaidIcon from "@mui/icons-material/Paid";
 import RepeatOnIcon from "@mui/icons-material/RepeatOn";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import { useNavigate } from "react-router-dom";
+import serverAPI from "../api/serverAPI";
 
 function ListItems() {
   const [open, setOpen] = React.useState(true);
+  const [userRole, setUserRole] = useState("");
   const navigate = useNavigate();
 
   const handleClick = () => {
     setOpen(!open);
   };
+
+  const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
+
+  useEffect(() => {
+    // Fetch user role based on the loggedInUserEmail
+    const fetchUserRole = async () => {
+      try {
+        const resp = await serverAPI.get("/auth/getUserByEmail", {
+          params: { email: loggedInUserEmail },
+        });
+        setUserRole(resp.data.rol);
+      } catch (error) {
+        console.error("Error fetching user role:", error);
+      }
+    };
+
+    if (loggedInUserEmail) {
+      fetchUserRole();
+    }
+  }, [loggedInUserEmail]);
 
   return (
     <List
@@ -59,6 +83,15 @@ function ListItems() {
               <AccountBalanceWalletIcon />
             </ListItemIcon>
             <ListItemText primary="Balance" />
+          </ListItemButton>
+          <ListItemButton
+            sx={{ pl: 4 }}
+            style={{ display: userRole === "admin" ? "flex" : "none" }}
+          >
+            <ListItemIcon>
+              <DisplaySettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Panel Admin" />
           </ListItemButton>
         </List>
       </Collapse>
