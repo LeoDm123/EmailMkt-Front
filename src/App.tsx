@@ -4,6 +4,7 @@ import Dashboard from "./pages/dashboard";
 import InfoOps from "./pages/InfoOps";
 import InfoMovs from "./pages/InfoMovs";
 import Balance from "./pages/Balance";
+import AdminPanel from "./pages/AdminPanel";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/InfoOps" element={<InfoOps />} />
         <Route path="/InfoMovs" element={<InfoMovs />} />
         <Route path="/Balance" element={<Balance />} />
+        <Route path="/AdminPanel" element={<AdminPanel />} />
       </Routes>
     </BrowserRouter>
   );

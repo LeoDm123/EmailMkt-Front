@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -16,17 +16,10 @@ import Paper from "@mui/material/Paper";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import Capital from "../components/capital/CapDisp";
-import Skeleton from "@mui/material/Skeleton";
 import "../css/App.css";
-import { CapButton, EditCapButton } from "../components/capital/CapButton";
-import OpCard from "../components/operaciones/OpCard";
-import { AddOp } from "../components/operaciones/OpButtons";
-import OpModal from "../components/operaciones/OpModal";
-import CapModal from "../components/capital/CapModal";
 import ListItems from "../components/ListItems";
-import InfoExtraCap from "../components/capital/CapInfoExtra";
-import CapEditModal from "../components/capital/EditCapModal";
+import Skeleton from "@mui/material/Skeleton";
+import UserList from "../components/admin/userList";
 
 const drawerWidth: number = 240;
 
@@ -84,47 +77,14 @@ const Drawer = styled(MuiDrawer, {
 
 const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const Dashboard = () => {
+const AdminPanel = () => {
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  const [operationStatusChanged, setOperationStatusChanged] = useState(false);
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const [modalCapOpen, setModalCapOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const OnClick = () => {
-    setModalOpen(true);
-  };
-
-  const OnClickCap = () => {
-    setModalCapOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleCloseModalCap = () => {
-    setModalCapOpen(false);
-  };
-
-  const handleOpenModalEdit = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModalEdit = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleOperationChange = () => {
-    setOperationStatusChanged(!operationStatusChanged);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -146,7 +106,7 @@ const Dashboard = () => {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: "24px", // keep right padding when drawer closed
+              pr: "24px",
             }}
           >
             <IconButton
@@ -208,89 +168,30 @@ const Dashboard = () => {
           <Toolbar />
           <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={5}>
-                {/* Capital disponible */}
-                <Grid item xs={12} md={12} lg={12}>
-                  <Paper
-                    sx={{
-                      paddingX: 3,
-                      display: "flex",
-                      flexDirection: "column",
-                      height: 310,
-                    }}
-                  >
-                    <h2 className="titulo my-3">Capital Disponible</h2>
-                    <Divider
-                      sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }}
-                    />
-                    <Capital operationStatus={handleOperationChange} />
-                    <CapModal
-                      open={modalCapOpen}
-                      onClose={handleCloseModalCap}
-                      onOperationChange={handleOperationChange}
-                    />
-                    <div className="d-flex align-items-center">
-                      <EditCapButton handleOpenModal={handleOpenModalEdit} />
-                      <CapButton handleClick={OnClickCap} />
-                    </div>
-                    <CapEditModal
-                      open={isModalOpen}
-                      onClose={handleCloseModalEdit}
-                    />
-                  </Paper>
-                </Grid>
-                {/* Detalle de Capital */}
-                <Grid item xs={12} md={12} lg={12}>
-                  <Paper
-                    sx={{
-                      marginTop: 1.3,
-                      paddingX: 3,
-                      display: "flex",
-                      flexDirection: "column",
-
-                      height: 290,
-                    }}
-                  >
-                    <h2 className="titulo my-3">Información Extra</h2>
-                    <Divider
-                      sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }}
-                    />
-                    <InfoExtraCap operationStatus={handleOperationChange} />
-                  </Paper>
-                </Grid>
-              </Grid>
-              {/* Operaciones Vigentes */}
-              <Grid item xs={12} md={4} lg={7}>
+              {/* Operaciones */}
+              <Grid item xs={5} md={5} lg={6}>
                 <Paper
                   sx={{
                     paddingX: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 610,
+                    height: "100%",
+                    width: "100%",
                   }}
                 >
-                  <div className="d-flex align-items-center">
-                    <h2 className="titulo my-3 w-75">Operaciones Activas</h2>
-                    <OpModal
-                      open={modalOpen}
-                      onClose={handleCloseModal}
-                      onOperationChange={handleOperationChange}
-                    />
-                    <AddOp handleClick={OnClick} />
-                  </div>
+                  <h2 className="titulo my-3">Usuarios Activos</h2>
+
                   <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                  <Box sx={{ width: "100%", height: 500, overflow: "auto" }}>
-                    {loading ? (
-                      <Skeleton
-                        animation="wave"
-                        variant="rectangular"
-                        width={"100%"}
-                        height={500}
-                      />
-                    ) : (
-                      <OpCard onOperationChange={handleOperationChange} />
-                    )}
-                  </Box>
+                  {loading ? (
+                    <Skeleton
+                      animation="wave"
+                      variant="rectangular"
+                      width={"100%"}
+                      height={"100%"}
+                    />
+                  ) : (
+                    <UserList />
+                  )}
                 </Paper>
               </Grid>
             </Grid>
@@ -301,4 +202,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminPanel;

@@ -84,17 +84,17 @@ function ListItems() {
             </ListItemIcon>
             <ListItemText primary="Balance" />
           </ListItemButton>
-          <ListItemButton
-            sx={{ pl: 4 }}
-            style={{ display: userRole === "admin" ? "flex" : "none" }}
-          >
-            <ListItemIcon>
-              <DisplaySettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Panel Admin" />
-          </ListItemButton>
         </List>
       </Collapse>
+      <ListItemButton
+        style={{ display: userRole === "admin" ? "flex" : "none" }}
+        onClick={() => navigate("/AdminPanel")}
+      >
+        <ListItemIcon>
+          <DisplaySettingsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Panel Admin" />
+      </ListItemButton>
     </List>
   );
 }

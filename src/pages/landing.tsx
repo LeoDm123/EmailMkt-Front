@@ -1,4 +1,4 @@
-import { LogIn } from "../components/login/login";
+import { LogIn } from "../components/admin/login";
 
 window.onbeforeunload = () => {
   localStorage.removeItem("loggedUser");

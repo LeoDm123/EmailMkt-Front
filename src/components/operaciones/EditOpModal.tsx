@@ -10,6 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import serverAPI from "../../api/serverAPI";
 import { NullableData } from "./DataTypes";
+import swal from "sweetalert";
 
 interface CapModalProps {
   open: boolean;
@@ -94,6 +95,39 @@ const OpEditModal: React.FC<CapModalProps> = ({
     }
   };
 
+  const DeleteOp = async (_id: string) => {
+    try {
+      const deleteResp = await serverAPI.delete(`/op/DeleteOp/${_id}`);
+
+      if (deleteResp.data.message === "Operation deleted successfully") {
+        console.log(deleteResp);
+      } else {
+        console.log("Cancel operation failed.");
+      }
+      onOperationChange();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const SwAlertDelete = (_id: string) => {
+    swal({
+      title: "¿Desea borrar la operación?",
+      text: "Una vez borrada, esta no podrá ser recuperada",
+      icon: "warning",
+      buttons: ["No", "Sí"],
+      dangerMode: true,
+    }).then((willCancel) => {
+      if (willCancel) {
+        swal("¡Operación borrada con éxito!", {
+          icon: "success",
+        });
+        DeleteOp(_id);
+        onClose();
+      }
+    });
+  };
+
   useEffect(() => {
     if (Monto !== "" && TipoCambio !== "") {
       const MontoTotal = parseFloat(Monto) * parseFloat(TipoCambio);
@@ -127,7 +161,7 @@ const OpEditModal: React.FC<CapModalProps> = ({
                   className="w-100"
                   select
                   label="Detalle"
-                  defaultValue={Detalle}
+                  value={Detalle}
                   onChange={(e) => setDetalle(e.target.value)}
                   helperText="Por favor, seleccione el tipo de movimiento"
                 >
@@ -144,7 +178,7 @@ const OpEditModal: React.FC<CapModalProps> = ({
                   className="w-100"
                   select
                   label="Divisa"
-                  defaultValue={Divisa}
+                  value={Divisa}
                   onChange={(e) => setDivisa(e.target.value)}
                 >
                   {currencies.map((option) => (
@@ -206,10 +240,18 @@ const OpEditModal: React.FC<CapModalProps> = ({
               />
             </div>
           </div>
+          <div>
+            <button
+              className="btn btn-danger w-25 py-2 mt-4"
+              onClick={() => operation && SwAlertDelete(operation._id)}
+            >
+              Borrar
+            </button>
 
-          <button className="btn btn-primary w-100 py-2 mt-4" type="submit">
-            Guardar Cambios
-          </button>
+            <button className="btn btn-primary w-75 py-2 mt-4" type="submit">
+              Guardar Cambios
+            </button>
+          </div>
         </form>
       </Paper>
     </Modal>
