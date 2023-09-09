@@ -159,7 +159,11 @@ const OpModal: React.FC<CapModalProps> = ({
         <form id="registerForm" onSubmit={handleSubmit}>
           <div className="d-flex justify-content-between mb-2">
             <h1 className="h3">Nueva Operación</h1>
-            <HighlightOffIcon onClick={onClose} fontSize="large" />
+            <HighlightOffIcon
+              onClick={onClose}
+              fontSize="large"
+              sx={{ color: "#6a6a6a" }}
+            />
           </div>
 
           {/* ACCION */}

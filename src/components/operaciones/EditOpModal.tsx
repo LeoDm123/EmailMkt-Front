@@ -150,7 +150,11 @@ const OpEditModal: React.FC<CapModalProps> = ({
         <form id="editForm" onSubmit={handleSubmit}>
           <div className="d-flex justify-content-between mb-2">
             <h1 className="h3">Editar Operación</h1>
-            <HighlightOffIcon onClick={onClose} fontSize="large" />
+            <HighlightOffIcon
+              onClick={onClose}
+              fontSize="large"
+              sx={{ color: "#6a6a6a" }}
+            />
           </div>
 
           <div className="d-flex flex-direction-row">

@@ -23,7 +23,11 @@ const UserEditModal: React.FC<CurrencyEditModalProps> = ({ open, onClose }) => {
       >
         <div className="d-flex justify-content-between mb-2">
           <h1 className="h3">Modificar Datos de Usuario</h1>
-          <HighlightOffIcon onClick={onClose} fontSize="large" />
+          <HighlightOffIcon
+            onClick={onClose}
+            fontSize="large"
+            sx={{ color: "#6a6a6a" }}
+          />
         </div>
       </Paper>
     </Modal>
