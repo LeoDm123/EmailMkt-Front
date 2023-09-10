@@ -1,11 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
@@ -15,6 +13,7 @@ import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import serverAPI from "../../api/serverAPI";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/logos/logo.png";
 
 const defaultTheme = createTheme();
 
@@ -22,12 +21,12 @@ export const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Nuevo estado para controlar la carga
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const startLogin = async (email: string, password: string) => {
     try {
-      setIsLoading(true); // Mostrar el spinner cuando se inicia sesión
+      setIsLoading(true);
 
       const resp = await serverAPI.post("/auth/login", {
         email,
@@ -88,11 +87,10 @@ export const LogIn = () => {
               alignItems: "center",
             }}
           >
-            <Avatar
-              sx={{ m: 1, bgcolor: "primary.main", width: 80, height: 80 }}
-            >
-              <PublishedWithChangesIcon sx={{ width: 50, height: 50 }} />
-            </Avatar>
+            <img
+              src={logo}
+              className="w-75 d-flex justify-content-center mb-5"
+            />
             <Typography component="h1" variant="h5">
               Iniciar Sesión
             </Typography>
