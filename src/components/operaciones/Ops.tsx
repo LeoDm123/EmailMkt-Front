@@ -8,11 +8,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
 import serverAPI from "../../api/serverAPI";
 import OpEditModal from "./EditOpModal";
 import { NullableData } from "./DataTypes";
+import { EditButton } from "./OpButtons";
 
 interface Data {
   Detalle: string;
@@ -192,12 +191,15 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function TablaOps() {
-  const [order, setOrder] = React.useState<Order>("asc");
+interface TablaOpsProps {
+  showEditButton: boolean;
+}
+
+export default function TablaOps({ showEditButton }: TablaOpsProps) {
+  const [order, setOrder] = React.useState<Order>("desc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("Fecha");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [operaciones, setOperaciones] = useState<Data[]>([]);
-  const [userRole, setUserRole] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [operationToEdit, setOperationToEdit] = useState<NullableData>(null);
 
@@ -222,25 +224,6 @@ export default function TablaOps() {
       console.error("Error fetching data:", error);
     }
   };
-
-  const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
-
-  useEffect(() => {
-    const fetchUserRole = async () => {
-      try {
-        const resp = await serverAPI.get("/auth/getUserByEmail", {
-          params: { email: loggedInUserEmail },
-        });
-        setUserRole(resp.data.rol);
-      } catch (error) {
-        console.error("Error fetching user role:", error);
-      }
-    };
-
-    if (loggedInUserEmail) {
-      fetchUserRole();
-    }
-  }, [loggedInUserEmail]);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -342,16 +325,16 @@ export default function TablaOps() {
 
                   <TableCell align="center">{row.Comentarios}</TableCell>
                   <TableCell align="left">{row.Estado}</TableCell>
-                  <IconButton
-                    aria-label="edit"
-                    style={{
-                      display: userRole === "admin" ? "flex" : "none",
-                      marginTop: 17,
+                  <EditButton
+                    visible={showEditButton}
+                    handleClick={() => {
+                      const extendedData: ExtendedData = {
+                        ...row,
+                        _id: "yourDefaultId",
+                      };
+                      handleOpenModal(extendedData);
                     }}
-                    onClick={() => handleOpenModal(row as ExtendedData)}
-                  >
-                    <EditIcon />
-                  </IconButton>
+                  />
                 </TableRow>
               );
             })}

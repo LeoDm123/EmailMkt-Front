@@ -20,6 +20,7 @@ import "../css/App.css";
 import TablaOps from "../components/operaciones/Ops";
 import ListItems from "../components/ListItems";
 import Skeleton from "@mui/material/Skeleton";
+import { ShowEditButton } from "../components/operaciones/OpButtons";
 
 const drawerWidth: number = 240;
 
@@ -82,6 +83,7 @@ const defaultTheme = createTheme();
 
 const InfoOps = () => {
   const [open, setOpen] = React.useState(false);
+  const [showEditButton, setShowEditButton] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -179,7 +181,10 @@ const InfoOps = () => {
                     height: 600,
                   }}
                 >
-                  <h2 className="titulo my-3">Operaciones</h2>
+                  <div className="d-flex justify-content-between">
+                    <h2 className="titulo my-3">Operaciones</h2>
+                    <ShowEditButton setShowEditButton={setShowEditButton} />
+                  </div>
 
                   <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
                   {loading ? (
@@ -190,7 +195,7 @@ const InfoOps = () => {
                       height={600}
                     />
                   ) : (
-                    <TablaOps />
+                    <TablaOps showEditButton={showEditButton} />
                   )}
                 </Paper>
               </Grid>
