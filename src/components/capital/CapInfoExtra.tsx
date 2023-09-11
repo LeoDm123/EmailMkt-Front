@@ -30,7 +30,10 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
   const [ganancia, setGanancia] = useState<number>(0);
   const [fetchError, setFetchError] = useState("");
   const [dataLoaded, setDataLoaded] = useState(false); // Nuevo estado
-  const [promTC, setPromTC] = useState<number>(0);
+  //const [promTC, setPromTC] = useState<number>(0);
+  const [tipoCambio, setTipoCambio] = useState<number>(0);
+  const [GananciaTotal, setGananciaTotal] = useState<number>(0);
+  const [GananciaDiaria, setGananciaDiaria] = useState<number>(0);
   const [currency, setCurrency] = useState({
     Dolares: 0,
     Euros: 0,
@@ -130,14 +133,30 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
 
       const BalanceOp = totalCompraUSD - totalVentaUSD;
 
-      const PromTC =
-        operaciones.reduce(
-          (total, operacion) => total + operacion.TipoCambio,
-          0
-        ) / operaciones.length;
+      // const PromTC =
+      //   operaciones.reduce(
+      //     (total, operacion) => total + operacion.TipoCambio,
+      //     0
+      //   ) / operaciones.length;
 
       setGanancia(BalanceOp);
-      setPromTC(PromTC);
+      //setPromTC(PromTC);
+
+      const ultimaCompra = MovCompra.reduce(
+        (ultima: Operacion | null, compra) => {
+          if (!ultima || new Date(compra.Fecha) > new Date(ultima.Fecha)) {
+            return compra;
+          }
+          return ultima;
+        },
+        null
+      );
+
+      if (ultimaCompra) {
+        setTipoCambio(ultimaCompra.TipoCambio);
+      } else {
+        console.log("tipo de cambio igual a 0");
+      }
     } catch (error) {
       console.error("Error fetching currency data:", error);
       setFetchError("An error occurred while fetching currency data.");
@@ -156,11 +175,17 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
     }
   };
 
-  const ValuedPesos = currency.Pesos / promTC;
+  useEffect(() => {
+    console.log(tipoCambio);
+    const ValuedPesos = currency.Pesos / tipoCambio;
 
-  const Ganancia = ganancia + ValuedPesos;
+    const GananciaTotal = ganancia + ValuedPesos;
+    setGananciaTotal(GananciaTotal); //
 
-  const GananciaDiaria = diasLaborales > 0 ? Ganancia / diasLaborales : 0;
+    const GananciaDiaria =
+      diasLaborales > 0 ? GananciaTotal / diasLaborales : 0;
+    setGananciaDiaria(GananciaDiaria);
+  }, [tipoCambio, currency.Pesos, ganancia, diasLaborales]);
 
   const formatCurrency = (value: number, currencyCode: string) => {
     return new Intl.NumberFormat("en-US", {
@@ -198,7 +223,7 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
           </div>
           <div className="currencies mt-3 justify-content-between">
             <h3>Ganancia:</h3>
-            <h3 className="ms-2">{formatCurrency(Ganancia, "USD")}</h3>
+            <h3 className="ms-2">{formatCurrency(GananciaTotal, "USD")}</h3>
           </div>
           <div className="currencies mt-3 justify-content-between">
             <h3>Ganancia Diaria:</h3>
