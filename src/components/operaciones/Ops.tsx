@@ -23,6 +23,7 @@ interface Data {
   Email: string;
   Comentarios: string;
   Estado: string;
+  _id: string;
 }
 
 interface ExtendedData extends Data {
@@ -131,6 +132,12 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Estado",
   },
+  {
+    id: "_id",
+    numeric: false,
+    disablePadding: false,
+    label: "",
+  },
 ];
 
 const cellWidths = {
@@ -143,6 +150,7 @@ const cellWidths = {
   Email: "20%",
   Comentarios: "20%",
   Estado: "5%",
+  _id: "-10%",
 };
 
 interface EnhancedTableProps {
@@ -167,25 +175,27 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align="center"
-            style={{
-              width: cellWidths[headCell.id],
-              marginLeft: 0,
-              fontWeight: "bold",
-            }}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
+        {headCells
+          .filter((headCell) => headCell.id !== "_id") // Exclude _id
+          .map((headCell) => (
+            <TableCell
+              key={headCell.id}
+              align="center"
+              style={{
+                width: cellWidths[headCell.id],
+                marginLeft: 0,
+                fontWeight: "bold",
+              }}
             >
-              {headCell.label}
-            </TableSortLabel>
-          </TableCell>
-        ))}
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : "asc"}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+              </TableSortLabel>
+            </TableCell>
+          ))}
       </TableRow>
     </TableHead>
   );
@@ -225,13 +235,18 @@ export default function TablaOps({ showEditButton }: TablaOpsProps) {
     }
   };
 
+  const handleEditSuccess = () => {
+    handleCloseModal();
+    fetchOperacionesData();
+  };
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof Data
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
+    setOrderBy(property as keyof Data);
     event.preventDefault();
   };
 
@@ -328,11 +343,7 @@ export default function TablaOps({ showEditButton }: TablaOpsProps) {
                   <EditButton
                     visible={showEditButton}
                     handleClick={() => {
-                      const extendedData: ExtendedData = {
-                        ...row,
-                        _id: "yourDefaultId",
-                      };
-                      handleOpenModal(extendedData);
+                      handleOpenModal(row);
                     }}
                   />
                 </TableRow>
@@ -345,7 +356,7 @@ export default function TablaOps({ showEditButton }: TablaOpsProps) {
         open={isModalOpen}
         onClose={handleCloseModal}
         operation={operationToEdit}
-        onOperationChange={() => {}}
+        onOperationChange={handleEditSuccess} // Pass the function to handle edits
       />
     </Box>
   );

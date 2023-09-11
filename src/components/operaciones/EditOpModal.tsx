@@ -78,6 +78,8 @@ const OpEditModal: React.FC<CapModalProps> = ({
       return console.log("Todos los campos son obligatorios");
     }
 
+    console.log("iD:", operation._id);
+
     try {
       await serverAPI.put(`/op/EditOp/${operation._id}`, {
         Detalle,
