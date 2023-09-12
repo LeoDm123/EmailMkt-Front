@@ -156,14 +156,7 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
 
       const BalanceOp = totalCompraUSD - totalVentaUSD;
 
-      // const PromTC =
-      //   operaciones.reduce(
-      //     (total, operacion) => total + operacion.TipoCambio,
-      //     0
-      //   ) / operaciones.length;
-
       setGanancia(BalanceOp);
-      //setPromTC(PromTC);
 
       const ultimaCompra = MovCompra.reduce(
         (ultima: Operacion | null, compra) => {
@@ -208,7 +201,8 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
       diasLaborales > 0 ? GananciaTotal / diasLaborales : 0;
     setGananciaDiaria(GananciaDiaria);
 
-    const PorcentualMensual = GananciaTotal / capitalInicial;
+    const PorcentualMensual =
+      (GananciaTotal / capitalInicial / diasLaborales) * 20;
     setPorcMensual(PorcentualMensual);
   }, [tipoCambio, currency.Pesos, ganancia, diasLaborales, capitalInicial]);
 
