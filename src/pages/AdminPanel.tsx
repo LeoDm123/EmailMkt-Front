@@ -20,6 +20,8 @@ import "../css/App.css";
 import ListItems from "../components/ListItems";
 import Skeleton from "@mui/material/Skeleton";
 import UserList from "../components/admin/userList";
+import CapitalOp from "../components/capital/CapOpList";
+import CapOpsResetButton from "../components/capital/CapButton";
 
 const drawerWidth: number = 240;
 
@@ -85,6 +87,11 @@ const AdminPanel = () => {
     setOpen(!open);
   };
   const [loading, setLoading] = useState(true);
+  const [operationStatusChanged, setOperationStatusChanged] = useState(false);
+
+  const handleOperationChange = () => {
+    setOperationStatusChanged(!operationStatusChanged);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -167,9 +174,9 @@ const AdminPanel = () => {
         >
           <Toolbar />
           <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Operaciones */}
-              <Grid item xs={5} md={5} lg={6}>
+            <div className="d-flex w-100">
+              <Grid spacing={1} sx={{ width: 600 }}>
+                {/* Usuarios */}
                 <Paper
                   sx={{
                     paddingX: 2,
@@ -194,7 +201,37 @@ const AdminPanel = () => {
                   )}
                 </Paper>
               </Grid>
-            </Grid>
+              <Grid spacing={3} marginLeft={5} sx={{ width: 400 }}>
+                {/* Divisas Operativas */}
+                <Paper
+                  sx={{
+                    paddingX: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    width: "100%",
+                  }}
+                >
+                  <div className="d-flex justify-content-between align-items-center">
+                    <h2 className="titulo my-3">Divisas Operativas</h2>
+                    <CapOpsResetButton
+                      handleOperationChange={handleOperationChange}
+                    />
+                  </div>
+                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
+                  {loading ? (
+                    <Skeleton
+                      animation="wave"
+                      variant="rectangular"
+                      width={"100%"}
+                      height={"100%"}
+                    />
+                  ) : (
+                    <CapitalOp operationStatus={handleOperationChange} />
+                  )}
+                </Paper>
+              </Grid>
+            </div>
           </Container>
         </Box>
       </Box>

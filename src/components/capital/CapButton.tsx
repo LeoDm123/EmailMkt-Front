@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import serverAPI from "../../api/serverAPI";
 
 interface CapButtonProps {
@@ -61,3 +62,32 @@ export const EditCapButton = ({ handleOpenModal }: EditCapButtonProps) => {
     </IconButton>
   );
 };
+
+interface CapOpsResetButtonProps {
+  handleOperationChange: () => void;
+}
+
+const CapOpsResetButton: React.FC<CapOpsResetButtonProps> = ({
+  handleOperationChange,
+}) => {
+  const resetDivisasOps = async () => {
+    try {
+      await serverAPI.put("/cap/resetDivisasOps", {});
+      handleOperationChange();
+    } catch (error) {
+      console.error("Error al editar la operación:", error);
+    }
+  };
+
+  return (
+    <IconButton
+      aria-label="edit"
+      onClick={resetDivisasOps}
+      sx={{ width: 40, height: 40 }}
+    >
+      <RestartAltIcon />
+    </IconButton>
+  );
+};
+
+export default CapOpsResetButton;
