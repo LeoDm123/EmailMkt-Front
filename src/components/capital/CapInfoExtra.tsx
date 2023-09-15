@@ -12,6 +12,7 @@ interface Movimiento {
   Monto: number;
   Balance: number;
   Fecha: string;
+  Divisa: string;
 }
 
 interface Operacion {
@@ -21,13 +22,16 @@ interface Operacion {
   TipoCambio: number;
   BalanceOp: number;
   Fecha: string;
+  Divisa: string;
 }
 
 const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
   const [, setFechaInicio] = useState<Date | null>(null);
   const [, setFechaFin] = useState<Date | null>(null);
   const [diasLaborales, setDiasLaborales] = useState<number>(0);
-  const [prestamos, setPrestamos] = useState<number>(0);
+  const [prestamosARS, setPrestamosARS] = useState<number>(0);
+  const [prestamosUSD, setPrestamosUSD] = useState<number>(0);
+  const [prestamosEUR, setPrestamosEUR] = useState<number>(0);
   const [ganancia, setGanancia] = useState<number>(0);
   const [capitalInicial, setCapitalIncial] = useState<number>(0);
   const [porcMensual, setPorcMensual] = useState<number>(0);
@@ -56,19 +60,54 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
         (devolucion) => devolucion.Detalle === "Devolucion"
       );
 
-      const totalPrestamos = prestamoMovimientos.reduce(
-        (total, prestamo) => total + prestamo.Monto,
-        0
-      );
+      // Inicializar totales para cada divisa
+      let totalPrestamosPesos = 0;
+      let totalPrestamosDolares = 0;
+      let totalPrestamosEuros = 0;
 
-      const totalDevoluciones = devolucionesMovimientos.reduce(
-        (total, devolucion) => total + devolucion.Monto,
-        0
-      );
+      let totalDevolucionesPesos = 0;
+      let totalDevolucionesDolares = 0;
+      let totalDevolucionesEuros = 0;
 
-      const Balance = totalPrestamos + totalDevoluciones;
+      prestamoMovimientos.forEach((prestamo) => {
+        if (prestamo.Divisa === "ARS") {
+          totalPrestamosPesos += prestamo.Monto;
+        } else if (prestamo.Divisa === "USD") {
+          totalPrestamosDolares += prestamo.Monto;
+        } else if (prestamo.Divisa === "EUR") {
+          totalPrestamosEuros += prestamo.Monto;
+        }
+      });
 
-      setPrestamos(Balance);
+      devolucionesMovimientos.forEach((devolucion) => {
+        if (devolucion.Divisa === "ARS") {
+          totalDevolucionesPesos += devolucion.Monto;
+        } else if (devolucion.Divisa === "USD") {
+          totalDevolucionesDolares += devolucion.Monto;
+        } else if (devolucion.Divisa === "EUR") {
+          totalDevolucionesEuros += devolucion.Monto;
+        }
+      });
+
+      const totalPrestamos = {
+        Pesos: totalPrestamosPesos,
+        Dolares: totalPrestamosDolares,
+        Euros: totalPrestamosEuros,
+      };
+
+      const totalDevoluciones = {
+        Pesos: totalDevolucionesPesos,
+        Dolares: totalDevolucionesDolares,
+        Euros: totalDevolucionesEuros,
+      };
+
+      const BalancePesos = totalPrestamos.Pesos + totalDevoluciones.Pesos;
+      const BalanceDolares = totalPrestamos.Dolares + totalDevoluciones.Dolares;
+      const BalanceEuros = totalPrestamos.Euros + totalDevoluciones.Euros;
+
+      setPrestamosARS(BalancePesos);
+      setPrestamosUSD(BalanceDolares);
+      setPrestamosEUR(BalanceEuros);
 
       const MovIngreso = movimientos.filter(
         (ingreso) => ingreso.Detalle === "Ingreso"
@@ -238,7 +277,17 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
         <div className="w-100">
           <div className="currencies mt-3 justify-content-between">
             <h4>Deuda Prestamos:</h4>
-            <h4 className="ms-2">{formatCurrency(prestamos, "ARS")}</h4>
+            <div>
+              <h4 className="ms-2 text-end">
+                {formatCurrency(prestamosARS, "ARS")}
+              </h4>
+              <h4 className="ms-2 text-end">
+                {formatCurrency(prestamosUSD, "USD")}
+              </h4>
+              <h4 className="ms-2 text-end">
+                {formatCurrency(prestamosEUR, "EUR")}
+              </h4>
+            </div>
           </div>
           <div className="currencies mt-2 justify-content-between">
             <h4>Ganancia:</h4>
@@ -256,6 +305,14 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
                 minimumFractionDigits: 2,
               })}
             </h4>
+          </div>
+          <div className="currencies mt-2 justify-content-between">
+            <h4>Cantidad de días operados:</h4>
+            <h4 className="ms-2">{diasLaborales}</h4>
+          </div>
+          <div className="currencies mt-2 justify-content-between">
+            <h4>Tipo de Cambio Dolarización:</h4>
+            <h4 className="ms-2">{formatCurrency(tipoCambio, "ARS")}</h4>
           </div>
           {fetchError && <p>{fetchError}</p>}
         </div>

@@ -113,6 +113,14 @@ function EnhancedTableHead() {
 export default function BalanceComp() {
   const [mergedData, setMergedData] = useState<Data[]>([]);
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Los meses son base 0, por eso se suma 1
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   useEffect(() => {
     const fetchAndMergeData = async () => {
       try {
@@ -124,14 +132,12 @@ export default function BalanceComp() {
 
         const mergedData: Data[] = [...movimientosData, ...operacionesData];
 
-        // Sort by Fecha (oldest first)
+        let saldoPesos = 0;
+        let saldoDolares = 0;
+
         mergedData.sort(
           (a, b) => new Date(a.Fecha).getTime() - new Date(b.Fecha).getTime()
         );
-
-        // Calculate SaldoPesos and SaldoDolares
-        let saldoPesos = 0;
-        let saldoDolares = 0;
 
         mergedData.forEach((row) => {
           if (row.Divisa === "USD") {
@@ -252,7 +258,7 @@ export default function BalanceComp() {
                       ? formatCurrency(row.MontoTotal, "ARS")
                       : ""}
                   </TableCell>
-                  <TableCell align="center">{row.Fecha}</TableCell>
+                  <TableCell align="center">{formatDate(row.Fecha)}</TableCell>
                   <TableCell align="center">
                     {formatCurrency(row.SaldoPesos, "ARS")}
                   </TableCell>
