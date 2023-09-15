@@ -162,6 +162,14 @@ export default function TablaMovimientos() {
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [movimientos, setMovimientos] = useState<Data[]>([]);
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Los meses son base 0, por eso se suma 1
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   useEffect(() => {
     fetchMovimientosData();
   }, []);
@@ -266,7 +274,7 @@ export default function TablaMovimientos() {
                   <TableCell align="center" sx={{ paddingLeft: 0 }}>
                     {formatCurrency(row.Monto, row.Divisa)}
                   </TableCell>
-                  <TableCell align="center">{row.Fecha}</TableCell>
+                  <TableCell align="center">{formatDate(row.Fecha)}</TableCell>
                   <TableCell align="center">{row.Email}</TableCell>
 
                   <TableCell align="center">{row.Comentarios}</TableCell>

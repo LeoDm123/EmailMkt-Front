@@ -213,6 +213,14 @@ export default function TablaOps({ showEditButton }: TablaOpsProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [operationToEdit, setOperationToEdit] = useState<NullableData>(null);
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Los meses son base 0, por eso se suma 1
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   const handleOpenModal = (operation: ExtendedData) => {
     setOperationToEdit(operation);
     setIsModalOpen(true);
@@ -335,7 +343,7 @@ export default function TablaOps({ showEditButton }: TablaOpsProps) {
                   <TableCell align="left">
                     {formatCurrency(row.MontoTotal, "ARS")}
                   </TableCell>
-                  <TableCell align="center">{row.Fecha}</TableCell>
+                  <TableCell align="center">{formatDate(row.Fecha)}</TableCell>
                   <TableCell align="center">{row.Email}</TableCell>
 
                   <TableCell align="center">{row.Comentarios}</TableCell>
