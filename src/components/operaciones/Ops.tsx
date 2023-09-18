@@ -302,7 +302,22 @@ export default function TablaOps({ showEditButton }: TablaOpsProps) {
   };
 
   return (
-    <Box sx={{ width: "100%", maxHeight: "500px", overflow: "auto" }}>
+    <Box
+      sx={{
+        width: "100%",
+        maxHeight: "500px",
+        overflow: "auto",
+        scrollbarWidth: "thin",
+        scrollbarColor: "dark",
+        "&::-webkit-scrollbar": {
+          width: "8px",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: "lightgray",
+          borderRadius: "5px",
+        },
+      }}
+    >
       <TableContainer>
         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
           <EnhancedTableHead

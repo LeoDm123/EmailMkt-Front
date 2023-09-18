@@ -255,7 +255,22 @@ const Dashboard = () => {
                     <Divider
                       sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }}
                     />
-                    <Box sx={{ width: "100%", height: 500, overflow: "auto" }}>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        height: 500,
+                        overflowY: "auto",
+                        scrollbarWidth: "thin",
+                        scrollbarColor: "dark",
+                        "&::-webkit-scrollbar": {
+                          width: "8px",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                          background: "lightgray",
+                          borderRadius: "5px",
+                        },
+                      }}
+                    >
                       <InfoExtraCap operationStatus={handleOperationChange} />
                     </Box>
                   </Paper>
@@ -281,7 +296,22 @@ const Dashboard = () => {
                     <AddOp handleClick={OnClick} />
                   </div>
                   <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
-                  <Box sx={{ width: "100%", height: 500, overflow: "auto" }}>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: 500,
+                      overflow: "auto",
+                      scrollbarWidth: "thin",
+                      scrollbarColor: "dark",
+                      "&::-webkit-scrollbar": {
+                        width: "8px",
+                      },
+                      "&::-webkit-scrollbar-thumb": {
+                        background: "lightgray",
+                        borderRadius: "5px",
+                      },
+                    }}
+                  >
                     {loading ? (
                       <Skeleton
                         animation="wave"

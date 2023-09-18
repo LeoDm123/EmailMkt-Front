@@ -272,7 +272,7 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
   }, [operationStatus]);
 
   return (
-    <Grid container>
+    <Grid container sx={{ paddingRight: 1 }}>
       {dataLoaded ? (
         <div className="w-100">
           <div className="currencies mt-3 justify-content-between">
