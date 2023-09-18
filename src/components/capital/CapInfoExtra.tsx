@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Skeleton from "@mui/material/Skeleton";
 import serverAPI from "../../api/serverAPI";
+import { Divider } from "@mui/material";
 
 interface CapitalProps {
   operationStatus: () => void;
@@ -276,7 +277,7 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
       {dataLoaded ? (
         <div className="w-100">
           <div className="currencies mt-3 justify-content-between">
-            <h4>Deuda Prestamos:</h4>
+            <h4>Deuda por prestamos:</h4>
             <div>
               <h4 className="ms-2 text-end">
                 {formatCurrency(prestamosARS, "ARS")}
@@ -289,16 +290,18 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
               </h4>
             </div>
           </div>
+          <Divider />
           <div className="currencies mt-2 justify-content-between">
             <h4>Ganancia:</h4>
             <h4 className="ms-2">{formatCurrency(GananciaTotal, "USD")}</h4>
           </div>
+          <Divider />
           <div className="currencies mt-2 justify-content-between">
-            <h4>Ganancia Diaria:</h4>
+            <h4>Ganancia diaria:</h4>
             <h4 className="ms-2">{formatCurrency(GananciaDiaria, "USD")}</h4>
           </div>
           <div className="currencies mt-2 justify-content-between">
-            <h4>Ganancia Mensual (%):</h4>
+            <h4>Ganancia mensual (%):</h4>
             <h4 className="ms-2">
               {porcMensual.toLocaleString(undefined, {
                 style: "percent",
@@ -311,7 +314,7 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
             <h4 className="ms-2">{diasLaborales}</h4>
           </div>
           <div className="currencies mt-2 justify-content-between">
-            <h4>Tipo de Cambio Dolarización:</h4>
+            <h4>Tipo de cambio dolarización:</h4>
             <h4 className="ms-2">{formatCurrency(tipoCambio, "ARS")}</h4>
           </div>
           {fetchError && <p>{fetchError}</p>}
