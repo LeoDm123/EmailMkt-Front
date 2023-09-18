@@ -20,6 +20,7 @@ import "../css/App.css";
 import ListItems from "../components/ListItems";
 import BalanceComp from "../components/BalanceComp";
 import Skeleton from "@mui/material/Skeleton";
+import { DividerTitle } from "../components/Dividers";
 
 const drawerWidth: number = 240;
 
@@ -181,7 +182,7 @@ const Balance = () => {
                 >
                   <h2 className="titulo my-3">Balance</h2>
 
-                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
+                  <DividerTitle />
                   {loading ? (
                     <Skeleton
                       animation="wave"

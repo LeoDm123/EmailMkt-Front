@@ -379,7 +379,7 @@ export default function TablaOps({ showEditButton }: TablaOpsProps) {
         open={isModalOpen}
         onClose={handleCloseModal}
         operation={operationToEdit}
-        onOperationChange={handleEditSuccess} // Pass the function to handle edits
+        onOperationChange={handleEditSuccess}
       />
     </Box>
   );

@@ -27,6 +27,7 @@ import CapModal from "../components/capital/CapModal";
 import ListItems from "../components/ListItems";
 import InfoExtraCap from "../components/capital/CapInfoExtra";
 import CapEditModal from "../components/capital/EditCapModal";
+import { DividerTitle } from "../components/Dividers";
 
 const drawerWidth: number = 240;
 
@@ -219,10 +220,8 @@ const Dashboard = () => {
                       height: 310,
                     }}
                   >
-                    <h2 className="titulo my-3">Capital Disponible</h2>
-                    <Divider
-                      sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }}
-                    />
+                    <h2 className="titulo my-2">Capital Disponible</h2>
+                    <DividerTitle />
                     <Capital operationStatus={handleOperationChange} />
                     <CapModal
                       open={modalCapOpen}
@@ -251,12 +250,11 @@ const Dashboard = () => {
                       height: 290,
                     }}
                   >
-                    <h2 className="titulo my-3">Información Extra</h2>
-                    <Divider
-                      sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }}
-                    />
+                    <h2 className="titulo my-2">Información Extra</h2>
+                    <DividerTitle />
                     <Box
                       sx={{
+                        marginY: 1,
                         width: "100%",
                         height: 500,
                         overflowY: "auto",
@@ -287,7 +285,7 @@ const Dashboard = () => {
                   }}
                 >
                   <div className="d-flex align-items-center">
-                    <h2 className="titulo my-3 w-75">Operaciones Activas</h2>
+                    <h2 className="titulo my-2 w-75">Operaciones Activas</h2>
                     <OpModal
                       open={modalOpen}
                       onClose={handleCloseModal}
@@ -295,7 +293,7 @@ const Dashboard = () => {
                     />
                     <AddOp handleClick={OnClick} />
                   </div>
-                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
+                  <DividerTitle />
                   <Box
                     sx={{
                       width: "100%",

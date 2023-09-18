@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Skeleton from "@mui/material/Skeleton";
 import serverAPI from "../../api/serverAPI";
-import { Divider } from "@mui/material";
 
 interface CapitalProps {
   operationStatus: () => void;
@@ -273,7 +272,7 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
   }, [operationStatus]);
 
   return (
-    <Grid container sx={{ paddingRight: 1 }}>
+    <Grid container sx={{ paddingRight: 1, paddin: 1 }}>
       {dataLoaded ? (
         <div className="w-100">
           <div className="currencies mt-3 justify-content-between">
@@ -290,12 +289,10 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
               </h4>
             </div>
           </div>
-          <Divider />
           <div className="currencies mt-2 justify-content-between">
             <h4>Ganancia:</h4>
             <h4 className="ms-2">{formatCurrency(GananciaTotal, "USD")}</h4>
           </div>
-          <Divider />
           <div className="currencies mt-2 justify-content-between">
             <h4>Ganancia diaria:</h4>
             <h4 className="ms-2">{formatCurrency(GananciaDiaria, "USD")}</h4>

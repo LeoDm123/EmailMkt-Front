@@ -21,6 +21,7 @@ import TablaOps from "../components/operaciones/Ops";
 import ListItems from "../components/ListItems";
 import Skeleton from "@mui/material/Skeleton";
 import { ShowEditButton } from "../components/operaciones/OpButtons";
+import { DividerTitle } from "../components/Dividers";
 
 const drawerWidth: number = 240;
 
@@ -186,7 +187,7 @@ const InfoOps = () => {
                     <ShowEditButton setShowEditButton={setShowEditButton} />
                   </div>
 
-                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
+                  <DividerTitle />
                   {loading ? (
                     <Skeleton
                       animation="wave"

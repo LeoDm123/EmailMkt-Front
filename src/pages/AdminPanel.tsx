@@ -22,6 +22,7 @@ import Skeleton from "@mui/material/Skeleton";
 import UserList from "../components/admin/userList";
 import CapitalOp from "../components/capital/CapOpList";
 import CapOpsResetButton from "../components/capital/CapButton";
+import { DividerTitle } from "../components/Dividers";
 
 const drawerWidth: number = 240;
 
@@ -188,7 +189,7 @@ const AdminPanel = () => {
                 >
                   <h2 className="titulo my-3">Usuarios Activos</h2>
 
-                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
+                  <DividerTitle />
                   {loading ? (
                     <Skeleton
                       animation="wave"
@@ -218,7 +219,7 @@ const AdminPanel = () => {
                       handleOperationChange={handleOperationChange}
                     />
                   </div>
-                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
+                  <DividerTitle />
                   {loading ? (
                     <Skeleton
                       animation="wave"

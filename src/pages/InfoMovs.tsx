@@ -20,6 +20,7 @@ import "../css/App.css";
 import TablaMovimientos from "../components/capital/MovCapital";
 import ListItems from "../components/ListItems";
 import Skeleton from "@mui/material/Skeleton";
+import { DividerTitle } from "../components/Dividers";
 
 const drawerWidth: number = 240;
 
@@ -181,7 +182,7 @@ const InfoOps = () => {
                 >
                   <h2 className="titulo my-3">Movimientos de Capital</h2>
 
-                  <Divider sx={{ borderColor: "#42a5f5", borderWidth: 1.5 }} />
+                  <DividerTitle />
                   {loading ? (
                     <Skeleton
                       animation="wave"
