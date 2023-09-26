@@ -53,6 +53,7 @@ const OpEditModal: React.FC<CapModalProps> = ({
   const [TipoCambio, setTipoCambio] = useState("");
   const [Comentarios, setComentarios] = useState("");
   const [MontoTotal, setMontoTotal] = useState("");
+  const [dateValue, setDateValue] = useState("");
 
   useEffect(() => {
     if (operation) {
@@ -62,6 +63,7 @@ const OpEditModal: React.FC<CapModalProps> = ({
       setTipoCambio(operation.TipoCambio.toString());
       setComentarios(operation.Comentarios);
       setMontoTotal(operation.MontoTotal.toString());
+      setDateValue(operation.Fecha.toString());
     }
   }, [operation]);
 
@@ -80,6 +82,13 @@ const OpEditModal: React.FC<CapModalProps> = ({
 
     console.log("iD:", operation._id);
 
+    const parsedDate = parseDate(dateValue);
+
+    if (!parsedDate) {
+      console.log("Invalid date format");
+      return;
+    }
+
     try {
       await serverAPI.put(`/op/EditOp/${operation._id}`, {
         Detalle,
@@ -88,6 +97,7 @@ const OpEditModal: React.FC<CapModalProps> = ({
         TipoCambio: parseFloat(TipoCambio),
         Comentarios,
         MontoTotal: parseFloat(MontoTotal),
+        Fecha: dateValue,
       });
 
       onOperationChange();
@@ -137,6 +147,55 @@ const OpEditModal: React.FC<CapModalProps> = ({
     }
   }, [Monto, TipoCambio]);
 
+  function parseDate(dateString: string) {
+    // Split the date and time parts
+    const parts = dateString.split(", ");
+    if (parts.length === 2) {
+      const datePart = parts[0];
+      const timePart = parts[1];
+
+      // Split the date into MM, DD, YYYY parts
+      const dateParts = datePart.split("/");
+      if (dateParts.length === 3) {
+        const month = parseInt(dateParts[0], 10) - 1; // Months are 0-indexed
+        const day = parseInt(dateParts[1], 10);
+        const year = parseInt(dateParts[2], 10);
+
+        // Parse the time part
+        const timeParts = timePart.split(":");
+        if (timeParts.length === 3) {
+          let hour = parseInt(timeParts[0], 10);
+          const minute = parseInt(timeParts[1], 10);
+          const second = parseInt(timeParts[2], 10);
+
+          // Check if AM or PM
+          const isPM = timePart.toLowerCase().includes("pm");
+          if (
+            isNaN(month) ||
+            isNaN(day) ||
+            isNaN(year) ||
+            isNaN(hour) ||
+            isNaN(minute) ||
+            isNaN(second)
+          ) {
+            return null; // Invalid date or time format
+          }
+
+          // Adjust hour for AM/PM
+          if (isPM && hour !== 12) {
+            hour += 12;
+          } else if (!isPM && hour === 12) {
+            hour = 0;
+          }
+
+          // Create a Date object
+          return new Date(year, month, day, hour, minute, second);
+        }
+      }
+    }
+    return null; // Invalid date format
+  }
+
   return (
     <Modal open={open} onClose={onClose}>
       <Paper
@@ -178,21 +237,33 @@ const OpEditModal: React.FC<CapModalProps> = ({
                   ))}
                 </TextField>
               </div>
-              <div className="w-100 mt-3">
-                <TextField
-                  id="outlined-select-currency"
-                  className="w-100"
-                  select
-                  label="Divisa"
-                  value={Divisa}
-                  onChange={(e) => setDivisa(e.target.value)}
-                >
-                  {currencies.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+              <div className="d-flex">
+                <div className="w-50 mt-3">
+                  <TextField
+                    id="outlined-select-currency"
+                    className="w-100"
+                    select
+                    label="Divisa"
+                    value={Divisa}
+                    onChange={(e) => setDivisa(e.target.value)}
+                  >
+                    {currencies.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </div>
+                <div className="w-50 mt-3 ms-2">
+                  <TextField
+                    label="Fecha"
+                    type="text"
+                    className="w-100"
+                    value={dateValue}
+                    onChange={(e) => setDateValue(e.target.value)}
+                    placeholder="yyyy-mm-dd"
+                  />
+                </div>
               </div>
 
               <div className="d-flex">
@@ -246,7 +317,7 @@ const OpEditModal: React.FC<CapModalProps> = ({
               />
             </div>
           </div>
-          <div>
+          <div className="row justify-content-center">
             <button
               className="btn btn-danger w-25 py-2 mt-4"
               onClick={() => operation && SwAlertDelete(operation._id)}
@@ -254,7 +325,10 @@ const OpEditModal: React.FC<CapModalProps> = ({
               Borrar
             </button>
 
-            <button className="btn btn-primary w-75 py-2 mt-4" type="submit">
+            <button
+              className="btn btn-primary w-50 py-2 mt-4 ms-2"
+              type="submit"
+            >
               Guardar Cambios
             </button>
           </div>

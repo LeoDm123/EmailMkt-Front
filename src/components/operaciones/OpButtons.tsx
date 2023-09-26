@@ -78,7 +78,7 @@ export function ShowEditButton({ setShowEditButton }: ShowEditButtonProps) {
   const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
   const [userRole, setUserRole] = useState("");
 
-  const [EditState, setEditState] = useState(false);
+  const [EditState, setEditState] = useState(true);
 
   useEffect(() => {
     const fetchUserRole = async () => {
@@ -129,7 +129,7 @@ export function EditButton({ visible, handleClick }: EditButtonProps) {
       aria-label="edit"
       style={{
         display: visible ? "flex" : "none",
-        marginTop: 17,
+        marginTop: 5,
       }}
       onClick={handleClick}
     >

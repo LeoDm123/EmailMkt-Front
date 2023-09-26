@@ -33,11 +33,10 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
   const [prestamosUSD, setPrestamosUSD] = useState<number>(0);
   const [prestamosEUR, setPrestamosEUR] = useState<number>(0);
   const [ganancia, setGanancia] = useState<number>(0);
-  const [capitalInicial, setCapitalIncial] = useState<number>(0);
+  const [capital, setCapital] = useState<number>(0);
   const [porcMensual, setPorcMensual] = useState<number>(0);
   const [fetchError, setFetchError] = useState("");
-  const [dataLoaded, setDataLoaded] = useState(false); // Nuevo estado
-  //const [promTC, setPromTC] = useState<number>(0);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const [tipoCambio, setTipoCambio] = useState<number>(0);
   const [GananciaTotal, setGananciaTotal] = useState<number>(0);
   const [GananciaDiaria, setGananciaDiaria] = useState<number>(0);
@@ -113,18 +112,15 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
         (ingreso) => ingreso.Detalle === "Ingreso"
       );
 
-      const capInicial = MovIngreso.reduce(
-        (primer: Movimiento | null, ingreso) => {
-          if (!primer || new Date(ingreso.Fecha) > new Date(primer.Fecha)) {
-            return ingreso;
-          }
-          return primer;
-        },
-        null
-      );
+      const capital = MovIngreso.reduce((total, ingreso) => {
+        if (ingreso.Detalle === "Ingreso") {
+          return total + ingreso.Monto;
+        }
+        return total;
+      }, 0);
 
-      if (capInicial) {
-        setCapitalIncial(capInicial.Monto);
+      if (capital) {
+        setCapital(capital);
       } else {
         console.log("Capital incial igual a 0");
       }
@@ -240,10 +236,9 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
       diasLaborales > 0 ? GananciaTotal / diasLaborales : 0;
     setGananciaDiaria(GananciaDiaria);
 
-    const PorcentualMensual =
-      (GananciaTotal / capitalInicial / diasLaborales) * 20;
+    const PorcentualMensual = (GananciaTotal / capital / diasLaborales) * 20;
     setPorcMensual(PorcentualMensual);
-  }, [tipoCambio, currency.Pesos, ganancia, diasLaborales, capitalInicial]);
+  }, [tipoCambio, currency.Pesos, ganancia, diasLaborales, capital]);
 
   const formatCurrency = (value: number, currencyCode: string) => {
     return new Intl.NumberFormat("en-US", {
