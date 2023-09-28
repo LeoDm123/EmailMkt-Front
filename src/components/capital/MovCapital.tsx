@@ -8,7 +8,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
+import { EditButton } from "./CapButton";
 import serverAPI from "../../api/serverAPI";
+import EditMovModal from "./EditMovModal";
+import { NullableData } from "./DataTypes";
 
 interface Data {
   Detalle: string;
@@ -17,6 +20,7 @@ interface Data {
   Fecha: string;
   Email: string;
   Comentarios: string;
+  _id: string;
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -103,15 +107,22 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Comentarios",
   },
+  {
+    id: "_id",
+    numeric: false,
+    disablePadding: false,
+    label: "",
+  },
 ];
 
 const cellWidths = {
   Detalle: "10%",
   Divisa: "10%",
   Monto: "15%",
-  Fecha: "25%",
+  Fecha: "20%",
   Email: "20%",
   Comentarios: "30%",
+  _id: "-10%",
 };
 
 interface EnhancedTableProps {
@@ -156,11 +167,19 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function TablaMovimientos() {
+interface TablaMovimientos {
+  showEditButton: boolean;
+}
+
+export default function TablaMovimientos({ showEditButton }: TablaMovimientos) {
   const [order, setOrder] = React.useState<Order>("desc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("Fecha");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [movimientos, setMovimientos] = useState<Data[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [movimientoToEdit, setMovimientoToEdit] = useState<NullableData | null>(
+    null
+  );
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -168,6 +187,15 @@ export default function TablaMovimientos() {
     const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Los meses son base 0, por eso se suma 1
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
+  };
+
+  const handleOpenModal = (movimiento: Data) => {
+    setMovimientoToEdit(movimiento);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -223,7 +251,6 @@ export default function TablaMovimientos() {
     setSelected(newSelected);
   };
 
-  console.log("movimientos:", movimientos);
   const visibleRows = React.useMemo(
     () => stableSort(movimientos, getComparator(order, orderBy)),
     [order, orderBy, movimientos]
@@ -235,6 +262,11 @@ export default function TablaMovimientos() {
       currency: currencyCode,
       minimumFractionDigits: 2,
     }).format(value);
+  };
+
+  const handleEditSuccess = () => {
+    handleCloseModal();
+    fetchMovimientosData();
   };
 
   return (
@@ -293,12 +325,24 @@ export default function TablaMovimientos() {
                   <TableCell align="center">{row.Email}</TableCell>
 
                   <TableCell align="center">{row.Comentarios}</TableCell>
+                  <EditButton
+                    visible={showEditButton}
+                    handleClick={() => {
+                      handleOpenModal(row);
+                    }}
+                  />
                 </TableRow>
               );
             })}
           </TableBody>
         </Table>
       </TableContainer>
+      <EditMovModal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        movimiento={movimientoToEdit}
+        onOperationChange={handleEditSuccess}
+      />
     </Box>
   );
 }

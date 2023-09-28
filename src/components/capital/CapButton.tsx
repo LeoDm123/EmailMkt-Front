@@ -91,3 +91,23 @@ const CapOpsResetButton: React.FC<CapOpsResetButtonProps> = ({
 };
 
 export default CapOpsResetButton;
+
+interface EditButtonProps {
+  visible: boolean;
+  handleClick: () => void;
+}
+
+export function EditButton({ visible, handleClick }: EditButtonProps) {
+  return (
+    <IconButton
+      aria-label="edit"
+      style={{
+        display: visible ? "flex" : "none",
+        marginTop: 5,
+      }}
+      onClick={handleClick}
+    >
+      <EditIcon />
+    </IconButton>
+  );
+}

@@ -176,7 +176,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     <TableHead>
       <TableRow>
         {headCells
-          .filter((headCell) => headCell.id !== "_id") // Exclude _id
+          .filter((headCell) => headCell.id !== "_id")
           .map((headCell) => (
             <TableCell
               key={headCell.id}
@@ -216,7 +216,7 @@ export default function TablaOps({ showEditButton }: TablaOpsProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Los meses son base 0, por eso se suma 1
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };

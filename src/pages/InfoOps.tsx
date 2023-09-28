@@ -79,7 +79,6 @@ const Drawer = styled(MuiDrawer, {
 
 const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 const InfoOps = () => {

@@ -20,6 +20,7 @@ import "../css/App.css";
 import TablaMovimientos from "../components/capital/MovCapital";
 import ListItems from "../components/ListItems";
 import Skeleton from "@mui/material/Skeleton";
+import { ShowEditButton } from "../components/operaciones/OpButtons";
 import { DividerTitle } from "../components/Dividers";
 
 const drawerWidth: number = 240;
@@ -83,6 +84,7 @@ const defaultTheme = createTheme();
 
 const InfoOps = () => {
   const [open, setOpen] = React.useState(false);
+  const [showEditButton, setShowEditButton] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -170,8 +172,7 @@ const InfoOps = () => {
           <Toolbar />
           <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Operaciones */}
-              <Grid item xs={12} md={4} lg={12}>
+              <Grid item xs={12} md={12} lg={12}>
                 <Paper
                   sx={{
                     paddingX: 2,
@@ -180,7 +181,10 @@ const InfoOps = () => {
                     height: 600,
                   }}
                 >
-                  <h2 className="titulo my-3">Movimientos de Capital</h2>
+                  <div className="d-flex justify-content-between">
+                    <h2 className="titulo my-3">Movimientos de Capital</h2>
+                    <ShowEditButton setShowEditButton={setShowEditButton} />
+                  </div>
 
                   <DividerTitle />
                   {loading ? (
@@ -191,7 +195,7 @@ const InfoOps = () => {
                       height={600}
                     />
                   ) : (
-                    <TablaMovimientos />
+                    <TablaMovimientos showEditButton={showEditButton} />
                   )}
                 </Paper>
               </Grid>
