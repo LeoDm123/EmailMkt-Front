@@ -16,7 +16,7 @@ import CapModal from "../components/capital/CapModal";
 import InfoExtraCap from "../components/capital/CapInfoExtra";
 import CapEditModal from "../components/capital/EditCapModal";
 import { DividerTitle } from "../components/Dividers";
-import Header from "../components/Header";
+import Header from "../components/menu/Header";
 
 const defaultTheme = createTheme();
 
@@ -150,7 +150,7 @@ const Dashboard = () => {
                   }}
                 >
                   <div className="d-flex align-items-center">
-                    <h2 className="titulo my-2 w-75">Operaciones Activas</h2>
+                    <h2 className="titulo my-2 w-100">Operaciones Activas</h2>
                     <OpModal
                       open={modalOpen}
                       onClose={handleCloseModal}

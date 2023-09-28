@@ -9,8 +9,7 @@ import UserList from "../components/admin/userList";
 import CapitalOp from "../components/capital/CapOpList";
 import CapOpsResetButton from "../components/capital/CapButton";
 import { DividerTitle } from "../components/Dividers";
-import DolarBlue from "../components/Rates";
-import Header from "../components/Header";
+import Header from "../components/menu/Header";
 
 const defaultTheme = createTheme();
 
@@ -96,7 +95,6 @@ const AdminPanel = () => {
                     <CapitalOp operationStatus={handleOperationChange} />
                   )}
                 </Paper>
-                <DolarBlue />
               </Grid>
             </div>
           </Container>

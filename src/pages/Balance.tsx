@@ -7,7 +7,7 @@ import "../css/App.css";
 import BalanceComp from "../components/BalanceComp";
 import Skeleton from "@mui/material/Skeleton";
 import { DividerTitle } from "../components/Dividers";
-import Header from "../components/Header";
+import Header from "../components/menu/Header";
 
 const defaultTheme = createTheme();
 

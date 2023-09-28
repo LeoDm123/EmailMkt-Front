@@ -12,8 +12,8 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import "../css/App.css";
-import ListItems from "../components/ListItems";
+import "../../css/App.css";
+import ListItems from "./ListItems";
 import Rates from "./Rates";
 
 interface HeaderProps {
@@ -80,7 +80,7 @@ const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
 const defaultTheme = createTheme();
 
 const Header: React.FC<HeaderProps> = ({ content }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };

@@ -14,7 +14,7 @@ import RepeatOnIcon from "@mui/icons-material/RepeatOn";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import { useNavigate } from "react-router-dom";
-import serverAPI from "../api/serverAPI";
+import serverAPI from "../../api/serverAPI";
 
 function ListItems() {
   const [open, setOpen] = React.useState(true);

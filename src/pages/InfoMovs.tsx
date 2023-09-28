@@ -9,7 +9,7 @@ import TablaMovimientos from "../components/capital/MovCapital";
 import Skeleton from "@mui/material/Skeleton";
 import { ShowEditButton } from "../components/operaciones/OpButtons";
 import { DividerTitle } from "../components/Dividers";
-import Header from "../components/Header";
+import Header from "../components/menu/Header";
 
 const defaultTheme = createTheme();
 
