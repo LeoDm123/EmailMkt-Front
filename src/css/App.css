@@ -10,3 +10,7 @@
 .divisa {
   width: 200px;
 }
+
+.transparent-area path {
+  fill-opacity: 0.5;
+}

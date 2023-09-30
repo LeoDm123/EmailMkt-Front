@@ -13,6 +13,7 @@ import PaidIcon from "@mui/icons-material/Paid";
 import RepeatOnIcon from "@mui/icons-material/RepeatOn";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
+import InsightsIcon from "@mui/icons-material/Insights";
 import { useNavigate } from "react-router-dom";
 import serverAPI from "../../api/serverAPI";
 
@@ -83,6 +84,12 @@ function ListItems() {
               <AccountBalanceWalletIcon />
             </ListItemIcon>
             <ListItemText primary="Balance" />
+          </ListItemButton>
+          <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("/Charts")}>
+            <ListItemIcon>
+              <InsightsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Gráficos" />
           </ListItemButton>
         </List>
       </Collapse>
