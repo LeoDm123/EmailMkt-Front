@@ -13,7 +13,8 @@ import PaidIcon from "@mui/icons-material/Paid";
 import RepeatOnIcon from "@mui/icons-material/RepeatOn";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
-import InsightsIcon from "@mui/icons-material/Insights";
+import InsertChartIcon from "@mui/icons-material/InsertChart";
+import TimelineIcon from "@mui/icons-material/Timeline";
 import { useNavigate } from "react-router-dom";
 import serverAPI from "../../api/serverAPI";
 
@@ -85,11 +86,22 @@ function ListItems() {
             </ListItemIcon>
             <ListItemText primary="Balance" />
           </ListItemButton>
+        </List>
+      </Collapse>
+      <ListItemButton onClick={handleClick}>
+        <ListItemIcon>
+          <InsertChartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Gráficos" />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("/Charts")}>
             <ListItemIcon>
-              <InsightsIcon />
+              <TimelineIcon />
             </ListItemIcon>
-            <ListItemText primary="Gráficos" />
+            <ListItemText primary="Flujo de Caja" />
           </ListItemButton>
         </List>
       </Collapse>
