@@ -83,6 +83,7 @@ const Dashboard = () => {
                       display: "flex",
                       flexDirection: "column",
                       height: 310,
+                      borderRadius: 5,
                     }}
                   >
                     <h2 className="titulo my-2">Capital Disponible</h2>
@@ -111,7 +112,7 @@ const Dashboard = () => {
                       paddingX: 3,
                       display: "flex",
                       flexDirection: "column",
-
+                      borderRadius: 5,
                       height: 290,
                     }}
                   >
@@ -147,6 +148,7 @@ const Dashboard = () => {
                     display: "flex",
                     flexDirection: "column",
                     height: 610,
+                    borderRadius: 5,
                   }}
                 >
                   <div className="d-flex align-items-center">

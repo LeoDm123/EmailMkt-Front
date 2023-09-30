@@ -81,6 +81,7 @@ const CapEditModal: React.FC<CurrencyEditModalProps> = ({ open, onClose }) => {
           left: "50%",
           transform: "translate(-50%, -50%)",
           width: "25%",
+          borderRadius: 5,
         }}
       >
         <div className="d-flex justify-content-between mb-2">
@@ -121,8 +122,12 @@ const CapEditModal: React.FC<CurrencyEditModalProps> = ({ open, onClose }) => {
             onChange={(e) => setMonto(parseFloat(e.target.value))}
           />
         </FormControl>
-        <div className="mt-3">
-          <Button variant="contained" onClick={handleSave}>
+        <div className="mt-3 d-flex justify-content-end">
+          <Button
+            variant="contained"
+            onClick={handleSave}
+            style={{ borderRadius: 10 }}
+          >
             Guardar nuevo monto
           </Button>
         </div>

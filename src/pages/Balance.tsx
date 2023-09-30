@@ -41,6 +41,7 @@ const Balance = () => {
                     display: "flex",
                     flexDirection: "column",
                     height: 600,
+                    borderRadius: 5,
                   }}
                 >
                   <h2 className="titulo my-3">Balance</h2>

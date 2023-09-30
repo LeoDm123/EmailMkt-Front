@@ -43,6 +43,7 @@ const InfoOps = () => {
                     display: "flex",
                     flexDirection: "column",
                     height: 600,
+                    borderRadius: 5,
                   }}
                 >
                   <div className="d-flex justify-content-between">

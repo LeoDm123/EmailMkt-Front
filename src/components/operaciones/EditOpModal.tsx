@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -205,6 +206,7 @@ const OpEditModal: React.FC<CapModalProps> = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          borderRadius: 5,
         }}
         className="CreateModal"
       >
@@ -317,20 +319,31 @@ const OpEditModal: React.FC<CapModalProps> = ({
               />
             </div>
           </div>
-          <div className="row justify-content-center">
-            <button
-              className="btn btn-danger w-25 py-2 mt-4"
+          <div className="justify-content-end d-flex me-3">
+            <Button
+              variant="outlined"
+              color="error"
+              type="submit"
+              style={{
+                borderRadius: 10,
+                marginTop: 10,
+                marginRight: 10,
+              }}
               onClick={() => operation && SwAlertDelete(operation._id)}
             >
               Borrar
-            </button>
+            </Button>
 
-            <button
-              className="btn btn-primary w-50 py-2 mt-4 ms-2"
+            <Button
+              variant="contained"
               type="submit"
+              style={{
+                borderRadius: 10,
+                marginTop: 10,
+              }}
             >
               Guardar Cambios
-            </button>
+            </Button>
           </div>
         </form>
       </Paper>

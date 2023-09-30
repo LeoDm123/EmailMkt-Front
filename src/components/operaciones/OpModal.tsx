@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "@mui/material/Modal";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import swal from "sweetalert";
@@ -153,6 +154,7 @@ const OpModal: React.FC<CapModalProps> = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          borderRadius: 5,
         }}
         className="CreateModal"
       >
@@ -255,9 +257,18 @@ const OpModal: React.FC<CapModalProps> = ({
               />
             </div>
           </div>
-          <button className="btn btn-primary w-100 py-2 mt-4" type="submit">
-            Confirmar
-          </button>
+          <div className="justify-content-end d-flex me-3">
+            <Button
+              variant="contained"
+              type="submit"
+              style={{
+                borderRadius: 10,
+                marginTop: 10,
+              }}
+            >
+              Confirmar
+            </Button>
+          </div>
         </form>
       </Paper>
     </Modal>

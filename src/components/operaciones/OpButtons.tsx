@@ -17,7 +17,7 @@ export function OpOkButton({ handleClick }: OpOkButtonProps) {
     <Stack direction="row" spacing={2}>
       <Button
         variant="contained"
-        sx={{ width: 150 }}
+        sx={{ width: 150, borderRadius: 10 }}
         endIcon={<CheckCircleIcon />}
         color="success"
         onClick={handleClick}
@@ -37,7 +37,7 @@ export function OpCancelButton({ handleClick }: OpCancelButtonProps) {
     <Stack direction="row" spacing={2}>
       <Button
         variant="outlined"
-        sx={{ width: 150 }}
+        sx={{ width: 150, borderRadius: 10 }}
         endIcon={<CancelIcon />}
         color="error"
         onClick={handleClick}
@@ -61,6 +61,7 @@ export function AddOp({ handleClick }: AddOpProps) {
             variant="contained"
             onClick={handleClick}
             endIcon={<AddCircleIcon />}
+            style={{ borderRadius: 10 }}
           >
             Nueva Operación
           </Button>
@@ -105,6 +106,7 @@ export function ShowEditButton({ setShowEditButton }: ShowEditButtonProps) {
         style={{
           display: userRole === "admin" ? "flex" : "none",
           marginTop: 17,
+          borderRadius: 10,
         }}
         onClick={() => {
           setShowEditButton(EditState);

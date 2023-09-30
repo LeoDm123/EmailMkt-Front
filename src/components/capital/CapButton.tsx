@@ -14,7 +14,11 @@ export const CapButton = ({ handleClick }: CapButtonProps) => {
     <div className="mt-2 w-100">
       <div className="d-flex justify-content-end">
         <div>
-          <Button variant="contained" onClick={handleClick}>
+          <Button
+            variant="contained"
+            onClick={handleClick}
+            style={{ borderRadius: 10 }}
+          >
             Agregar / Retirar Capital
           </Button>
         </div>
@@ -55,6 +59,7 @@ export const EditCapButton = ({ handleOpenModal }: EditCapButtonProps) => {
       style={{
         display: userRole === "admin" ? "flex" : "none",
         marginTop: 17,
+        borderRadius: 10,
       }}
       onClick={handleOpenModal}
     >
@@ -104,6 +109,7 @@ export function EditButton({ visible, handleClick }: EditButtonProps) {
       style={{
         display: visible ? "flex" : "none",
         marginTop: 5,
+        borderRadius: 10,
       }}
       onClick={handleClick}
     >
