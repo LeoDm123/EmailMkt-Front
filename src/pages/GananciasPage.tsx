@@ -5,11 +5,11 @@ import Paper from "@mui/material/Paper";
 import { DividerTitle } from "../components/Dividers";
 import "../css/App.css";
 import Header from "../components/menu/Header";
-import CashFlow from "../components/charts/CashFlow";
+// import Ganancias from "../components/charts/Ganancias";
 
 const defaultTheme = createTheme();
 
-const Charts = () => {
+const GananciasPage = () => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Header
@@ -28,10 +28,10 @@ const Charts = () => {
                   }}
                 >
                   <div className="d-flex justify-content-between">
-                    <h2 className="titulo my-3">Flujo de Caja</h2>
+                    <h2 className="titulo my-3">Ganancias</h2>
                   </div>
                   <DividerTitle />
-                  <CashFlow />
+                  {/* <Ganancias /> */}
                 </Paper>
               </Grid>
             </Grid>
@@ -42,4 +42,4 @@ const Charts = () => {
   );
 };
 
-export default Charts;
+export default GananciasPage;

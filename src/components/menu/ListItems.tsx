@@ -15,6 +15,7 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import TimelineIcon from "@mui/icons-material/Timeline";
+import PriceCheckIcon from "@mui/icons-material/PriceCheck";
 import { useNavigate } from "react-router-dom";
 import serverAPI from "../../api/serverAPI";
 
@@ -97,11 +98,23 @@ function ListItems() {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("/Charts")}>
+          <ListItemButton
+            sx={{ pl: 4 }}
+            onClick={() => navigate("/CashFlowPage")}
+          >
             <ListItemIcon>
               <TimelineIcon />
             </ListItemIcon>
             <ListItemText primary="Flujo de Caja" />
+          </ListItemButton>
+          <ListItemButton
+            sx={{ pl: 4 }}
+            onClick={() => navigate("/GananciasPage")}
+          >
+            <ListItemIcon>
+              <PriceCheckIcon />
+            </ListItemIcon>
+            <ListItemText primary="Ganancias" />
           </ListItemButton>
         </List>
       </Collapse>
