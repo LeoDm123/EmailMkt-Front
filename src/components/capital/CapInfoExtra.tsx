@@ -193,7 +193,7 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
 
       setGanancia(BalanceOp);
 
-      const ultimaCompra = MovCompra.reduce(
+      const ultimaCompra = MovVenta.reduce(
         (ultima: Operacion | null, compra) => {
           if (!ultima || new Date(compra.Fecha) > new Date(ultima.Fecha)) {
             return compra;
