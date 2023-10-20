@@ -17,6 +17,7 @@ interface Data {
   MontoTotal?: number;
   SaldoPesos: number;
   SaldoDolares: number;
+  SaldoEuros: number;
 }
 
 interface HeadCell {
@@ -75,17 +76,24 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Saldo Dolares",
   },
+  {
+    id: "SaldoEuros",
+    numeric: false,
+    disablePadding: false,
+    label: "Saldo Euros",
+  },
 ];
 
 const cellWidths = {
   Detalle: "5%",
   Divisa: "10%",
-  Monto: "15%",
-  TipoCambio: "15%",
-  MontoTotal: "10%",
-  Fecha: "20%",
-  SaldoPesos: "15%",
-  SaldoDolares: "15%",
+  Monto: "12%",
+  TipoCambio: "12%",
+  MontoTotal: "12%",
+  Fecha: "12%",
+  SaldoPesos: "12%",
+  SaldoDolares: "12%",
+  SaldoEuros: "12%",
 };
 
 function EnhancedTableHead() {
@@ -134,6 +142,7 @@ export default function BalanceComp() {
 
         let saldoPesos = 0;
         let saldoDolares = 0;
+        let saldoEuros = 0;
 
         mergedData.sort(
           (a, b) => new Date(a.Fecha).getTime() - new Date(b.Fecha).getTime()
@@ -174,10 +183,29 @@ export default function BalanceComp() {
             ) {
               saldoPesos += row.Monto;
             }
+          } else if (row.Divisa === "EUR") {
+            if (row.Detalle === "Compra") {
+              saldoEuros += row.Monto;
+              saldoPesos -= row.MontoTotal || 0;
+            } else if (row.Detalle === "Venta") {
+              saldoEuros -= row.Monto;
+              saldoPesos += row.MontoTotal || 0;
+            } else if (
+              row.Detalle === "Ingreso" ||
+              row.Detalle === "Prestamo"
+            ) {
+              saldoEuros += row.Monto;
+            } else if (
+              row.Detalle === "Retiro" ||
+              row.Detalle === "Devolucion"
+            ) {
+              saldoEuros += row.Monto;
+            }
           }
 
           row.SaldoPesos = saldoPesos;
           row.SaldoDolares = saldoDolares;
+          row.SaldoEuros = saldoEuros;
         });
 
         setMergedData(mergedData);
@@ -197,8 +225,9 @@ export default function BalanceComp() {
       TipoCambio: undefined,
       MontoTotal: undefined,
       Fecha: movimiento.Fecha,
-      SaldoPesos: 0, // Initialize to 0
-      SaldoDolares: 0, // Initialize to 0
+      SaldoPesos: 0,
+      SaldoDolares: 0,
+      SaldoEuros: 0,
     }));
   };
 
@@ -210,8 +239,9 @@ export default function BalanceComp() {
       TipoCambio: operacion.TipoCambio,
       MontoTotal: operacion.MontoTotal,
       Fecha: operacion.Fecha,
-      SaldoPesos: 0, // Initialize to 0
-      SaldoDolares: 0, // Initialize to 0
+      SaldoPesos: 0,
+      SaldoDolares: 0,
+      SaldoEuros: 0,
     }));
   };
 
@@ -279,6 +309,9 @@ export default function BalanceComp() {
                   </TableCell>
                   <TableCell align="center">
                     {formatCurrency(row.SaldoDolares, "USD")}
+                  </TableCell>
+                  <TableCell align="center">
+                    {formatCurrency(row.SaldoEuros, "EUR")}
                   </TableCell>
                 </TableRow>
               );

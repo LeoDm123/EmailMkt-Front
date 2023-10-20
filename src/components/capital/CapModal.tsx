@@ -95,6 +95,7 @@ const CapModal: React.FC<CapModalProps> = ({
       title: "¡Exito!",
       text: "El movimiento se agregó correctamente",
       icon: "success",
+      timer: 1200,
     });
   };
 
@@ -103,6 +104,7 @@ const CapModal: React.FC<CapModalProps> = ({
       title: "¡Error!",
       text: "No posee los fondos suficientes para realizar la operación",
       icon: "error",
+      timer: 1200,
     });
   };
 

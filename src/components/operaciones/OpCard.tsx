@@ -67,8 +67,9 @@ const OpCard = ({ onOperationChange }: OpCardProps) => {
   const SwAlertOk = () => {
     swal({
       title: "¡Exito!",
-      text: "Operación Acceptada",
+      text: "Operación Aceptada",
       icon: "success",
+      timer: 1000,
     });
   };
 
