@@ -7,6 +7,7 @@ import Balance from "./pages/Balance";
 import AdminPanel from "./pages/AdminPanel";
 import CashFlowPage from "./pages/CashFlow";
 import GananciasPage from "./pages/GananciasPage";
+import InfoPresDev from "./pages/InfoPrestDev";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/InfoOps" element={<InfoOps />} />
         <Route path="/InfoMovs" element={<InfoMovs />} />
+        <Route path="/InfoPresDev" element={<InfoPresDev />} />
         <Route path="/Balance" element={<Balance />} />
         <Route path="/CashFlowPage" element={<CashFlowPage />} />
         <Route path="/GananciasPage" element={<GananciasPage />} />

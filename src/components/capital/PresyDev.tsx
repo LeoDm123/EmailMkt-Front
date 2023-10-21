@@ -171,7 +171,7 @@ interface TablaMovimientos {
   showEditButton: boolean;
 }
 
-export default function TablaMovimientos({ showEditButton }: TablaMovimientos) {
+export default function TablaPresyDevs({ showEditButton }: TablaMovimientos) {
   const [order, setOrder] = React.useState<Order>("desc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("Fecha");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -255,7 +255,7 @@ export default function TablaMovimientos({ showEditButton }: TablaMovimientos) {
     () =>
       stableSort(
         movimientos.filter(
-          (row) => row.Detalle === "Ingreso" || row.Detalle === "Retiro"
+          (row) => row.Detalle === "Prestamo" || row.Detalle === "Devolucion"
         ),
         getComparator(order, orderBy)
       ),

@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import "../css/App.css";
-import TablaMovimientos from "../components/capital/MovCapital";
+import TablaPresyDevs from "../components/capital/PresyDev";
 import Skeleton from "@mui/material/Skeleton";
 import { ShowEditButton } from "../components/operaciones/OpButtons";
 import { DividerTitle } from "../components/Dividers";
@@ -13,7 +13,7 @@ import Header from "../components/menu/Header";
 
 const defaultTheme = createTheme();
 
-const InfoMovs = () => {
+const InfoPresDev = () => {
   const [showEditButton, setShowEditButton] = React.useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -47,7 +47,7 @@ const InfoMovs = () => {
                   }}
                 >
                   <div className="d-flex justify-content-between">
-                    <h2 className="titulo my-3">Movimientos de Capital</h2>
+                    <h2 className="titulo my-3">Prestamos y Devoluciones</h2>
                     <ShowEditButton setShowEditButton={setShowEditButton} />
                   </div>
 
@@ -60,7 +60,7 @@ const InfoMovs = () => {
                       height={600}
                     />
                   ) : (
-                    <TablaMovimientos showEditButton={showEditButton} />
+                    <TablaPresyDevs showEditButton={showEditButton} />
                   )}
                 </Paper>
               </Grid>
@@ -72,4 +72,4 @@ const InfoMovs = () => {
   );
 };
 
-export default InfoMovs;
+export default InfoPresDev;

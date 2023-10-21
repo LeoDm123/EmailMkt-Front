@@ -16,6 +16,7 @@ import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import PriceCheckIcon from "@mui/icons-material/PriceCheck";
+import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import { useNavigate } from "react-router-dom";
 import serverAPI from "../../api/serverAPI";
 
@@ -80,6 +81,15 @@ function ListItems() {
               <RepeatOnIcon />
             </ListItemIcon>
             <ListItemText primary="Mov. de Capital" />
+          </ListItemButton>
+          <ListItemButton
+            sx={{ pl: 4 }}
+            onClick={() => navigate("/InfoPresDev")}
+          >
+            <ListItemIcon>
+              <CurrencyExchangeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Prest. y Devoluc." />
           </ListItemButton>
           <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("/Balance")}>
             <ListItemIcon>
