@@ -37,12 +37,20 @@ const currencies = [
 
 const detalles = [
   {
-    value: "Ingreso",
+    value: "Ingreso Cap.",
     label: "Ingreso de Capital",
   },
   {
-    value: "Retiro",
+    value: "Retiro Cap.",
     label: "Retiro de Capital",
+  },
+  {
+    value: "Gasto Op.",
+    label: "Gasto Operativo",
+  },
+  {
+    value: "Ingreso Op.",
+    label: "Ingreso Operativo",
   },
   {
     value: "Prestamo",

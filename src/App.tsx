@@ -8,6 +8,7 @@ import AdminPanel from "./pages/AdminPanel";
 import CashFlowPage from "./pages/CashFlow";
 import GananciasPage from "./pages/GananciasPage";
 import InfoPresDev from "./pages/InfoPrestDev";
+import InfoMovsOp from "./pages/InfoMovOp";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/InfoOps" element={<InfoOps />} />
         <Route path="/InfoMovs" element={<InfoMovs />} />
         <Route path="/InfoPresDev" element={<InfoPresDev />} />
+        <Route path="/InfoMovsOp" element={<InfoMovsOp />} />
         <Route path="/Balance" element={<Balance />} />
         <Route path="/CashFlowPage" element={<CashFlowPage />} />
         <Route path="/GananciasPage" element={<GananciasPage />} />

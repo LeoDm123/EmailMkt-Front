@@ -227,7 +227,7 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
   };
 
   useEffect(() => {
-    const ValuedPesos = currency.Pesos / tipoCambio;
+    const ValuedPesos = (currency.Pesos - prestamosARS) / tipoCambio;
 
     const GananciaTotal = ganancia + ValuedPesos;
     setGananciaTotal(GananciaTotal); //

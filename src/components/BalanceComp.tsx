@@ -85,9 +85,9 @@ const headCells: readonly HeadCell[] = [
 ];
 
 const cellWidths = {
-  Detalle: "5%",
-  Divisa: "10%",
-  Monto: "12%",
+  Detalle: "10%",
+  Divisa: "8%",
+  Monto: "14%",
   TipoCambio: "12%",
   MontoTotal: "12%",
   Fecha: "12%",
@@ -157,12 +157,14 @@ export default function BalanceComp() {
               saldoDolares -= row.Monto;
               saldoPesos += row.MontoTotal || 0;
             } else if (
-              row.Detalle === "Ingreso" ||
+              row.Detalle === "Ingreso Cap." ||
+              row.Detalle === "Ingreso Op." ||
               row.Detalle === "Prestamo"
             ) {
               saldoDolares += row.Monto;
             } else if (
-              row.Detalle === "Retiro" ||
+              row.Detalle === "Retiro Cap." ||
+              row.Detalle === "Gasto Op." ||
               row.Detalle === "Devolucion"
             ) {
               saldoDolares += row.Monto;
@@ -173,12 +175,14 @@ export default function BalanceComp() {
             } else if (row.Detalle === "Venta") {
               saldoPesos += row.MontoTotal || 0;
             } else if (
-              row.Detalle === "Ingreso" ||
+              row.Detalle === "Ingreso Cap." ||
+              row.Detalle === "Ingreso Op." ||
               row.Detalle === "Prestamo"
             ) {
               saldoPesos += row.Monto;
             } else if (
-              row.Detalle === "Retiro" ||
+              row.Detalle === "Retiro Cap." ||
+              row.Detalle === "Gasto Op." ||
               row.Detalle === "Devolucion"
             ) {
               saldoPesos += row.Monto;
@@ -191,12 +195,14 @@ export default function BalanceComp() {
               saldoEuros -= row.Monto;
               saldoPesos += row.MontoTotal || 0;
             } else if (
-              row.Detalle === "Ingreso" ||
+              row.Detalle === "Ingreso Cap." ||
+              row.Detalle === "Ingreso Op." ||
               row.Detalle === "Prestamo"
             ) {
               saldoEuros += row.Monto;
             } else if (
-              row.Detalle === "Retiro" ||
+              row.Detalle === "Retiro Cap." ||
+              row.Detalle === "Gasto Op." ||
               row.Detalle === "Devolucion"
             ) {
               saldoEuros += row.Monto;
