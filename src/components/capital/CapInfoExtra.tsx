@@ -59,7 +59,6 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
         (devolucion) => devolucion.Detalle === "Devolucion"
       );
 
-      // Inicializar totales para cada divisa
       let totalPrestamosPesos = 0;
       let totalPrestamosDolares = 0;
       let totalPrestamosEuros = 0;
@@ -109,11 +108,11 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
       setPrestamosEUR(BalanceEuros);
 
       const MovIngreso = movimientos.filter(
-        (ingreso) => ingreso.Detalle === "Ingreso"
+        (ingreso) => ingreso.Detalle === "Ingreso Cap."
       );
 
       const capital = MovIngreso.reduce((total, ingreso) => {
-        if (ingreso.Detalle === "Ingreso") {
+        if (ingreso.Detalle === "Ingreso Cap.") {
           return total + ingreso.Monto;
         }
         return total;
@@ -229,7 +228,9 @@ const InfoExtraCap = ({ operationStatus }: CapitalProps) => {
   useEffect(() => {
     const ValuedPesos = (currency.Pesos - prestamosARS) / tipoCambio;
 
-    const GananciaTotal = ganancia + ValuedPesos;
+    const ValuedEuros = (currency.Euros - prestamosEUR) / 1.06;
+
+    const GananciaTotal = ganancia + ValuedPesos + ValuedEuros;
     setGananciaTotal(GananciaTotal); //
 
     const GananciaDiaria =
