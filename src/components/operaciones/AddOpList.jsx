@@ -8,7 +8,7 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Grid from "@mui/material/Grid";
-import UploadComponent from "./uploadComponent";
+import UploadComponent from "./UploadComponent";
 import serverAPI from "../../api/serverAPI";
 
 const AddOpList = ({ open, onClose, onMatSubmit }) => {
