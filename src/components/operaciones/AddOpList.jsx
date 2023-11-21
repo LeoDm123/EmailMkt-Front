@@ -14,8 +14,6 @@ import serverAPI from "../../api/serverAPI";
 const AddOpList = ({ open, onClose, onMatSubmit }) => {
   const [uploadedData, setUploadedData] = useState([]);
 
-  const Email = localStorage.getItem("loggedInUserEmail") || "";
-
   const OperacionList = async (
     Detalle,
     Divisa,
@@ -42,15 +40,6 @@ const AddOpList = ({ open, onClose, onMatSubmit }) => {
     } catch (error) {
       SwAlertErrorFondos();
     }
-  };
-
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-    const formattedDate = new Date(dateString).toLocaleDateString(
-      undefined,
-      options
-    );
-    return formattedDate;
   };
 
   const handleFileUpload = async (jsonData) => {
