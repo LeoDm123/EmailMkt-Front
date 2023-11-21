@@ -7,6 +7,11 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import serverAPI from "../../api/serverAPI";
+import { styled } from "@mui/material/styles";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import Grid from "@mui/material/Grid";
+import ListIcon from "@mui/icons-material/List";
+import AddOpList from "./AddOpList";
 
 export function OpOkButton({ handleClick }) {
   return (
@@ -42,20 +47,17 @@ export function OpCancelButton({ handleClick }) {
 
 export function AddOp({ handleClick }) {
   return (
-    <div className="mt-2 w-100">
-      <div className="d-flex justify-content-end">
-        <div>
-          <Button
-            variant="contained"
-            onClick={handleClick}
-            endIcon={<AddCircleIcon />}
-            style={{ borderRadius: 10 }}
-          >
-            Nueva Operación
-          </Button>
-        </div>
-      </div>
-    </div>
+    <Grid>
+      <Button
+        className="AddButton mt-2"
+        onClick={handleClick}
+        variant="contained"
+        startIcon={<AddCircleIcon />}
+        size="middle"
+      >
+        Nuevo Operacion
+      </Button>
+    </Grid>
   );
 }
 
@@ -116,5 +118,64 @@ export function EditButton({ visible, handleClick }) {
     >
       <EditIcon />
     </IconButton>
+  );
+}
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
+
+export function UploadButton({ onChange }) {
+  const handleFileChange = (e) => {
+    onChange(e);
+  };
+
+  return (
+    <Button
+      sx={{ height: "100%" }}
+      component="label"
+      variant="contained"
+      startIcon={<CloudUploadIcon />}
+    >
+      Seleccionar Archivo
+      <VisuallyHiddenInput type="file" onChange={handleFileChange} />
+    </Button>
+  );
+}
+
+export function AddOpListButton({ onMatSubmit }) {
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  return (
+    <Grid>
+      <Button
+        className="AddButton mt-2"
+        onClick={handleClick}
+        variant="contained"
+        startIcon={<ListIcon />}
+        size="middle"
+      ></Button>
+      <AddOpList
+        open={modalOpen}
+        onClose={handleCloseModal}
+        onMatSubmit={onMatSubmit}
+      />
+    </Grid>
   );
 }

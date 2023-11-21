@@ -8,7 +8,7 @@ import Capital from "../components/capital/CapDisp";
 import Skeleton from "@mui/material/Skeleton";
 import { CapButton, EditCapButton } from "../components/capital/CapButton";
 import OpCard from "../components/operaciones/OpCard";
-import { AddOp } from "../components/operaciones/OpButtons";
+import { AddOp, AddOpListButton } from "../components/operaciones/OpButtons";
 import OpModal from "../components/operaciones/OpModal";
 import CapModal from "../components/capital/CapModal";
 import InfoExtraCap from "../components/capital/CapInfoExtra";
@@ -156,7 +156,10 @@ const Dashboard = () => {
                       onClose={handleCloseModal}
                       onOperationChange={handleOperationChange}
                     />
-                    <AddOp handleClick={OnClick} />
+                    <div className="d-flex justify-content-between w-75">
+                      <AddOpListButton />
+                      <AddOp handleClick={OnClick} />
+                    </div>
                   </div>
                   <DividerTitle />
                   <Box
