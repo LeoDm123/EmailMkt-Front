@@ -24,7 +24,7 @@ export default function AddMailButton({ onMailCreation }) {
           className="mb-3"
         >
           <Button className="AddMailButton" onClick={handleClick}>
-            Agregar Cliente
+            Add New Mail Campaign
           </Button>
         </ButtonGroup>
         <AddMailModal

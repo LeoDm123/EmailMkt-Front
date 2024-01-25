@@ -1,146 +1,21 @@
-import React, { ChangeEvent } from "react";
-import { useState } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
-import swal from "sweetalert";
-import serverAPI from "../../../../api/serverAPI";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
-const AddMailFilterForm = ({ open, onClose, onMailCreation }) => {
-  const [CampaignTitle, setCampaignTitle] = useState("");
-  const [NameFilter, setNameFilter] = useState("");
-  const [EmployeesNrFilter, setEmployeesNrFilter] = useState("");
-  const [JobTitlesFilter, setJobTitlesFilter] = useState("");
-  const [IndustriesFilter, setIndustriesFilter] = useState("");
-  const [CompanyNameFilter, setCompanyNameFilter] = useState("");
-  const [KeywordsFilter, setKeywordsFilter] = useState("");
-  const [RevenueFilter, setRevenueFilter] = useState("");
-  const [DepartmentFilter, setDepartmentFilter] = useState("");
-  const [LocationFilter, setLocationFilter] = useState("");
-
-  const crearCliente = async (
-    CampaignTitle,
-    NameFilter,
-    EmployeesNrFilter,
-    JobTitlesFilter,
-    ClientCUIT,
-    IndustriesFilter,
-    CompanyNameFilter,
-    KeywordsFilter,
-    RevenueFilter,
-    DepartmentFilter,
-    LocationFilter
-  ) => {
-    try {
-      const resp = await serverAPI.post("/clients/crearCliente", {
-        CampaignTitle,
-        NameFilter,
-        EmployeesNrFilter,
-        JobTitlesFilter,
-        ClientCUIT,
-        IndustriesFilter,
-        CompanyNameFilter,
-        KeywordsFilter,
-        RevenueFilter,
-        DepartmentFilter,
-        LocationFilter,
-      });
-
-      if (
-        resp.data.msg ===
-        "El DNI que intenta registrar ya se encuentra registrado"
-      ) {
-        SwAlertError();
-      } else {
-        console.log(resp);
-        SwAlertOk();
-        onClose();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const SwAlertOk = () => {
-    swal({
-      title: "¡Éxito!",
-      text: "El cliente se agregó correctamente",
-      icon: "success",
-    });
-  };
-
-  const SwAlertError = () => {
-    swal({
-      title: "¡Error!",
-      text: "El cliente ya se encuentra registrado",
-      icon: "error",
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (
-      KeywordsFilter === "" ||
-      CampaignTitle === "" ||
-      EmployeesNrFilter === ""
-    ) {
-      return console.log("todos los campos son obligatorios");
-    }
-
-    console.log(
-      CampaignTitle,
-      NameFilter,
-      EmployeesNrFilter,
-      JobTitlesFilter,
-      IndustriesFilter,
-      CompanyNameFilter,
-      KeywordsFilter,
-      RevenueFilter,
-      DepartmentFilter,
-      LocationFilter
-    );
-
-    crearCliente(
-      CampaignTitle,
-      NameFilter,
-      EmployeesNrFilter,
-      JobTitlesFilter,
-      IndustriesFilter,
-      CompanyNameFilter,
-      KeywordsFilter,
-      RevenueFilter,
-      DepartmentFilter,
-      LocationFilter
-    );
-
-    setCampaignTitle("");
-    setNameFilter("");
-    setEmployeesNrFilter("");
-    setJobTitlesFilter("");
-    setKeywordsFilter("");
-    setIndustriesFilter("");
-    setCompanyNameFilter("");
-    setRevenueFilter("");
-    setDepartmentFilter("");
-    setLocationFilter("");
-
-    onMailCreation();
-  };
-
+const AddMailFilterForm = ({ formData, handleFormChange }) => {
   return (
-    <form id="registerForm" onSubmit={handleSubmit} style={{ height: "70%" }}>
+    <form id="registerForm" style={{ height: "70%" }}>
       <Grid className="w-100 me-3">
         <TextField
           fullWidth
           label="Campaign Title"
           variant="outlined"
-          value={CampaignTitle}
-          onChange={(e) => setCampaignTitle(e.target.value)}
+          value={formData.CampaignTitle}
+          onChange={(e) => handleFormChange("CampaignTitle", e.target.value)}
         />
       </Grid>
 
@@ -150,8 +25,8 @@ const AddMailFilterForm = ({ open, onClose, onMailCreation }) => {
           label="Name"
           variant="outlined"
           className="mt-3 me-2"
-          value={NameFilter}
-          onChange={(e) => setNameFilter(e.target.value)}
+          value={formData.NameFilter}
+          onChange={(e) => handleFormChange("NameFilter", e.target.value)}
         />
 
         <TextField
@@ -159,8 +34,10 @@ const AddMailFilterForm = ({ open, onClose, onMailCreation }) => {
           label="# of Employees"
           variant="outlined"
           className="mt-3 ms-2"
-          value={EmployeesNrFilter}
-          onChange={(e) => setEmployeesNrFilter(e.target.value)}
+          value={formData.EmployeesNrFilter}
+          onChange={(e) =>
+            handleFormChange("EmployeesNrFilter", e.target.value)
+          }
         />
       </Grid>
 
@@ -170,8 +47,10 @@ const AddMailFilterForm = ({ open, onClose, onMailCreation }) => {
           <Select
             label="Job Title"
             className="me-2"
-            value={JobTitlesFilter}
-            onChange={(e) => setJobTitlesFilter(e.target.value)}
+            value={formData.JobTitlesFilter}
+            onChange={(e) =>
+              handleFormChange("JobTitlesFilter", e.target.value)
+            }
           >
             <MenuItem value="">
               <em>Select</em>
@@ -193,8 +72,10 @@ const AddMailFilterForm = ({ open, onClose, onMailCreation }) => {
           <Select
             label="Industries"
             className="ms-2"
-            value={IndustriesFilter}
-            onChange={(e) => setIndustriesFilter(e.target.value)}
+            value={formData.IndustriesFilter}
+            onChange={(e) =>
+              handleFormChange("IndustriesFilter", e.target.value)
+            }
           >
             <MenuItem value="">
               <em>Select</em>
@@ -212,8 +93,10 @@ const AddMailFilterForm = ({ open, onClose, onMailCreation }) => {
           label="Company Name"
           variant="outlined"
           className="mt-3 me-2"
-          value={CompanyNameFilter}
-          onChange={(e) => setCompanyNameFilter(e.target.value)}
+          value={formData.CompanyNameFilter}
+          onChange={(e) =>
+            handleFormChange("CompanyNameFilter", e.target.value)
+          }
         />
 
         <TextField
@@ -221,8 +104,8 @@ const AddMailFilterForm = ({ open, onClose, onMailCreation }) => {
           label="Keywords"
           variant="outlined"
           className="mt-3 ms-2"
-          value={KeywordsFilter}
-          onChange={(e) => setKeywordsFilter(e.target.value)}
+          value={formData.KeywordsFilter}
+          onChange={(e) => handleFormChange("KeywordsFilter", e.target.value)}
         />
       </Grid>
 
@@ -232,8 +115,8 @@ const AddMailFilterForm = ({ open, onClose, onMailCreation }) => {
           label="Revenue"
           variant="outlined"
           className="mt-3 me-2"
-          value={RevenueFilter}
-          onChange={(e) => setRevenueFilter(e.target.value)}
+          value={formData.RevenueFilter}
+          onChange={(e) => handleFormChange("RevenueFilter", e.target.value)}
         />
 
         <TextField
@@ -241,8 +124,8 @@ const AddMailFilterForm = ({ open, onClose, onMailCreation }) => {
           label="Department"
           variant="outlined"
           className="mt-3 ms-2"
-          value={DepartmentFilter}
-          onChange={(e) => setDepartmentFilter(e.target.value)}
+          value={formData.DepartmentFilter}
+          onChange={(e) => handleFormChange("DepartmentFilter", e.target.value)}
         />
       </Grid>
 
@@ -252,8 +135,8 @@ const AddMailFilterForm = ({ open, onClose, onMailCreation }) => {
           label="Location"
           variant="outlined"
           className="mt-3 w-50"
-          value={LocationFilter}
-          onChange={(e) => setLocationFilter(e.target.value)}
+          value={formData.LocationFilter}
+          onChange={(e) => handleFormChange("LocationFilter", e.target.value)}
         />
       </Grid>
     </form>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -9,6 +10,8 @@ import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CloseButton from "../../../CloseButton";
+import swal from "sweetalert";
+import serverAPI from "../../../../api/serverAPI";
 import Title from "../../../Title";
 import AddMailFilterForm from "../forms/AddMailFilterForm";
 import AddMailSubjectAndMessageForm from "../forms/AddMailSubjectAndMessageForm";
@@ -16,20 +19,111 @@ import AddMailOptionsForm from "../forms/AddMailOptionsForm";
 
 const steps = ["Filters", "Subject And Message", "Options"];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddMailFilterForm />;
-    case 1:
-      return <AddMailSubjectAndMessageForm />;
-    case 2:
-      return <AddMailOptionsForm />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
+const AddMailModal = ({ open, onClose }) => {
+  const [formData, setFormData] = useState({
+    CampaignTitle: "",
+    NameFilter: "",
+    EmployeesNrFilter: "",
+    JobTitlesFilter: "",
+    IndustriesFilter: "",
+    CompanyNameFilter: "",
+    KeywordsFilter: "",
+    RevenueFilter: "",
+    DepartmentFilter: "",
+    LocationFilter: "",
+    Subject: "",
+    Message: "",
+    NoHtml: false,
+    RemoveContacts: false,
+    OnlyVerified: false,
+    CustomTracking: false,
+    ABTesting: false,
+    RequestCurrentJob: false,
+    RequestRecentNews: false,
+    RequestCompanyMission: false,
+    BasicWarming: false,
+    AdvancedWarming: false,
+  });
 
-const AddMailModal = ({ open, onClose, onMailCreation }) => {
+  const createMailCampaign = async (
+    CampaignTitle,
+    NameFilter,
+    EmployeesNrFilter,
+    JobTitlesFilter,
+    IndustriesFilter,
+    CompanyNameFilter,
+    KeywordsFilter,
+    RevenueFilter,
+    DepartmentFilter,
+    LocationFilter,
+    Subject,
+    Message,
+    NoHtml,
+    RemoveContacts,
+    OnlyVerified,
+    CustomTracking,
+    ABTesting,
+    RequestCurrentJob,
+    RequestRecentNews,
+    RequestCompanyMission,
+    BasicWarming,
+    AdvancedWarming
+  ) => {
+    try {
+      const resp = await serverAPI.post("/mails/createMailCampaign", {
+        CampaignTitle,
+        NameFilter,
+        EmployeesNrFilter,
+        JobTitlesFilter,
+        IndustriesFilter,
+        CompanyNameFilter,
+        KeywordsFilter,
+        RevenueFilter,
+        DepartmentFilter,
+        LocationFilter,
+        Subject,
+        Message,
+        NoHtml,
+        RemoveContacts,
+        OnlyVerified,
+        CustomTracking,
+        ABTesting,
+        RequestCurrentJob,
+        RequestRecentNews,
+        RequestCompanyMission,
+        BasicWarming,
+        AdvancedWarming,
+      });
+
+      if (resp.data.msg === "Internal server error") {
+        SwAlertError();
+      } else {
+        console.log(resp);
+
+        SwAlertOk();
+        onClose();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const SwAlertOk = () => {
+    swal({
+      title: "¡Success!",
+      text: "Mail campaign created correctly",
+      icon: "success",
+    });
+  };
+
+  const SwAlertError = () => {
+    swal({
+      title: "¡Error!",
+      text: "Internal server error",
+      icon: "error",
+    });
+  };
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -38,6 +132,41 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+  };
+
+  const handleFormChange = (field, value) => {
+    setFormData((prevData) => ({ ...prevData, [field]: value }));
+  };
+
+  const handleFormSubmit = () => {
+    console.log("Form submitted:", formData);
+
+    createMailCampaign(
+      formData.CampaignTitle,
+      formData.NameFilter,
+      formData.EmployeesNrFilter,
+      formData.JobTitlesFilter,
+      formData.IndustriesFilter,
+      formData.CompanyNameFilter,
+      formData.KeywordsFilter,
+      formData.RevenueFilter,
+      formData.DepartmentFilter,
+      formData.LocationFilter,
+      formData.Subject,
+      formData.Message,
+      formData.NoHtml,
+      formData.RemoveContacts,
+      formData.OnlyVerified,
+      formData.CustomTracking,
+      formData.ABTesting,
+      formData.RequestCurrentJob,
+      formData.RequestRecentNews,
+      formData.RequestCompanyMission,
+      formData.BasicWarming,
+      formData.AdvancedWarming
+    );
+
+    onClose();
   };
 
   return (
@@ -68,17 +197,29 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
         {activeStep === steps.length ? (
           <React.Fragment>
             <Typography variant="h5" gutterBottom>
-              Thank you for your order.
-            </Typography>
-            <Typography variant="subtitle1">
-              Your order number is #2001539. We have emailed your order
-              confirmation, and will send you an update when your order has
-              shipped.
+              Email campaign created! Thank you!.
             </Typography>
           </React.Fragment>
         ) : (
           <React.Fragment>
-            {getStepContent(activeStep)}
+            {activeStep === 0 && (
+              <AddMailFilterForm
+                formData={formData}
+                handleFormChange={handleFormChange}
+              />
+            )}
+            {activeStep === 1 && (
+              <AddMailSubjectAndMessageForm
+                formData={formData}
+                handleFormChange={handleFormChange}
+              />
+            )}
+            {activeStep === 2 && (
+              <AddMailOptionsForm
+                formData={formData}
+                handleFormChange={handleFormChange}
+              />
+            )}
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
               {activeStep !== 0 && (
                 <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -88,10 +229,14 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
 
               <Button
                 variant="contained"
-                onClick={handleNext}
+                onClick={
+                  activeStep === steps.length - 1
+                    ? handleFormSubmit
+                    : handleNext
+                }
                 sx={{ mt: 3, ml: 1 }}
               >
-                {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                {activeStep === steps.length - 1 ? "Create campaign" : "Next"}
               </Button>
             </Box>
           </React.Fragment>

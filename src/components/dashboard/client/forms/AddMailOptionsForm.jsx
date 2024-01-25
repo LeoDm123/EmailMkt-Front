@@ -1,94 +1,88 @@
-import React, { ChangeEvent } from "react";
-import { useState } from "react";
-import Grid from "@mui/material/Grid";
-import swal from "sweetalert";
-import serverAPI from "../../../../api/serverAPI";
-import TextField from "@mui/material/TextField";
+import React from "react";
+import PersonalSwitch from "../../../Switch";
 
-const AddMailOptionsForm = ({ open, onClose, onMailCreation }) => {
-  const [Subject, setSubject] = useState("");
-  const [Message, setMessage] = useState("");
-
-  const crearCliente = async (Subject, Message) => {
-    try {
-      const resp = await serverAPI.post("/clients/crearCliente", {
-        Subject,
-        Message,
-      });
-
-      if (
-        resp.data.msg ===
-        "El DNI que intenta registrar ya se encuentra registrado"
-      ) {
-        SwAlertError();
-      } else {
-        console.log(resp);
-        SwAlertOk();
-        onClose();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const SwAlertOk = () => {
-    swal({
-      title: "¡Éxito!",
-      text: "El cliente se agregó correctamente",
-      icon: "success",
-    });
-  };
-
-  const SwAlertError = () => {
-    swal({
-      title: "¡Error!",
-      text: "El cliente ya se encuentra registrado",
-      icon: "error",
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (KeywordsFilter === "" || Subject === "" || EmployeesNrFilter === "") {
-      return console.log("todos los campos son obligatorios");
-    }
-
-    console.log(Subject, Message);
-
-    crearCliente(Subject, Message);
-
-    setSubject("");
-    setMessage("");
-
-    onMailCreation();
-  };
+const AddMailOptionsForm = ({ formData, handleFormChange }) => {
+  const {
+    NoHtml,
+    RemoveContacts,
+    OnlyVerified,
+    CustomTracking,
+    ABTesting,
+    RequestCurrentJob,
+    RequestRecentNews,
+    RequestCompanyMission,
+    BasicWarming,
+    AdvancedWarming,
+  } = formData;
 
   return (
-    <form id="registerForm" onSubmit={handleSubmit} style={{ height: "70%" }}>
-      <Grid className="w-100 me-3">
-        <TextField
-          fullWidth
-          label="Subject"
-          variant="outlined"
-          value={Subject}
-          onChange={(e) => setSubject(e.target.value)}
-        />
-      </Grid>
-
-      <Grid className="w-100 d-flex flex-direction-row">
-        <TextField
-          fullWidth
-          sx={{ flex: 1 }}
-          label="Message"
-          variant="outlined"
-          className="mt-3"
-          multiline
-          minRows={16}
-          value={Message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-      </Grid>
+    <form id="optionsForm" style={{ height: "70%" }}>
+      <PersonalSwitch
+        checked={NoHtml}
+        onChange={() => handleFormChange("NoHtml", !NoHtml)}
+        defaultChecked={false}
+        label="No HTML"
+      />
+      <PersonalSwitch
+        checked={RemoveContacts}
+        onChange={() => handleFormChange("RemoveContacts", !RemoveContacts)}
+        defaultChecked={false}
+        label="Remove all contacts from the same company if reply"
+      />
+      <PersonalSwitch
+        checked={OnlyVerified}
+        onChange={() => handleFormChange("OnlyVerified", !OnlyVerified)}
+        defaultChecked={false}
+        label="Use only “verified” emails, “unknown” emails, or all “emails” (not advised)"
+      />
+      <PersonalSwitch
+        checked={CustomTracking}
+        onChange={() => handleFormChange("CustomTracking", !CustomTracking)}
+        defaultChecked={false}
+        label="Custom Tracking Domains"
+      />
+      <PersonalSwitch
+        checked={ABTesting}
+        onChange={() => handleFormChange("ABTesting", !ABTesting)}
+        defaultChecked={false}
+        label="A|B Testing Optimization"
+      />
+      <PersonalSwitch
+        checked={RequestCurrentJob}
+        onChange={() =>
+          handleFormChange("RequestCurrentJob", !RequestCurrentJob)
+        }
+        defaultChecked={false}
+        label="Request Personalization - Current Job Posting"
+      />
+      <PersonalSwitch
+        checked={RequestRecentNews}
+        onChange={() =>
+          handleFormChange("RequestRecentNews", !RequestRecentNews)
+        }
+        defaultChecked={false}
+        label="Request Personalization - Recent News Coverage"
+      />
+      <PersonalSwitch
+        checked={RequestCompanyMission}
+        onChange={() =>
+          handleFormChange("RequestCompanyMission", !RequestCompanyMission)
+        }
+        defaultChecked={false}
+        label="Request Personalization - Company Mission Statement"
+      />
+      <PersonalSwitch
+        checked={BasicWarming}
+        onChange={() => handleFormChange("BasicWarming", !BasicWarming)}
+        defaultChecked={false}
+        label="Basic Warming (Note: 2 week warm time)"
+      />
+      <PersonalSwitch
+        checked={AdvancedWarming}
+        onChange={() => handleFormChange("AdvancedWarming", !AdvancedWarming)}
+        defaultChecked={false}
+        label="Advanced Warming (Note: 4 weeks warm time)"
+      />
     </form>
   );
 };
