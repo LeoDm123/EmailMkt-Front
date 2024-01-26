@@ -22,23 +22,38 @@ const ClientDashboard = () => {
     <ThemeProvider theme={defaultTheme}>
       <Header
         content={
-          <Container maxWidth="xl" sx={{ mt: 1, mb: 2 }}>
-            <Grid item xs={12} md={12} lg={12} xl={12}>
+          <Grid container maxWidth="xl" sx={{ mt: 1, mb: 2, margin: 0 }}>
+            <Grid item xs={12} md={12} lg={12} xl={6} className="p-2">
               <Grid className="d-flex justify-content-between">
                 <AddMailButton onMailCreation={handleMailSubmit} />
               </Grid>
               <Paper
                 sx={{
-                  p: 2,
+                  pt: 1,
                   display: "flex",
                   flexDirection: "column",
-                  height: 500,
+                  height: 580,
                 }}
               >
                 <MailCampaignsList onMailCreation={onMailSubmit} />
               </Paper>
             </Grid>
-          </Container>
+            <Grid item xs={12} md={12} lg={12} xl={6} className="p-2">
+              <Grid className="d-flex justify-content-between">
+                <AddMailButton onMailCreation={handleMailSubmit} />
+              </Grid>
+              <Paper
+                sx={{
+                  pt: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: 580,
+                }}
+              >
+                <MailCampaignsList onMailCreation={onMailSubmit} />
+              </Paper>
+            </Grid>
+          </Grid>
         }
       />
     </ThemeProvider>

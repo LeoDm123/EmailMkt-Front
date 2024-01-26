@@ -12,8 +12,7 @@ const InfoMailSubjectAndMessageForm = ({ campaignID }) => {
         const resp = await serverAPI.get(
           `/mails/fetchMailCampaignsByID/${campaignID}`
         );
-        const campaignData = resp.data[0];
-        console.log(campaignData);
+        const campaignData = resp.data;
 
         setFormData({
           Subject: campaignData.mailCampaignSubjectAndMessage[0]?.Subject,
@@ -28,30 +27,15 @@ const InfoMailSubjectAndMessageForm = ({ campaignID }) => {
   }, [campaignID]);
 
   return (
-    <form id="messageForm" style={{ height: "70%" }}>
+    <Grid sx={{ height: "70%" }}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="Subject"
-            variant="outlined"
-            value={formData.Subject}
-            disabled
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="Message"
-            variant="outlined"
-            multiline
-            minRows={16}
-            value={formData.Message}
-            disabled
-          />
-        </Grid>
+        {Object.entries(formData).map(([key, value], index) => (
+          <Grid item xs={12} sm={12} key={key}>
+            <TextField fullWidth label={key} variant="outlined" value={value} />
+          </Grid>
+        ))}
       </Grid>
-    </form>
+    </Grid>
   );
 };
 

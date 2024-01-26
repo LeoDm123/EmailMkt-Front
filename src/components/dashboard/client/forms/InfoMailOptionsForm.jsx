@@ -12,8 +12,7 @@ const InfoMailOptionsForm = ({ campaignID }) => {
         const resp = await serverAPI.get(
           `/mails/fetchMailCampaignsByID/${campaignID}`
         );
-        const campaignData = resp.data[0];
-        console.log(campaignData);
+        const campaignData = resp.data;
 
         setFormData({
           NoHtml: campaignData.mailCampaignOptions[0]?.NoHtml,
