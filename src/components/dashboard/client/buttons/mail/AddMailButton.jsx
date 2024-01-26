@@ -2,7 +2,7 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Grid from "@mui/material/Grid";
-import AddMailModal from "../modals/AddMailModal";
+import AddMailModal from "../../modals/mail/AddMailModal";
 
 export default function AddMailButton({ onMailCreation }) {
   const [modalOpen, setModalOpen] = React.useState(false);

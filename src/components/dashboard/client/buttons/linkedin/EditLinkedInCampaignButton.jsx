@@ -1,9 +1,9 @@
 import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
-import EditMailModal from "../modals/EditMailModal";
+import EditLinkedInModal from "../../modals/linkedin/EditLinkedInModal";
 
-export default function EditMailCampaignButton({ campaignID }) {
+export default function EditLinkedCampaignButton({ campaignID }) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -17,7 +17,7 @@ export default function EditMailCampaignButton({ campaignID }) {
   return (
     <IconButton className="d-flex justify-content-center" onClick={handleClick}>
       <EditIcon />
-      <EditMailModal
+      <EditLinkedInModal
         open={modalOpen}
         onClose={handleCloseModal}
         campaignID={campaignID}

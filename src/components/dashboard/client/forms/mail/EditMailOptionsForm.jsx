@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
-import serverAPI from "../../../../api/serverAPI";
-import PersonalSwitch from "../../../Switch";
+import serverAPI from "../../../../../api/serverAPI";
+import PersonalSwitch from "../../../../Switch";
 
 const EditMailOptionsForm = ({
   NoHtml,

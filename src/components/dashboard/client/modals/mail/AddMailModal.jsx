@@ -9,19 +9,19 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import CloseButton from "../../../CloseButton";
+import CloseButton from "../../../../CloseButton";
 import swal from "sweetalert";
-import serverAPI from "../../../../api/serverAPI";
-import Title from "../../../Title";
-import EditMailFilterForm from "../forms/EditMailFilterForm";
-import EditMailSubjectAndMessageForm from "../forms/EditMailSubjectAndMessageForm";
-import EditMailOptionsForm from "../forms/EditMailOptionsForm";
+import serverAPI from "../../../../../api/serverAPI";
+import Title from "../../../../Title";
+import AddMailFilterForm from "../../forms/mail/AddMailFilterForm";
+import AddMailSubjectAndMessageForm from "../../forms/mail/AddMailSubjectAndMessageForm";
+import AddMailOptionsForm from "../../forms/mail/AddMailOptionsForm";
 
 const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
 
 const steps = ["Filters", "Subject And Message", "Options"];
 
-const EditMailModal = ({ open, onClose, campaignID }) => {
+const AddMailModal = ({ open, onClose, onMailCreation }) => {
   const [formData, setFormData] = useState({
     CampaignTitle: "",
     NameFilter: "",
@@ -47,7 +47,8 @@ const EditMailModal = ({ open, onClose, campaignID }) => {
     AdvancedWarming: false,
   });
 
-  const editMailCampaign = async (
+  const createMailCampaign = async (
+    loggedInUserEmail,
     CampaignTitle,
     NameFilter,
     EmployeesNrFilter,
@@ -72,33 +73,31 @@ const EditMailModal = ({ open, onClose, campaignID }) => {
     AdvancedWarming
   ) => {
     try {
-      const resp = await serverAPI.put(
-        `/mails/editMailCampaignByID/${campaignID}`,
-        {
-          CampaignTitle,
-          NameFilter,
-          EmployeesNrFilter,
-          JobTitlesFilter,
-          IndustriesFilter,
-          CompanyNameFilter,
-          KeywordsFilter,
-          RevenueFilter,
-          DepartmentFilter,
-          LocationFilter,
-          Subject,
-          Message,
-          NoHtml,
-          RemoveContacts,
-          OnlyVerified,
-          CustomTracking,
-          ABTesting,
-          RequestCurrentJob,
-          RequestRecentNews,
-          RequestCompanyMission,
-          BasicWarming,
-          AdvancedWarming,
-        }
-      );
+      const resp = await serverAPI.post("/mails/createMailCampaign", {
+        loggedInUserEmail,
+        CampaignTitle,
+        NameFilter,
+        EmployeesNrFilter,
+        JobTitlesFilter,
+        IndustriesFilter,
+        CompanyNameFilter,
+        KeywordsFilter,
+        RevenueFilter,
+        DepartmentFilter,
+        LocationFilter,
+        Subject,
+        Message,
+        NoHtml,
+        RemoveContacts,
+        OnlyVerified,
+        CustomTracking,
+        ABTesting,
+        RequestCurrentJob,
+        RequestRecentNews,
+        RequestCompanyMission,
+        BasicWarming,
+        AdvancedWarming,
+      });
 
       if (resp.data.msg === "Internal server error") {
         SwAlertError();
@@ -107,6 +106,7 @@ const EditMailModal = ({ open, onClose, campaignID }) => {
 
         SwAlertOk();
         onClose();
+        onMailCreation();
       }
     } catch (error) {
       console.error(error);
@@ -116,7 +116,7 @@ const EditMailModal = ({ open, onClose, campaignID }) => {
   const SwAlertOk = () => {
     swal({
       title: "¡Success!",
-      text: "Mail campaign edited correctly",
+      text: "Mail campaign created correctly",
       icon: "success",
     });
   };
@@ -146,7 +146,8 @@ const EditMailModal = ({ open, onClose, campaignID }) => {
   const handleFormSubmit = () => {
     console.log("Form submitted:", formData);
 
-    editMailCampaign(
+    createMailCampaign(
+      loggedInUserEmail,
       formData.CampaignTitle,
       formData.NameFilter,
       formData.EmployeesNrFilter,
@@ -189,7 +190,7 @@ const EditMailModal = ({ open, onClose, campaignID }) => {
         className="CreateModal"
       >
         <Grid className="d-flex justify-content-between mb-2">
-          <Title>Edit e-mail campaign</Title>
+          <Title>Add new e-mail campaign</Title>
           <CloseButton handleClick={onClose} />
         </Grid>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
@@ -208,43 +209,21 @@ const EditMailModal = ({ open, onClose, campaignID }) => {
         ) : (
           <React.Fragment>
             {activeStep === 0 && (
-              <EditMailFilterForm
-                CampaignTitle={formData.CampaignTitle}
-                NameFilter={formData.NameFilter}
-                EmployeesNrFilter={formData.EmployeesNrFilter}
-                JobTitlesFilter={formData.JobTitlesFilter}
-                IndustriesFilter={formData.IndustriesFilter}
-                CompanyNameFilter={formData.CompanyNameFilter}
-                KeywordsFilter={formData.KeywordsFilter}
-                RevenueFilter={formData.RevenueFilter}
-                DepartmentFilter={formData.DepartmentFilter}
-                LocationFilter={formData.LocationFilter}
+              <AddMailFilterForm
+                formData={formData}
                 handleFormChange={handleFormChange}
-                campaignID={campaignID}
               />
             )}
             {activeStep === 1 && (
-              <EditMailSubjectAndMessageForm
-                Subject={formData.Subject}
-                Message={formData.Message}
+              <AddMailSubjectAndMessageForm
+                formData={formData}
                 handleFormChange={handleFormChange}
-                campaignID={campaignID}
               />
             )}
             {activeStep === 2 && (
-              <EditMailOptionsForm
-                NoHtml={formData.NoHtml}
-                RemoveContacts={formData.RemoveContacts}
-                OnlyVerified={formData.OnlyVerified}
-                CustomTracking={formData.CustomTracking}
-                ABTesting={formData.ABTesting}
-                RequestCurrentJob={formData.RequestCurrentJob}
-                RequestRecentNews={formData.RequestRecentNews}
-                RequestCompanyMission={formData.RequestCompanyMission}
-                BasicWarming={formData.BasicWarming}
-                AdvancedWarming={formData.AdvancedWarming}
+              <AddMailOptionsForm
+                formData={formData}
                 handleFormChange={handleFormChange}
-                campaignID={campaignID}
               />
             )}
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -263,7 +242,7 @@ const EditMailModal = ({ open, onClose, campaignID }) => {
                 }
                 sx={{ mt: 3, ml: 1 }}
               >
-                {activeStep === steps.length - 1 ? "Edit campaign" : "Next"}
+                {activeStep === steps.length - 1 ? "Create campaign" : "Next"}
               </Button>
             </Box>
           </React.Fragment>
@@ -273,4 +252,4 @@ const EditMailModal = ({ open, onClose, campaignID }) => {
   );
 };
 
-export default EditMailModal;
+export default AddMailModal;

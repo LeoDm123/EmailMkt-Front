@@ -1,5 +1,5 @@
 import React from "react";
-import PersonalSwitch from "../../../Switch";
+import PersonalSwitch from "../../../../Switch";
 
 const AddMailOptionsForm = ({ formData, handleFormChange }) => {
   const {

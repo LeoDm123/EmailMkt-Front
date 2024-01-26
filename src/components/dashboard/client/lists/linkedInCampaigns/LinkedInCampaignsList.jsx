@@ -10,38 +10,42 @@ import serverAPI from "../../../../../api/serverAPI";
 import "../../../../../css/App.css";
 import MailCampaignInfoButton from "../../buttons/mail/MailCampaignInfoButton";
 import DeleteButton from "../../../../DeleteButton";
-import EditMailCampaignButton from "../../buttons/mail/EditMailCampaignButton";
+import EditLinkedInCampaignButton from "../../buttons/linkedin/EditLinkedInCampaignButton";
 
-const MailCampaignsList = ({ onMailCreation }) => {
-  const [mailCampaigns, setMailCampaigns] = useState([]);
-  const [onMailDelete, setOnMailDelete] = useState(false);
+const LinkedInCampaignsList = ({ onLinkedInCreation }) => {
+  const [linkedInCampaigns, setLinkedInCampaigns] = useState([]);
+  const [onLinkedInDelete, setOnLinkedInDelete] = useState(false);
 
   useEffect(() => {
-    const fetchMailCampaigns = async () => {
+    const fetchLinkedInCampaigns = async () => {
       try {
-        const response = await serverAPI.get("/mails/fetchMailCampaigns");
+        const response = await serverAPI.get(
+          "/linkedin/fetchLinkedInCampaigns"
+        );
         const sortedCampaigns = response.data.slice();
         sortedCampaigns.sort((a, b) => {
           const CampaignA = a.mailCampaignName;
           const CampaignB = b.mailCampaignName;
           return CampaignA.localeCompare(CampaignB);
         });
-        setMailCampaigns(sortedCampaigns);
+        setLinkedInCampaigns(sortedCampaigns);
       } catch (error) {
         console.error("Error :", error);
       }
     };
 
-    fetchMailCampaigns();
-  }, [onMailCreation, onMailDelete]);
+    fetchLinkedInCampaigns();
+  }, [onLinkedInCreation, onLinkedInDelete]);
 
   const deleteCampaign = async (campaignId) => {
     try {
       const deleteResp = await serverAPI.delete(
-        `/mails/deleteMailCampaignByID/${campaignId}`
+        `/linkedin/deleteLinkedInCampaignByID/${campaignId}`
       );
 
-      if (deleteResp.data.message === "Mail campaign deleted successfully") {
+      if (
+        deleteResp.data.message === "LinkedIn campaign deleted successfully"
+      ) {
         SwAlertOk();
         handleCampaignDelete();
       } else {
@@ -53,7 +57,7 @@ const MailCampaignsList = ({ onMailCreation }) => {
   };
 
   const handleCampaignDelete = () => {
-    setOnMailDelete(!onMailDelete);
+    setOnLinkedInDelete(!onLinkedInDelete);
   };
 
   const handleDeleteCampaign = (campaignId) => {
@@ -130,18 +134,18 @@ const MailCampaignsList = ({ onMailCreation }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {mailCampaigns.map((campaign, index) => (
+          {linkedInCampaigns.map((campaign, index) => (
             <React.Fragment key={index}>
               <TableRow>
                 <TableCell className="text-center">
-                  {campaign.mailCampaignName}
+                  {campaign.linkedInCampaignName}
                 </TableCell>
                 <TableCell className="text-center">{campaign.date}</TableCell>
                 <TableCell className="text-center">{campaign.status}</TableCell>
                 <TableCell>
                   <Grid className="d-flex align-items-center justify-content-center">
                     <MailCampaignInfoButton campaignID={campaign._id} />
-                    <EditMailCampaignButton campaignID={campaign._id} />
+                    <EditLinkedInCampaignButton campaignID={campaign._id} />
                     <DeleteButton
                       onDelete={() => handleDeleteCampaign(campaign._id)}
                     />
@@ -156,4 +160,4 @@ const MailCampaignsList = ({ onMailCreation }) => {
   );
 };
 
-export default MailCampaignsList;
+export default LinkedInCampaignsList;

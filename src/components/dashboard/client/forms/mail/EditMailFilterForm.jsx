@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import serverAPI from "../../../../api/serverAPI";
+import serverAPI from "../../../../../api/serverAPI";
 
 const EditMailFilterForm = ({
   CampaignTitle,

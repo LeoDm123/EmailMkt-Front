@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import serverAPI from "../../../../api/serverAPI";
-import PersonalSwitch from "../../../Switch";
+import serverAPI from "../../../../../api/serverAPI";
+import PersonalSwitch from "../../../../Switch";
 
 const InfoMailOptionsForm = ({ campaignID }) => {
   const [formData, setFormData] = useState({});

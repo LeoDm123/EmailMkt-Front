@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import serverAPI from "../../../../api/serverAPI";
+import serverAPI from "../../../../../api/serverAPI";
 
 const InfoMailSubjectAndMessageForm = ({ campaignID }) => {
   const [formData, setFormData] = useState({});

@@ -2,37 +2,37 @@ import React from "react";
 import { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import serverAPI from "../../../../api/serverAPI";
+import serverAPI from "../../../../../api/serverAPI";
 
-const EditMailSubjectAndMessageForm = ({
+const EditLinkedInSubjectAndMessageForm = ({
   Subject,
   Message,
-  handleFormChange,
   campaignID,
+  handleFormChange,
 }) => {
   useEffect(() => {
-    const fetchMailCampaignsByID = async () => {
+    const fetchLinkedInCampaignsByID = async () => {
       try {
         console.log(campaignID);
         const resp = await serverAPI.get(
-          `/mails/fetchMailCampaignsByID/${campaignID}`
+          `/linkedin/fetchLinkedInCampaignsByID/${campaignID}`
         );
         const campaignData = resp.data;
 
         handleFormChange(
           "Subject",
-          campaignData.mailCampaignSubjectAndMessage[0]?.Subject
+          campaignData.linkedInCampaignSubjectAndMessage[0]?.Subject
         );
         handleFormChange(
           "Message",
-          campaignData.mailCampaignSubjectAndMessage[1]?.Message
+          campaignData.linkedInCampaignSubjectAndMessage[1]?.Message
         );
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchMailCampaignsByID();
+    fetchLinkedInCampaignsByID();
   }, [campaignID]);
 
   return (
@@ -64,4 +64,4 @@ const EditMailSubjectAndMessageForm = ({
   );
 };
 
-export default EditMailSubjectAndMessageForm;
+export default EditLinkedInSubjectAndMessageForm;

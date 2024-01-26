@@ -9,94 +9,106 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import CloseButton from "../../../CloseButton";
+import CloseButton from "../../../../CloseButton";
 import swal from "sweetalert";
-import serverAPI from "../../../../api/serverAPI";
-import Title from "../../../Title";
-import AddMailFilterForm from "../forms/AddMailFilterForm";
-import AddMailSubjectAndMessageForm from "../forms/AddMailSubjectAndMessageForm";
-import AddMailOptionsForm from "../forms/AddMailOptionsForm";
+import serverAPI from "../../../../../api/serverAPI";
+import Title from "../../../../Title";
+import AddLinkedInFilterOneForm from "../../forms/linkedin/AddLinkedInFiltersOneForm";
+import AddLinkedInFilterTwoForm from "../../forms/linkedin/AddLinkedInFilterTwoForm";
+import AddLinkedInFilterThreeForm from "../../forms/linkedin/AddLinkedInFilterThreeForm";
+import AddLinkedInSubjectAndMessageForm from "../../forms/linkedin/AddLinkedInSubjectAndMessageForm";
 
 const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
 
-const steps = ["Filters", "Subject And Message", "Options"];
+const steps = [
+  "Title & Company",
+  "Role",
+  "Personal & Recent Updates",
+  "Subject And Message",
+];
 
-const AddMailModal = ({ open, onClose, onMailCreation }) => {
+const AddLinkedInModal = ({ open, onClose, onMailCreation }) => {
   const [formData, setFormData] = useState({
     CampaignTitle: "",
-    NameFilter: "",
-    EmployeesNrFilter: "",
-    JobTitlesFilter: "",
-    IndustriesFilter: "",
-    CompanyNameFilter: "",
-    KeywordsFilter: "",
-    RevenueFilter: "",
-    DepartmentFilter: "",
-    LocationFilter: "",
+    CurrentCompanyNameFilter: "",
+    CompanyHeadountFilter: "",
+    PastCompanyNameFilter: "",
+    CompanyTypeFilter: "",
+    CompanyHQLocationFilter: "",
+    RoleFunctionFilter: "",
+    CurrentJobTitleFilter: "",
+    SeniorityLevelFilter: "",
+    PastJobTitleFilter: "",
+    YearsInCurrentCompanyFilter: "",
+    YearsInCurrentPositionFilter: "",
+    GeographyFilter: "",
+    IndustryFilter: "",
+    FirstNameFilter: "",
+    LastNameFilter: "",
+    ProfileLanguageFilter: "",
+    YearsOfExperienceFilter: "",
+    GroupsFilter: "",
+    SchoolFilter: "",
+    ChangedJobsFilter: "",
+    PostedOnLinkedInFilter: "",
     Subject: "",
     Message: "",
-    NoHtml: false,
-    RemoveContacts: false,
-    OnlyVerified: false,
-    CustomTracking: false,
-    ABTesting: false,
-    RequestCurrentJob: false,
-    RequestRecentNews: false,
-    RequestCompanyMission: false,
-    BasicWarming: false,
-    AdvancedWarming: false,
   });
 
   const createMailCampaign = async (
     loggedInUserEmail,
     CampaignTitle,
-    NameFilter,
-    EmployeesNrFilter,
-    JobTitlesFilter,
-    IndustriesFilter,
-    CompanyNameFilter,
-    KeywordsFilter,
-    RevenueFilter,
-    DepartmentFilter,
-    LocationFilter,
+    CurrentCompanyNameFilter,
+    CompanyHeadcountFilter,
+    PastCompanyNameFilter,
+    CompanyTypeFilter,
+    CompanyHQLocationFilter,
+    RoleFunctionFilter,
+    CurrentJobTitleFilter,
+    SeniorityLevelFilter,
+    PastJobTitleFilter,
+    YearsInCurrentCompanyFilter,
+    YearsInCurrentPositionFilter,
+    GeographyFilter,
+    IndustryFilter,
+    FirstNameFilter,
+    LastNameFilter,
+    ProfileLanguageFilter,
+    YearsOfExperienceFilter,
+    GroupsFilter,
+    SchoolFilter,
+    ChangedJobsFilter,
+    PostedOnLinkedInFilter,
     Subject,
-    Message,
-    NoHtml,
-    RemoveContacts,
-    OnlyVerified,
-    CustomTracking,
-    ABTesting,
-    RequestCurrentJob,
-    RequestRecentNews,
-    RequestCompanyMission,
-    BasicWarming,
-    AdvancedWarming
+    Message
   ) => {
     try {
-      const resp = await serverAPI.post("/mails/createMailCampaign", {
+      const resp = await serverAPI.post("/linkedin/createLinkedInCampaign", {
         loggedInUserEmail,
         CampaignTitle,
-        NameFilter,
-        EmployeesNrFilter,
-        JobTitlesFilter,
-        IndustriesFilter,
-        CompanyNameFilter,
-        KeywordsFilter,
-        RevenueFilter,
-        DepartmentFilter,
-        LocationFilter,
+        CurrentCompanyNameFilter,
+        CompanyHeadcountFilter,
+        PastCompanyNameFilter,
+        CompanyTypeFilter,
+        CompanyHQLocationFilter,
+        RoleFunctionFilter,
+        CurrentJobTitleFilter,
+        SeniorityLevelFilter,
+        PastJobTitleFilter,
+        YearsInCurrentCompanyFilter,
+        YearsInCurrentPositionFilter,
+        GeographyFilter,
+        IndustryFilter,
+        FirstNameFilter,
+        LastNameFilter,
+        ProfileLanguageFilter,
+        YearsOfExperienceFilter,
+        GroupsFilter,
+        SchoolFilter,
+        ChangedJobsFilter,
+        PostedOnLinkedInFilter,
         Subject,
         Message,
-        NoHtml,
-        RemoveContacts,
-        OnlyVerified,
-        CustomTracking,
-        ABTesting,
-        RequestCurrentJob,
-        RequestRecentNews,
-        RequestCompanyMission,
-        BasicWarming,
-        AdvancedWarming,
       });
 
       if (resp.data.msg === "Internal server error") {
@@ -149,27 +161,29 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
     createMailCampaign(
       loggedInUserEmail,
       formData.CampaignTitle,
-      formData.NameFilter,
-      formData.EmployeesNrFilter,
-      formData.JobTitlesFilter,
-      formData.IndustriesFilter,
-      formData.CompanyNameFilter,
-      formData.KeywordsFilter,
-      formData.RevenueFilter,
-      formData.DepartmentFilter,
-      formData.LocationFilter,
+      formData.CurrentCompanyNameFilter,
+      formData.CompanyHeadcountFilter,
+      formData.PastCompanyNameFilter,
+      formData.CompanyTypeFilter,
+      formData.CompanyHQLocationFilter,
+      formData.RoleFunctionFilter,
+      formData.CurrentJobTitleFilter,
+      formData.SeniorityLevelFilter,
+      formData.PastJobTitleFilter,
+      formData.YearsInCurrentCompanyFilter,
+      formData.YearsInCurrentPositionFilter,
+      formData.GeographyFilter,
+      formData.IndustryFilter,
+      formData.FirstNameFilter,
+      formData.LastNameFilter,
+      formData.ProfileLanguageFilter,
+      formData.YearsOfExperienceFilter,
+      formData.GroupsFilter,
+      formData.SchoolFilter,
+      formData.ChangedJobsFilter,
+      formData.PostedOnLinkedInFilter,
       formData.Subject,
-      formData.Message,
-      formData.NoHtml,
-      formData.RemoveContacts,
-      formData.OnlyVerified,
-      formData.CustomTracking,
-      formData.ABTesting,
-      formData.RequestCurrentJob,
-      formData.RequestRecentNews,
-      formData.RequestCompanyMission,
-      formData.BasicWarming,
-      formData.AdvancedWarming
+      formData.Message
     );
 
     onClose();
@@ -190,7 +204,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
         className="CreateModal"
       >
         <Grid className="d-flex justify-content-between mb-2">
-          <Title>Add new e-mail campaign</Title>
+          <Title>Add new LinkedIn campaign</Title>
           <CloseButton handleClick={onClose} />
         </Grid>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
@@ -209,19 +223,25 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
         ) : (
           <React.Fragment>
             {activeStep === 0 && (
-              <AddMailFilterForm
+              <AddLinkedInFilterOneForm
                 formData={formData}
                 handleFormChange={handleFormChange}
               />
             )}
             {activeStep === 1 && (
-              <AddMailSubjectAndMessageForm
+              <AddLinkedInFilterTwoForm
                 formData={formData}
                 handleFormChange={handleFormChange}
               />
             )}
             {activeStep === 2 && (
-              <AddMailOptionsForm
+              <AddLinkedInFilterThreeForm
+                formData={formData}
+                handleFormChange={handleFormChange}
+              />
+            )}
+            {activeStep === 3 && (
+              <AddLinkedInSubjectAndMessageForm
                 formData={formData}
                 handleFormChange={handleFormChange}
               />
@@ -252,4 +272,4 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
   );
 };
 
-export default AddMailModal;
+export default AddLinkedInModal;

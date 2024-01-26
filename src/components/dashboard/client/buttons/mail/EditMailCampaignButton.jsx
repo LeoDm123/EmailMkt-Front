@@ -1,10 +1,9 @@
 import * as React from "react";
 import IconButton from "@mui/material/IconButton";
-import Grid from "@mui/material/Grid";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import InfoMailModal from "../modals/InfoMailModal";
+import EditIcon from "@mui/icons-material/Edit";
+import EditMailModal from "../../modals/mail/EditMailModal";
 
-export default function MailCampaignInfoButton({ campaignID }) {
+export default function EditMailCampaignButton({ campaignID }) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -16,15 +15,13 @@ export default function MailCampaignInfoButton({ campaignID }) {
   };
 
   return (
-    <Grid>
-      <IconButton onClick={handleClick} color="primary">
-        <InfoOutlinedIcon />
-      </IconButton>
-      <InfoMailModal
+    <IconButton className="d-flex justify-content-center" onClick={handleClick}>
+      <EditIcon />
+      <EditMailModal
         open={modalOpen}
         onClose={handleCloseModal}
         campaignID={campaignID}
       />
-    </Grid>
+    </IconButton>
   );
 }

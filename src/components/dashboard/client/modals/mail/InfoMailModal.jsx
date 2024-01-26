@@ -9,11 +9,11 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import CloseButton from "../../../CloseButton";
-import Title from "../../../Title";
-import InfoMailFilterForm from "../forms/InfoMailFilterForm";
-import InfoMailOptionsForm from "../forms/InfoMailOptionsForm";
-import InfoMailSubjectAndMessageForm from "../forms/infoMailSubjectAndMessageForm";
+import CloseButton from "../../../../CloseButton";
+import Title from "../../../../Title";
+import InfoMailFilterForm from "../../forms/mail/InfoMailFilterForm";
+import InfoMailOptionsForm from "../../forms/mail/InfoMailOptionsForm";
+import InfoMailSubjectAndMessageForm from "../../forms/mail/InfoMailSubjectAndMessageForm";
 
 const steps = ["Filters", "Subject And Message", "Options"];
 

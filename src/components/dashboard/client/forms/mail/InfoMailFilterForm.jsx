@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import serverAPI from "../../../../api/serverAPI";
+import serverAPI from "../../../../../api/serverAPI";
 
 const AddMailFilterForm = ({ campaignID }) => {
   const [formData, setFormData] = useState({});
