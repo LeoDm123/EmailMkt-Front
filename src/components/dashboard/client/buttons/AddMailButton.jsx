@@ -21,7 +21,7 @@ export default function AddMailButton({ onMailCreation }) {
         <ButtonGroup
           variant="contained"
           aria-label="split button"
-          className="mb-3"
+          className="mb-3 mt-1"
         >
           <Button className="AddMailButton" onClick={handleClick}>
             Add New Mail Campaign

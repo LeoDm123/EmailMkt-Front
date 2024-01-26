@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import serverAPI from "../../../../../api/serverAPI";
 import "../../../../../css/App.css";
 import MailCampaignInfoButton from "../../buttons/MailCampaignInfoButton";
+import DeleteButton from "../../../../DeleteButton";
 
 const MailCampaignsList = ({}) => {
   const [openRows, setOpenRows] = useState([]);
@@ -37,6 +38,37 @@ const MailCampaignsList = ({}) => {
 
     fetchMailCampaigns();
   }, []);
+
+  const deleteCampaign = async (campaignId) => {
+    try {
+      const deleteResp = await serverAPI.delete(
+        `/mails/deleteMailCampaignByID/${campaignId}`
+      );
+
+      if (deleteResp.data.message === "Mail campaign deleted successfully") {
+        console.log(deleteResp.data.message);
+      } else {
+        console.log("Operación de eliminación de pago fallida.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDeleteCampaign = (campaignId) => {
+    swal({
+      title: "¿Do you wish to delete the campaign?",
+      text: "Once deleted it cannot be recovered",
+      icon: "warning",
+      buttons: ["No", "Sí"],
+      dangerMode: true,
+    }).then((willCancel) => {
+      if (willCancel) {
+        console.log(campaignId);
+        deleteCampaign(campaignId);
+      }
+    });
+  };
 
   return (
     <div>
@@ -103,6 +135,9 @@ const MailCampaignsList = ({}) => {
                   <TableCell sx={{ width: "5%" }}>
                     <Grid display={"flex"}>
                       <MailCampaignInfoButton campaignID={campaign._id} />
+                      <DeleteButton
+                        onDelete={() => handleDeleteCampaign(campaign._id)}
+                      />
                     </Grid>
                   </TableCell>
                 </TableRow>
