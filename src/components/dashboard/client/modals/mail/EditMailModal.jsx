@@ -21,7 +21,7 @@ const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
 
 const steps = ["Filters", "Subject And Message", "Options"];
 
-const EditMailModal = ({ open, onClose, campaignID }) => {
+const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
   const [formData, setFormData] = useState({
     CampaignTitle: "",
     NameFilter: "",
@@ -107,6 +107,7 @@ const EditMailModal = ({ open, onClose, campaignID }) => {
 
         SwAlertOk();
         onClose();
+        onMailEdit();
       }
     } catch (error) {
       console.error(error);

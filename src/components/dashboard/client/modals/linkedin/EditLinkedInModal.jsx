@@ -25,7 +25,7 @@ const steps = [
   "Subject And Message",
 ];
 
-const EditLinkedInModal = ({ open, onClose, campaignID }) => {
+const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
   const [formData, setFormData] = useState({
     CampaignTitle: "",
     CurrentCompanyNameFilter: "",
@@ -117,6 +117,7 @@ const EditLinkedInModal = ({ open, onClose, campaignID }) => {
 
         SwAlertOk();
         onClose();
+        onLinkedInEdit();
       }
     } catch (error) {
       console.error(error);

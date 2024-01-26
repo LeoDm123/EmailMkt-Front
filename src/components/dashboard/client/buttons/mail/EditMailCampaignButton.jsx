@@ -3,7 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import EditMailModal from "../../modals/mail/EditMailModal";
 
-export default function EditMailCampaignButton({ campaignID }) {
+export default function EditMailCampaignButton({ campaignID, onMailEdit }) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -21,6 +21,7 @@ export default function EditMailCampaignButton({ campaignID }) {
         open={modalOpen}
         onClose={handleCloseModal}
         campaignID={campaignID}
+        onMailEdit={onMailEdit}
       />
     </IconButton>
   );

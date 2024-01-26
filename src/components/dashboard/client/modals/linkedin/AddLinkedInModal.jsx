@@ -27,7 +27,7 @@ const steps = [
   "Subject And Message",
 ];
 
-const AddLinkedInModal = ({ open, onClose, onMailCreation }) => {
+const AddLinkedInModal = ({ open, onClose, onLinkedInCreation }) => {
   const [formData, setFormData] = useState({
     CampaignTitle: "",
     CurrentCompanyNameFilter: "",
@@ -118,7 +118,7 @@ const AddLinkedInModal = ({ open, onClose, onMailCreation }) => {
 
         SwAlertOk();
         onClose();
-        onMailCreation();
+        onLinkedInCreation();
       }
     } catch (error) {
       console.error(error);

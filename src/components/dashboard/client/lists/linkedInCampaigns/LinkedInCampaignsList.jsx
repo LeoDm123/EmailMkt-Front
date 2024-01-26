@@ -15,6 +15,7 @@ import LinkedCampaignInfoButton from "../../buttons/linkedin/LinkedInCampaignInf
 const LinkedInCampaignsList = ({ onLinkedInCreation }) => {
   const [linkedInCampaigns, setLinkedInCampaigns] = useState([]);
   const [onLinkedInDelete, setOnLinkedInDelete] = useState(false);
+  const [onLinkedInEdit, setOnLinkedInEdit] = useState(false);
 
   useEffect(() => {
     const fetchLinkedInCampaigns = async () => {
@@ -35,7 +36,7 @@ const LinkedInCampaignsList = ({ onLinkedInCreation }) => {
     };
 
     fetchLinkedInCampaigns();
-  }, [onLinkedInCreation, onLinkedInDelete]);
+  }, [onLinkedInCreation, onLinkedInDelete, onLinkedInEdit]);
 
   const deleteCampaign = async (campaignId) => {
     try {
@@ -58,6 +59,10 @@ const LinkedInCampaignsList = ({ onLinkedInCreation }) => {
 
   const handleCampaignDelete = () => {
     setOnLinkedInDelete(!onLinkedInDelete);
+  };
+
+  const handleCampaignEdit = () => {
+    setOnLinkedInEdit(!onLinkedInEdit);
   };
 
   const handleDeleteCampaign = (campaignId) => {
@@ -145,7 +150,10 @@ const LinkedInCampaignsList = ({ onLinkedInCreation }) => {
                 <TableCell>
                   <Grid className="d-flex align-items-center justify-content-center">
                     <LinkedCampaignInfoButton campaignID={campaign._id} />
-                    <EditLinkedInCampaignButton campaignID={campaign._id} />
+                    <EditLinkedInCampaignButton
+                      onLinkedInEdit={handleCampaignEdit}
+                      campaignID={campaign._id}
+                    />
                     <DeleteButton
                       onDelete={() => handleDeleteCampaign(campaign._id)}
                     />

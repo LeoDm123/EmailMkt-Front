@@ -4,7 +4,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Grid from "@mui/material/Grid";
 import AddLinkedInModal from "../../modals/linkedin/AddLinkedInModal";
 
-export default function AddMailButton({ onMailCreation }) {
+export default function AddMailButton({ onLinkedInCreation }) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -30,7 +30,7 @@ export default function AddMailButton({ onMailCreation }) {
         <AddLinkedInModal
           open={modalOpen}
           onClose={handleCloseModal}
-          onMailCreation={onMailCreation}
+          onLinkedInCreation={onLinkedInCreation}
         />
       </React.Fragment>
     </Grid>

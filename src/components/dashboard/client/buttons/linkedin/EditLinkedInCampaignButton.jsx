@@ -3,7 +3,10 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import EditLinkedInModal from "../../modals/linkedin/EditLinkedInModal";
 
-export default function EditLinkedCampaignButton({ campaignID }) {
+export default function EditLinkedCampaignButton({
+  campaignID,
+  onLinkedInEdit,
+}) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -21,6 +24,7 @@ export default function EditLinkedCampaignButton({ campaignID }) {
         open={modalOpen}
         onClose={handleCloseModal}
         campaignID={campaignID}
+        onLinkedInEdit={onLinkedInEdit}
       />
     </IconButton>
   );

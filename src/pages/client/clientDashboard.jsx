@@ -13,9 +13,14 @@ const defaultTheme = createTheme();
 
 const ClientDashboard = () => {
   const [onMailSubmit, setonMailSubmit] = useState(false);
+  const [onLinkedInSubmit, setonLinkedInSubmit] = useState(false);
 
   const handleMailSubmit = () => {
     setonMailSubmit(!onMailSubmit);
+  };
+
+  const handleLinkedInSubmit = () => {
+    setonLinkedInSubmit(!onLinkedInSubmit);
   };
 
   return (
@@ -40,7 +45,7 @@ const ClientDashboard = () => {
             </Grid>
             <Grid item xs={12} md={12} lg={12} xl={6} className="p-2">
               <Grid className="d-flex justify-content-between">
-                <AddLinkedInButton onMailCreation={handleMailSubmit} />
+                <AddLinkedInButton onLinkedInCreation={handleLinkedInSubmit} />
               </Grid>
               <Paper
                 sx={{
@@ -50,7 +55,7 @@ const ClientDashboard = () => {
                   height: 580,
                 }}
               >
-                <LinkedInCampaignsList onMailCreation={onMailSubmit} />
+                <LinkedInCampaignsList onLinkedInCreation={onLinkedInSubmit} />
               </Paper>
             </Grid>
           </Grid>

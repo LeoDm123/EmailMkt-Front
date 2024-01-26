@@ -15,6 +15,7 @@ import EditMailCampaignButton from "../../buttons/mail/EditMailCampaignButton";
 const MailCampaignsList = ({ onMailCreation }) => {
   const [mailCampaigns, setMailCampaigns] = useState([]);
   const [onMailDelete, setOnMailDelete] = useState(false);
+  const [onMailEdit, setOnMailEdit] = useState(false);
 
   useEffect(() => {
     const fetchMailCampaigns = async () => {
@@ -33,7 +34,7 @@ const MailCampaignsList = ({ onMailCreation }) => {
     };
 
     fetchMailCampaigns();
-  }, [onMailCreation, onMailDelete]);
+  }, [onMailCreation, onMailDelete, onMailEdit]);
 
   const deleteCampaign = async (campaignId) => {
     try {
@@ -54,6 +55,10 @@ const MailCampaignsList = ({ onMailCreation }) => {
 
   const handleCampaignDelete = () => {
     setOnMailDelete(!onMailDelete);
+  };
+
+  const handleCampaignEdit = () => {
+    setOnMailEdit(!onMailEdit);
   };
 
   const handleDeleteCampaign = (campaignId) => {
@@ -141,7 +146,10 @@ const MailCampaignsList = ({ onMailCreation }) => {
                 <TableCell>
                   <Grid className="d-flex align-items-center justify-content-center">
                     <MailCampaignInfoButton campaignID={campaign._id} />
-                    <EditMailCampaignButton campaignID={campaign._id} />
+                    <EditMailCampaignButton
+                      onMailEdit={handleCampaignEdit}
+                      campaignID={campaign._id}
+                    />
                     <DeleteButton
                       onDelete={() => handleDeleteCampaign(campaign._id)}
                     />
