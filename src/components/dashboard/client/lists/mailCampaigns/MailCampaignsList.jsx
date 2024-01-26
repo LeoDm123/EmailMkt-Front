@@ -17,17 +17,18 @@ const MailCampaignsList = ({ onMailCreation }) => {
   const [onMailDelete, setOnMailDelete] = useState(false);
   const [onMailEdit, setOnMailEdit] = useState(false);
 
+  const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
+
   useEffect(() => {
     const fetchMailCampaigns = async () => {
       try {
         const response = await serverAPI.get("/mails/fetchMailCampaigns");
-        const sortedCampaigns = response.data.slice();
-        sortedCampaigns.sort((a, b) => {
-          const CampaignA = a.mailCampaignName;
-          const CampaignB = b.mailCampaignName;
-          return CampaignA.localeCompare(CampaignB);
-        });
-        setMailCampaigns(sortedCampaigns);
+
+        const userFilteredCampaigns = response.data.filter(
+          (campaign) => campaign.user === loggedInUserEmail
+        );
+
+        setMailCampaigns(userFilteredCampaigns);
       } catch (error) {
         console.error("Error :", error);
       }

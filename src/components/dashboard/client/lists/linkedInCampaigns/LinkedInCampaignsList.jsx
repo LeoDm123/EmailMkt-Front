@@ -17,19 +17,20 @@ const LinkedInCampaignsList = ({ onLinkedInCreation }) => {
   const [onLinkedInDelete, setOnLinkedInDelete] = useState(false);
   const [onLinkedInEdit, setOnLinkedInEdit] = useState(false);
 
+  const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
+
   useEffect(() => {
     const fetchLinkedInCampaigns = async () => {
       try {
         const response = await serverAPI.get(
           "/linkedin/fetchLinkedInCampaigns"
         );
-        const sortedCampaigns = response.data.slice();
-        sortedCampaigns.sort((a, b) => {
-          const CampaignA = a.mailCampaignName;
-          const CampaignB = b.mailCampaignName;
-          return CampaignA.localeCompare(CampaignB);
-        });
-        setLinkedInCampaigns(sortedCampaigns);
+
+        const userFilteredCampaigns = response.data.filter(
+          (campaign) => campaign.user === loggedInUserEmail
+        );
+
+        setLinkedInCampaigns(userFilteredCampaigns);
       } catch (error) {
         console.error("Error :", error);
       }
