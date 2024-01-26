@@ -35,6 +35,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
     LocationFilter: "",
     Subject: "",
     Message: "",
+    Variant: "",
     NoHtml: false,
     RemoveContacts: false,
     OnlyVerified: false,
@@ -61,6 +62,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
     LocationFilter,
     Subject,
     Message,
+    Variant,
     NoHtml,
     RemoveContacts,
     OnlyVerified,
@@ -87,6 +89,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
         LocationFilter,
         Subject,
         Message,
+        Variant,
         NoHtml,
         RemoveContacts,
         OnlyVerified,
@@ -139,6 +142,11 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
     setActiveStep(activeStep - 1);
   };
 
+  const handleClose = () => {
+    setActiveStep(0);
+    onClose();
+  };
+
   const handleFormChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
@@ -160,6 +168,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
       formData.LocationFilter,
       formData.Subject,
       formData.Message,
+      formData.Variant,
       formData.NoHtml,
       formData.RemoveContacts,
       formData.OnlyVerified,
@@ -176,7 +185,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={handleClose}>
       <Paper
         sx={{
           p: 2,
@@ -190,8 +199,8 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
         className="CreateModal"
       >
         <Grid className="d-flex justify-content-between mb-2">
-          <Title>Add new e-mail campaign</Title>
-          <CloseButton handleClick={onClose} />
+          <Title>Add new email campaign</Title>
+          <CloseButton handleClick={handleClose} />
         </Grid>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (

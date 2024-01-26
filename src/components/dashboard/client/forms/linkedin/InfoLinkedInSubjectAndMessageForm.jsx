@@ -19,6 +19,7 @@ const InfoLinkedInSubjectAndMessageForm = ({ campaignID }) => {
         setFormData({
           Subject: campaignData.linkedInCampaignSubjectAndMessage[0]?.Subject,
           Message: campaignData.linkedInCampaignSubjectAndMessage[1]?.Message,
+          Variant: campaignData.linkedInCampaignSubjectAndMessage[2]?.Variant,
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -32,7 +33,7 @@ const InfoLinkedInSubjectAndMessageForm = ({ campaignID }) => {
     <Grid sx={{ height: "70%" }}>
       <Grid container spacing={2}>
         {Object.entries(formData).map(([key, value], index) => (
-          <Grid item xs={12} sm={6} key={key}>
+          <Grid item xs={12} sm={12} key={key}>
             <TextField fullWidth label={key} variant="outlined" value={value} />
           </Grid>
         ))}

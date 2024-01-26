@@ -29,22 +29,17 @@ const InfoLinkedInModal = ({ open, onClose, campaignID }) => {
     setActiveStep(activeStep + 1);
   };
 
-  const resetActiveStep = () => {
-    setActiveStep(0);
-  };
-
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
+  const handleClose = () => {
+    setActiveStep(0);
+    onClose();
+  };
+
   return (
-    <Modal
-      open={open}
-      onClose={() => {
-        onClose();
-        resetActiveStep();
-      }}
-    >
+    <Modal open={open} onClose={handleClose}>
       <Paper
         sx={{
           p: 2,
@@ -59,12 +54,7 @@ const InfoLinkedInModal = ({ open, onClose, campaignID }) => {
       >
         <Grid className="d-flex justify-content-between mb-2">
           <Title>LinkedIn Campaign Information</Title>
-          <CloseButton
-            handleClick={() => {
-              onClose();
-              resetActiveStep();
-            }}
-          />
+          <CloseButton handleClick={handleClose} />
         </Grid>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (

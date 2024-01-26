@@ -53,6 +53,7 @@ const AddLinkedInModal = ({ open, onClose, onLinkedInCreation }) => {
     PostedOnLinkedInFilter: "",
     Subject: "",
     Message: "",
+    Variant: "",
   });
 
   const createMailCampaign = async (
@@ -80,7 +81,8 @@ const AddLinkedInModal = ({ open, onClose, onLinkedInCreation }) => {
     ChangedJobsFilter,
     PostedOnLinkedInFilter,
     Subject,
-    Message
+    Message,
+    Variant
   ) => {
     try {
       const resp = await serverAPI.post("/linkedin/createLinkedInCampaign", {
@@ -109,6 +111,7 @@ const AddLinkedInModal = ({ open, onClose, onLinkedInCreation }) => {
         PostedOnLinkedInFilter,
         Subject,
         Message,
+        Variant,
       });
 
       if (resp.data.msg === "Internal server error") {
@@ -151,6 +154,11 @@ const AddLinkedInModal = ({ open, onClose, onLinkedInCreation }) => {
     setActiveStep(activeStep - 1);
   };
 
+  const handleClose = () => {
+    setActiveStep(0);
+    onClose();
+  };
+
   const handleFormChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
@@ -183,14 +191,15 @@ const AddLinkedInModal = ({ open, onClose, onLinkedInCreation }) => {
       formData.ChangedJobsFilter,
       formData.PostedOnLinkedInFilter,
       formData.Subject,
-      formData.Message
+      formData.Message,
+      formData.Variant
     );
 
     onClose();
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={handleClose}>
       <Paper
         sx={{
           p: 2,
@@ -205,7 +214,7 @@ const AddLinkedInModal = ({ open, onClose, onLinkedInCreation }) => {
       >
         <Grid className="d-flex justify-content-between mb-2">
           <Title>Add new LinkedIn campaign</Title>
-          <CloseButton handleClick={onClose} />
+          <CloseButton handleClick={handleClose} />
         </Grid>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (

@@ -7,6 +7,7 @@ import serverAPI from "../../../../../api/serverAPI";
 const EditLinkedInSubjectAndMessageForm = ({
   Subject,
   Message,
+  Variant,
   campaignID,
   handleFormChange,
 }) => {
@@ -26,6 +27,10 @@ const EditLinkedInSubjectAndMessageForm = ({
         handleFormChange(
           "Message",
           campaignData.linkedInCampaignSubjectAndMessage[1]?.Message
+        );
+        handleFormChange(
+          "Variant",
+          campaignData.linkedInCampaignSubjectAndMessage[2]?.Variant
         );
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -53,11 +58,22 @@ const EditLinkedInSubjectAndMessageForm = ({
           sx={{ flex: 1 }}
           label="Message"
           variant="outlined"
-          className="mt-3"
+          className="mt-3 me-2"
           multiline
           minRows={16}
           value={Message}
           onChange={(e) => handleFormChange("Message", e.target.value)}
+        />
+        <TextField
+          fullWidth
+          sx={{ flex: 1 }}
+          label="Variant"
+          variant="outlined"
+          className="mt-3 ms-2"
+          multiline
+          minRows={16}
+          value={Variant}
+          onChange={(e) => handleFormChange("Variant", e.target.value)}
         />
       </Grid>
     </form>

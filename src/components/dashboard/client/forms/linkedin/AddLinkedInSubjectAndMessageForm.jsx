@@ -25,11 +25,22 @@ const AddLinkedInSubjectAndMessageForm = ({ formData, handleFormChange }) => {
           sx={{ flex: 1 }}
           label="Message"
           variant="outlined"
-          className="mt-3"
+          className="mt-3 me-2"
           multiline
           minRows={16}
           value={formData.Message}
           onChange={(e) => handleFormChange("Message", e.target.value)}
+        />
+        <TextField
+          fullWidth
+          sx={{ flex: 1 }}
+          label="Variant"
+          variant="outlined"
+          className="mt-3 ms-2"
+          multiline
+          minRows={16}
+          value={formData.Variant}
+          onChange={(e) => handleFormChange("Variant", e.target.value)}
         />
       </Grid>
     </form>

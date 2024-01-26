@@ -56,6 +56,7 @@ const EditLinkedInAdminModal = ({
     PostedOnLinkedInFilter: "",
     Subject: "",
     Message: "",
+    Variant: "",
     status: "Pending",
   });
 
@@ -84,6 +85,7 @@ const EditLinkedInAdminModal = ({
     PostedOnLinkedInFilter,
     Subject,
     Message,
+    Variant,
     status
   ) => {
     try {
@@ -114,6 +116,7 @@ const EditLinkedInAdminModal = ({
           PostedOnLinkedInFilter,
           Subject,
           Message,
+          Variant,
           status,
         }
       );
@@ -158,8 +161,9 @@ const EditLinkedInAdminModal = ({
     setActiveStep(activeStep - 1);
   };
 
-  const resetActiveStep = () => {
+  const handleClose = () => {
     setActiveStep(0);
+    onClose();
   };
 
   const handleFormChange = (field, value) => {
@@ -194,6 +198,7 @@ const EditLinkedInAdminModal = ({
       formData.PostedOnLinkedInFilter,
       formData.Subject,
       formData.Message,
+      formData.Variant,
       formData.status
     );
 
@@ -202,7 +207,7 @@ const EditLinkedInAdminModal = ({
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={handleClose}>
       <Paper
         sx={{
           p: 2,
@@ -217,12 +222,7 @@ const EditLinkedInAdminModal = ({
       >
         <Grid className="d-flex justify-content-between mb-2">
           <Title>Edit LinkedIn campaign</Title>
-          <CloseButton
-            handleClick={() => {
-              onClose();
-              resetActiveStep();
-            }}
-          />
+          <CloseButton handleClick={handleClose} />
         </Grid>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (
@@ -288,6 +288,7 @@ const EditLinkedInAdminModal = ({
               <EditLinkedInSubjectAndMessageAdminForm
                 Subject={formData.Subject}
                 Message={formData.Message}
+                Variant={formData.Variant}
                 handleFormChange={handleFormChange}
                 campaignID={campaignID}
               />

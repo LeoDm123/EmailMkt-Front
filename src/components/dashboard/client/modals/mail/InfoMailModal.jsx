@@ -23,8 +23,9 @@ const InfoMailModal = ({ open, onClose, campaignID }) => {
     setActiveStep(activeStep + 1);
   };
 
-  const resetActiveStep = () => {
+  const handleClose = () => {
     setActiveStep(0);
+    onClose();
   };
 
   const handleBack = () => {
@@ -32,13 +33,7 @@ const InfoMailModal = ({ open, onClose, campaignID }) => {
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={() => {
-        onClose();
-        resetActiveStep();
-      }}
-    >
+    <Modal open={open} onClose={handleClose}>
       <Paper
         sx={{
           p: 2,
@@ -52,13 +47,8 @@ const InfoMailModal = ({ open, onClose, campaignID }) => {
         className="CreateModal"
       >
         <Grid className="d-flex justify-content-between mb-2">
-          <Title>Mail Campaign Information</Title>
-          <CloseButton
-            handleClick={() => {
-              onClose();
-              resetActiveStep();
-            }}
-          />
+          <Title>Email Campaign Information</Title>
+          <CloseButton handleClick={handleClose} />
         </Grid>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (

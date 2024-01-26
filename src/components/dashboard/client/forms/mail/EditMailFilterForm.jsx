@@ -198,12 +198,12 @@ const EditMailFilterForm = ({
         />
       </Grid>
 
-      <Grid>
+      <Grid className="w-50">
         <TextField
           fullWidth
           label="Location"
           variant="outlined"
-          className="mt-3 w-50"
+          className="mt-3 pe-2"
           value={LocationFilter}
           onChange={(e) => handleFormChange("LocationFilter", e.target.value)}
         />

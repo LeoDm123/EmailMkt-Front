@@ -35,6 +35,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
     LocationFilter: "",
     Subject: "",
     Message: "",
+    Variant: "",
     NoHtml: false,
     RemoveContacts: false,
     OnlyVerified: false,
@@ -60,6 +61,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
     LocationFilter,
     Subject,
     Message,
+    Variant,
     NoHtml,
     RemoveContacts,
     OnlyVerified,
@@ -87,6 +89,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
           LocationFilter,
           Subject,
           Message,
+          Variant,
           NoHtml,
           RemoveContacts,
           OnlyVerified,
@@ -140,6 +143,11 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
     setActiveStep(activeStep - 1);
   };
 
+  const handleClose = () => {
+    setActiveStep(0);
+    onClose();
+  };
+
   const handleFormChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
@@ -160,6 +168,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
       formData.LocationFilter,
       formData.Subject,
       formData.Message,
+      formData.Variant,
       formData.NoHtml,
       formData.RemoveContacts,
       formData.OnlyVerified,
@@ -176,7 +185,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={handleClose}>
       <Paper
         sx={{
           p: 2,
@@ -190,8 +199,8 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
         className="CreateModal"
       >
         <Grid className="d-flex justify-content-between mb-2">
-          <Title>Edit e-mail campaign</Title>
-          <CloseButton handleClick={onClose} />
+          <Title>Edit email campaign</Title>
+          <CloseButton handleClick={handleClose} />
         </Grid>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (
@@ -228,6 +237,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
               <EditMailSubjectAndMessageForm
                 Subject={formData.Subject}
                 Message={formData.Message}
+                Variant={formData.Variant}
                 handleFormChange={handleFormChange}
                 campaignID={campaignID}
               />

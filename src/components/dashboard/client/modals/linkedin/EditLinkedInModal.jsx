@@ -51,6 +51,7 @@ const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
     PostedOnLinkedInFilter: "",
     Subject: "",
     Message: "",
+    Variant: "",
   });
 
   const editLinkedInCampaign = async (
@@ -77,7 +78,8 @@ const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
     ChangedJobsFilter,
     PostedOnLinkedInFilter,
     Subject,
-    Message
+    Message,
+    Variant
   ) => {
     try {
       const resp = await serverAPI.put(
@@ -107,6 +109,7 @@ const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
           PostedOnLinkedInFilter,
           Subject,
           Message,
+          Variant,
         }
       );
 
@@ -150,8 +153,9 @@ const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
     setActiveStep(activeStep - 1);
   };
 
-  const resetActiveStep = () => {
+  const handleClose = () => {
     setActiveStep(0);
+    onClose();
   };
 
   const handleFormChange = (field, value) => {
@@ -185,7 +189,8 @@ const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
       formData.ChangedJobsFilter,
       formData.PostedOnLinkedInFilter,
       formData.Subject,
-      formData.Message
+      formData.Message,
+      formData.Variant
     );
 
     onClose();
@@ -193,7 +198,7 @@ const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={handleClose}>
       <Paper
         sx={{
           p: 2,
@@ -208,12 +213,7 @@ const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
       >
         <Grid className="d-flex justify-content-between mb-2">
           <Title>Edit LinkedIn campaign</Title>
-          <CloseButton
-            handleClick={() => {
-              onClose();
-              resetActiveStep();
-            }}
-          />
+          <CloseButton handleClick={handleClose} />
         </Grid>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (
@@ -278,6 +278,7 @@ const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
               <EditLinkedInSubjectAndMessageForm
                 Subject={formData.Subject}
                 Message={formData.Message}
+                Variant={formData.Variant}
                 handleFormChange={handleFormChange}
                 campaignID={campaignID}
               />

@@ -1,10 +1,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 
 const AddMailFilterForm = ({ formData, handleFormChange }) => {
   return (
@@ -46,29 +42,19 @@ const AddMailFilterForm = ({ formData, handleFormChange }) => {
           fullWidth
           label="Job Title"
           variant="outlined"
-          className="mt-3 ms-2"
+          className="mt-3 me-2"
           value={formData.JobTitlesFilter}
           onChange={(e) => handleFormChange("JobTitlesFilter", e.target.value)}
         />
 
-        <FormControl variant="outlined" fullWidth className="mt-3">
-          <InputLabel>Industries</InputLabel>
-          <Select
-            label="Industries"
-            className="ms-2"
-            value={formData.IndustriesFilter}
-            onChange={(e) =>
-              handleFormChange("IndustriesFilter", e.target.value)
-            }
-          >
-            <MenuItem value="">
-              <em>Select</em>
-            </MenuItem>
-            <MenuItem value="Construction">Construction</MenuItem>
-            <MenuItem value="Health Services">Health Services</MenuItem>
-            <MenuItem value="Transport">Transport</MenuItem>
-          </Select>
-        </FormControl>
+        <TextField
+          fullWidth
+          label="Industries"
+          variant="outlined"
+          className="mt-3 ms-2"
+          value={formData.IndustriesFilter}
+          onChange={(e) => handleFormChange("IndustriesFilter", e.target.value)}
+        />
       </Grid>
 
       <Grid className="w-100 d-flex flex-direction-row">
@@ -113,12 +99,12 @@ const AddMailFilterForm = ({ formData, handleFormChange }) => {
         />
       </Grid>
 
-      <Grid>
+      <Grid className="w-50">
         <TextField
           fullWidth
           label="Location"
           variant="outlined"
-          className="mt-3 w-50"
+          className="mt-3 pe-2"
           value={formData.LocationFilter}
           onChange={(e) => handleFormChange("LocationFilter", e.target.value)}
         />

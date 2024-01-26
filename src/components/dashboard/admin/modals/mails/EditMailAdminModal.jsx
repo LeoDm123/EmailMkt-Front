@@ -33,6 +33,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
     LocationFilter: "",
     Subject: "",
     Message: "",
+    Variant: "",
     NoHtml: false,
     RemoveContacts: false,
     OnlyVerified: false,
@@ -59,6 +60,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
     LocationFilter,
     Subject,
     Message,
+    Variant,
     NoHtml,
     RemoveContacts,
     OnlyVerified,
@@ -87,6 +89,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
           LocationFilter,
           Subject,
           Message,
+          Variant,
           NoHtml,
           RemoveContacts,
           OnlyVerified,
@@ -141,6 +144,11 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
     setActiveStep(activeStep - 1);
   };
 
+  const handleClose = () => {
+    setActiveStep(0);
+    onClose();
+  };
+
   const handleFormChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
@@ -161,6 +169,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
       formData.LocationFilter,
       formData.Subject,
       formData.Message,
+      formData.Variant,
       formData.NoHtml,
       formData.RemoveContacts,
       formData.OnlyVerified,
@@ -178,7 +187,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={handleClose}>
       <Paper
         sx={{
           p: 2,
@@ -193,7 +202,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
       >
         <Grid className="d-flex justify-content-between mb-2">
           <Title>Edit e-mail campaign</Title>
-          <CloseButton handleClick={onClose} />
+          <CloseButton handleClick={handleClose} />
         </Grid>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (
@@ -231,6 +240,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
               <EditMailSubjectAndMessageAdminForm
                 Subject={formData.Subject}
                 Message={formData.Message}
+                Variant={formData.Variant}
                 handleFormChange={handleFormChange}
                 campaignID={campaignID}
               />

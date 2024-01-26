@@ -17,6 +17,7 @@ const InfoMailSubjectAndMessageForm = ({ campaignID }) => {
         setFormData({
           Subject: campaignData.mailCampaignSubjectAndMessage[0]?.Subject,
           Message: campaignData.mailCampaignSubjectAndMessage[1]?.Message,
+          Variant: campaignData.mailCampaignSubjectAndMessage[2]?.Variant,
         });
       } catch (error) {
         console.error("Error fetching data:", error);
