@@ -6,6 +6,7 @@ import Paper from "@mui/material/Paper";
 import Header from "../../components/dashboard/Header";
 import Title from "../../components/Title";
 import AddMailButton from "../../components/dashboard/client/buttons/AddMailButton";
+import MailCampaignsList from "../../components/dashboard/client/lists/mailCampaigns/mailCampaignsList";
 
 const defaultTheme = createTheme();
 
@@ -16,6 +17,9 @@ const ClientDashboard = () => {
         content={
           <Container maxWidth="xl" sx={{ mt: 1, mb: 2 }}>
             <Grid item xs={12} md={12} lg={12} xl={12}>
+              <Grid className="d-flex justify-content-between">
+                <AddMailButton />
+              </Grid>
               <Paper
                 sx={{
                   p: 2,
@@ -24,10 +28,7 @@ const ClientDashboard = () => {
                   height: 500,
                 }}
               >
-                <Grid className="d-flex justify-content-between">
-                  <Title>Client Dashboard</Title>
-                  <AddMailButton />
-                </Grid>
+                <MailCampaignsList />
               </Paper>
             </Grid>
           </Container>

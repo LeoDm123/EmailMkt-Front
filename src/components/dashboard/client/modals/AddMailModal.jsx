@@ -17,6 +17,8 @@ import AddMailFilterForm from "../forms/AddMailFilterForm";
 import AddMailSubjectAndMessageForm from "../forms/AddMailSubjectAndMessageForm";
 import AddMailOptionsForm from "../forms/AddMailOptionsForm";
 
+const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
+
 const steps = ["Filters", "Subject And Message", "Options"];
 
 const AddMailModal = ({ open, onClose }) => {
@@ -46,6 +48,7 @@ const AddMailModal = ({ open, onClose }) => {
   });
 
   const createMailCampaign = async (
+    loggedInUserEmail,
     CampaignTitle,
     NameFilter,
     EmployeesNrFilter,
@@ -71,6 +74,7 @@ const AddMailModal = ({ open, onClose }) => {
   ) => {
     try {
       const resp = await serverAPI.post("/mails/createMailCampaign", {
+        loggedInUserEmail,
         CampaignTitle,
         NameFilter,
         EmployeesNrFilter,
@@ -142,6 +146,7 @@ const AddMailModal = ({ open, onClose }) => {
     console.log("Form submitted:", formData);
 
     createMailCampaign(
+      loggedInUserEmail,
       formData.CampaignTitle,
       formData.NameFilter,
       formData.EmployeesNrFilter,
