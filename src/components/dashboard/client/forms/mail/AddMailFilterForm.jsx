@@ -42,30 +42,14 @@ const AddMailFilterForm = ({ formData, handleFormChange }) => {
       </Grid>
 
       <Grid className="d-flex flex-direction-row">
-        <FormControl variant="outlined" fullWidth className="mt-3">
-          <InputLabel>Job Title</InputLabel>
-          <Select
-            label="Job Title"
-            className="me-2"
-            value={formData.JobTitlesFilter}
-            onChange={(e) =>
-              handleFormChange("JobTitlesFilter", e.target.value)
-            }
-          >
-            <MenuItem value="">
-              <em>Select</em>
-            </MenuItem>
-            <MenuItem value="Chief Excutive Officer">
-              Chief Excutive Officer
-            </MenuItem>
-            <MenuItem value="Chief Financial Officer">
-              Chief Financial Officer
-            </MenuItem>
-            <MenuItem value="Chief Operations Officer">
-              Chief Operations Officer
-            </MenuItem>
-          </Select>
-        </FormControl>
+        <TextField
+          fullWidth
+          label="Job Title"
+          variant="outlined"
+          className="mt-3 ms-2"
+          value={formData.JobTitlesFilter}
+          onChange={(e) => handleFormChange("JobTitlesFilter", e.target.value)}
+        />
 
         <FormControl variant="outlined" fullWidth className="mt-3">
           <InputLabel>Industries</InputLabel>
