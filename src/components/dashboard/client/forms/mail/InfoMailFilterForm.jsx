@@ -13,8 +13,6 @@ const AddMailFilterForm = ({ campaignID }) => {
         const resp = await serverAPI.get(
           `/mails/fetchMailCampaignsByID/${campaignID}`
         );
-        console.log(campaignID);
-        console.log(resp.data);
         const campaignData = resp.data;
 
         setFormData({

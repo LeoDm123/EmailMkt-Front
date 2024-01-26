@@ -8,9 +8,9 @@ import swal from "sweetalert";
 import Grid from "@mui/material/Grid";
 import serverAPI from "../../../../../api/serverAPI";
 import "../../../../../css/App.css";
-import MailCampaignInfoButton from "../../buttons/mail/MailCampaignInfoButton";
 import DeleteButton from "../../../../DeleteButton";
 import EditLinkedInCampaignButton from "../../buttons/linkedin/EditLinkedInCampaignButton";
+import LinkedCampaignInfoButton from "../../buttons/linkedin/LinkedInCampaignInfoButton";
 
 const LinkedInCampaignsList = ({ onLinkedInCreation }) => {
   const [linkedInCampaigns, setLinkedInCampaigns] = useState([]);
@@ -144,7 +144,7 @@ const LinkedInCampaignsList = ({ onLinkedInCreation }) => {
                 <TableCell className="text-center">{campaign.status}</TableCell>
                 <TableCell>
                   <Grid className="d-flex align-items-center justify-content-center">
-                    <MailCampaignInfoButton campaignID={campaign._id} />
+                    <LinkedCampaignInfoButton campaignID={campaign._id} />
                     <EditLinkedInCampaignButton campaignID={campaign._id} />
                     <DeleteButton
                       onDelete={() => handleDeleteCampaign(campaign._id)}
