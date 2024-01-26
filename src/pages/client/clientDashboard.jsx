@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -11,6 +12,12 @@ import MailCampaignsList from "../../components/dashboard/client/lists/mailCampa
 const defaultTheme = createTheme();
 
 const ClientDashboard = () => {
+  const [onMailSubmit, setonMailSubmit] = useState(false);
+
+  const handleMailSubmit = () => {
+    setonMailSubmit(!onMailSubmit);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Header
@@ -18,7 +25,7 @@ const ClientDashboard = () => {
           <Container maxWidth="xl" sx={{ mt: 1, mb: 2 }}>
             <Grid item xs={12} md={12} lg={12} xl={12}>
               <Grid className="d-flex justify-content-between">
-                <AddMailButton />
+                <AddMailButton onMailCreation={handleMailSubmit} />
               </Grid>
               <Paper
                 sx={{
@@ -28,7 +35,7 @@ const ClientDashboard = () => {
                   height: 500,
                 }}
               >
-                <MailCampaignsList />
+                <MailCampaignsList onMailCreation={onMailSubmit} />
               </Paper>
             </Grid>
           </Container>

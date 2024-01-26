@@ -10,7 +10,7 @@ import "../../../../../css/App.css";
 import MailCampaignInfoButton from "../../buttons/MailCampaignInfoButton";
 import DeleteButton from "../../../../DeleteButton";
 
-const MailCampaignsList = ({}) => {
+const MailCampaignsList = ({ onMailCreation }) => {
   const [openRows, setOpenRows] = useState([]);
   const [mailCampaigns, setMailCampaigns] = useState([]);
 
@@ -37,7 +37,7 @@ const MailCampaignsList = ({}) => {
     };
 
     fetchMailCampaigns();
-  }, []);
+  }, [onMailCreation]);
 
   const deleteCampaign = async (campaignId) => {
     try {
