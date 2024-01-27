@@ -6,16 +6,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import swal from "sweetalert";
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import serverAPI from "../../../../../api/serverAPI";
 import "../../../../../css/App.css";
 import DeleteButton from "../../../../DeleteButton";
 import LinkedCampaignInfoButton from "../../../client/buttons/linkedin/LinkedInCampaignInfoButton";
 import EditLinkedCampaignAdminButton from "../../buttons/linkedin/EditLinkedInCampaignAdminButton";
+import PersonalSwitch from "../../../../Switch";
+import Title from "../../../../Title";
 
-const LinkedInCampaignsAdminList = ({ onLinkedInCreation }) => {
+const LinkedInCampaignsAdminList = ({ onLinkedInCreation, zoom }) => {
   const [linkedInCampaigns, setLinkedInCampaigns] = useState([]);
   const [onLinkedInDelete, setOnLinkedInDelete] = useState(false);
   const [onLinkedInEdit, setOnLinkedInEdit] = useState(false);
+  const [filterEmail, setFilterEmail] = useState("");
+  const [filterStatus, setFilterStatus] = useState("");
 
   useEffect(() => {
     const fetchLinkedInCampaigns = async () => {
@@ -83,6 +88,30 @@ const LinkedInCampaignsAdminList = ({ onLinkedInCreation }) => {
     });
   };
 
+  const applyFilters = () => {
+    const filteredCampaigns = linkedInCampaigns.filter((campaign) => {
+      const emailMatch =
+        campaign.user.toLowerCase().includes(filterEmail.toLowerCase()) ||
+        campaign.linkedInCampaignName
+          .toLowerCase()
+          .includes(filterEmail.toLowerCase());
+
+      const statusMatch = campaign.status
+        .toLowerCase()
+        .includes(filterStatus.toLowerCase());
+
+      return emailMatch && statusMatch;
+    });
+
+    setLinkedInCampaigns(filteredCampaigns);
+  };
+
+  const clearFilters = () => {
+    setFilterEmail("");
+    setFilterStatus("");
+    fetchLinkedInCampaigns();
+  };
+
   return (
     <Grid
       sx={{
@@ -104,6 +133,13 @@ const LinkedInCampaignsAdminList = ({ onLinkedInCreation }) => {
         },
       }}
     >
+      <Grid className="d-flex justify-content-between">
+        <Title>LinkedIn Campaigns</Title>
+        <Grid className="d-flex align-items-center">
+          <Typography className="me-2">Increase Size</Typography>
+          <PersonalSwitch onChange={zoom} />
+        </Grid>
+      </Grid>
       <Table stickyHeader size="medium">
         <TableHead>
           <TableRow>

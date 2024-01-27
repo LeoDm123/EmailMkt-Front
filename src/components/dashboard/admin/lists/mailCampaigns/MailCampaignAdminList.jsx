@@ -6,13 +6,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import swal from "sweetalert";
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import serverAPI from "../../../../../api/serverAPI";
 import "../../../../../css/App.css";
 import MailCampaignInfoButton from "../../../client/buttons/mail/MailCampaignInfoButton";
 import DeleteButton from "../../../../DeleteButton";
 import EditMailCampaignAdminButton from "../../buttons/mails/EditMailCampaignAdminButton";
+import PersonalSwitch from "../../../../Switch";
+import Title from "../../../../Title";
 
-const MailCampaignsAdminList = ({ onMailCreation }) => {
+const MailCampaignsAdminList = ({ onMailCreation, zoom }) => {
   const [mailCampaigns, setMailCampaigns] = useState([]);
   const [onMailDelete, setOnMailDelete] = useState(false);
   const [onMailEdit, setOnMailEdit] = useState(false);
@@ -100,6 +103,13 @@ const MailCampaignsAdminList = ({ onMailCreation }) => {
         },
       }}
     >
+      <Grid className="d-flex justify-content-between">
+        <Title>Email Campaigns</Title>
+        <Grid className="d-flex align-items-center">
+          <Typography className="me-2">Increase Size</Typography>
+          <PersonalSwitch onChange={zoom} />
+        </Grid>
+      </Grid>
       <Table stickyHeader size="medium">
         <TableHead>
           <TableRow>

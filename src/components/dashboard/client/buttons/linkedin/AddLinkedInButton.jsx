@@ -16,23 +16,17 @@ export default function AddMailButton({ onLinkedInCreation }) {
   };
 
   return (
-    <Grid item xs={12} md={12} lg={12}>
-      <React.Fragment>
-        <ButtonGroup
-          variant="contained"
-          aria-label="split button"
-          className="mb-3 mt-1"
-        >
-          <Button className="AddMailButton" onClick={handleClick}>
-            Add New LinkedIn Campaign
-          </Button>
-        </ButtonGroup>
-        <AddLinkedInModal
-          open={modalOpen}
-          onClose={handleCloseModal}
-          onLinkedInCreation={onLinkedInCreation}
-        />
-      </React.Fragment>
+    <Grid>
+      <ButtonGroup variant="contained" className="mt-1">
+        <Button onClick={handleClick} sx={{ width: 260 }}>
+          Add New LinkedIn Campaign
+        </Button>
+      </ButtonGroup>
+      <AddLinkedInModal
+        open={modalOpen}
+        onClose={handleCloseModal}
+        onLinkedInCreation={onLinkedInCreation}
+      />
     </Grid>
   );
 }

@@ -14,6 +14,9 @@ const defaultTheme = createTheme();
 const ClientDashboard = () => {
   const [onMailSubmit, setonMailSubmit] = useState(false);
   const [onLinkedInSubmit, setonLinkedInSubmit] = useState(false);
+  const [mailSectionWitdh, setMailSectionWitdh] = useState("50%");
+  const [linkedinSectionWitdh, setLinkedInSectionWitdh] = useState("50%");
+  const [isZoomed, setIsZoomed] = useState(true);
 
   const handleMailSubmit = () => {
     setonMailSubmit(!onMailSubmit);
@@ -23,40 +26,91 @@ const ClientDashboard = () => {
     setonLinkedInSubmit(!onLinkedInSubmit);
   };
 
+  const handleLinkedZoomChange = () => {
+    setIsZoomed(!isZoomed);
+    console.log(isZoomed);
+    handleLinkedSection();
+  };
+
+  const handleLinkedSection = () => {
+    if (isZoomed) {
+      setMailSectionWitdh("5%");
+      setLinkedInSectionWitdh("95%");
+    } else {
+      setMailSectionWitdh("50%");
+      setLinkedInSectionWitdh("50%");
+    }
+  };
+
+  const handleMailZoomChange = () => {
+    setIsZoomed(!isZoomed);
+    console.log(isZoomed);
+    handleMailSection();
+  };
+
+  const handleMailSection = () => {
+    if (isZoomed) {
+      setMailSectionWitdh("95%");
+      setLinkedInSectionWitdh("5%");
+    } else {
+      setMailSectionWitdh("50%");
+      setLinkedInSectionWitdh("50%");
+    }
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Header
         content={
           <Grid container maxWidth="xl" sx={{ mt: 1, mb: 2, margin: 0 }}>
-            <Grid item xs={12} md={12} lg={12} xl={6} className="p-2">
-              <Grid className="d-flex justify-content-between">
+            <Grid className="d-flex px-2 w-100">
+              <Grid className="me-1 my-2">
                 <AddMailButton onMailCreation={handleMailSubmit} />
               </Grid>
-              <Paper
-                sx={{
-                  pt: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  height: 580,
-                }}
-              >
-                <MailCampaignsList onMailCreation={onMailSubmit} />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={12} lg={12} xl={6} className="p-2">
-              <Grid className="d-flex justify-content-between">
+              <Grid className="ms-1 my-2">
                 <AddLinkedInButton onLinkedInCreation={handleLinkedInSubmit} />
               </Grid>
-              <Paper
-                sx={{
-                  pt: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  height: 580,
-                }}
+            </Grid>
+            <Grid xl={12} className="d-flex">
+              <Grid
+                sx={{ width: mailSectionWitdh, transition: "width 0.5s ease" }}
+                className="p-2"
               >
-                <LinkedInCampaignsList onLinkedInCreation={onLinkedInSubmit} />
-              </Paper>
+                <Paper
+                  sx={{
+                    pt: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 580,
+                  }}
+                >
+                  <MailCampaignsList
+                    onMailCreation={onMailSubmit}
+                    zoom={handleMailZoomChange}
+                  />
+                </Paper>
+              </Grid>
+              <Grid
+                sx={{
+                  width: linkedinSectionWitdh,
+                  transition: "width 0.5s ease",
+                }}
+                className="p-2"
+              >
+                <Paper
+                  sx={{
+                    pt: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 580,
+                  }}
+                >
+                  <LinkedInCampaignsList
+                    onLinkedInCreation={onLinkedInSubmit}
+                    zoom={handleLinkedZoomChange}
+                  />
+                </Paper>
+              </Grid>
             </Grid>
           </Grid>
         }

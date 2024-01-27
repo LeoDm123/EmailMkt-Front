@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -10,15 +9,50 @@ import MailCampaignsAdminList from "../../components/dashboard/admin/lists/mailC
 const defaultTheme = createTheme();
 
 const AdminDashboard = () => {
-  const [onMailSubmit, setonMailSubmit] = useState(false);
-  const [onLinkedInSubmit, setonLinkedInSubmit] = useState(false);
+  const [onMailSubmit, setOnMailSubmit] = useState(false);
+  const [onLinkedInSubmit, setOnLinkedInSubmit] = useState(false);
+  const [mailSectionHeight, setMailSectionHeight] = useState(310);
+  const [linkedinSectionHeight, setLinkedInSectionHeight] = useState(310);
+  const [isZoomed, setIsZoomed] = useState(true);
 
   const handleMailSubmit = () => {
-    setonMailSubmit(!onMailSubmit);
+    setOnMailSubmit(!onMailSubmit);
   };
 
   const handleLinkedInSubmit = () => {
-    setonLinkedInSubmit(!onLinkedInSubmit);
+    setOnLinkedInSubmit(!onLinkedInSubmit);
+  };
+
+  const handleLinkedZoomChange = () => {
+    setIsZoomed(!isZoomed);
+    console.log(isZoomed);
+    handleLinkedSection();
+  };
+
+  const handleLinkedSection = () => {
+    if (isZoomed) {
+      setMailSectionHeight(50);
+      setLinkedInSectionHeight(570);
+    } else {
+      setMailSectionHeight(310);
+      setLinkedInSectionHeight(310);
+    }
+  };
+
+  const handleMailZoomChange = () => {
+    setIsZoomed(!isZoomed);
+    console.log(isZoomed);
+    handleMailSection();
+  };
+
+  const handleMailSection = () => {
+    if (isZoomed) {
+      setMailSectionHeight(570);
+      setLinkedInSectionHeight(50);
+    } else {
+      setMailSectionHeight(310);
+      setLinkedInSectionHeight(310);
+    }
   };
 
   return (
@@ -27,16 +61,19 @@ const AdminDashboard = () => {
         content={
           <Grid container maxWidth="xl" sx={{ mt: 1, mb: 2, margin: 0 }}>
             <Grid item xs={12} md={12} lg={12} xl={12} className="p-2">
-              <Grid className="d-flex justify-content-between"></Grid>
               <Paper
                 sx={{
                   pt: 1,
                   display: "flex",
                   flexDirection: "column",
-                  height: 300,
+                  height: mailSectionHeight,
+                  transition: "height 0.5s ease",
                 }}
               >
-                <MailCampaignsAdminList onMailCreation={onMailSubmit} />
+                <MailCampaignsAdminList
+                  onMailCreation={onMailSubmit}
+                  zoom={handleMailZoomChange}
+                />
               </Paper>
             </Grid>
             <Grid item xs={12} md={12} lg={12} xl={12} className="p-2">
@@ -46,11 +83,13 @@ const AdminDashboard = () => {
                   pt: 1,
                   display: "flex",
                   flexDirection: "column",
-                  height: 300,
+                  height: linkedinSectionHeight,
+                  transition: "height 0.5s ease",
                 }}
               >
                 <LinkedInCampaignsAdminList
                   onLinkedInCreation={onLinkedInSubmit}
+                  zoom={handleLinkedZoomChange}
                 />
               </Paper>
             </Grid>

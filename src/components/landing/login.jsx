@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import serverAPI from "../../api/serverAPI";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logos/logo.png";
+import landing from "../../assets/imgs/landing-img.jpg";
 
 const defaultTheme = createTheme();
 
@@ -81,17 +82,17 @@ export const LogIn = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage:
-              "https://www.dropbox.com/scl/fi/zlps7f1ujw5loo0pj49nq/landing-img.jpg?rlkey=ykfavn9qyro6gsq5nkaiwuet1&dl=0",
-            backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
                 ? t.palette.grey[50]
                 : t.palette.grey[900],
             backgroundSize: "cover",
             backgroundPosition: "center",
+            height: "100%",
           }}
-        />
+        >
+          <img src={landing} style={{ height: "100%" }} />
+        </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -148,7 +149,6 @@ export const LogIn = () => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 disabled={isLoading}
-                // onClick={() => navigate("/dashboard")}
               >
                 {isLoading && (
                   <>

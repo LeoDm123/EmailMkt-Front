@@ -3,7 +3,12 @@ import Typography from "@mui/material/Typography";
 
 function Title(props) {
   return (
-    <Typography component="h2" variant="h5" color="primary">
+    <Typography
+      sx={{ overflow: "hidden" }}
+      component="h2"
+      variant="h5"
+      color="primary"
+    >
       {props.children}
     </Typography>
   );
