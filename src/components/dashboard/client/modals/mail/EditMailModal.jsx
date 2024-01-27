@@ -109,7 +109,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
         console.log(resp);
 
         SwAlertOk();
-        onClose();
+        handleClose();
         onMailEdit();
       }
     } catch (error) {
@@ -146,6 +146,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
   const handleClose = () => {
     setActiveStep(0);
     onClose();
+    console.log("onClose");
   };
 
   const handleFormChange = (field, value) => {

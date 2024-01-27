@@ -15,6 +15,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import "../../css/App.css";
 import ClientMenu from "./client/ClientMenu";
 import AdminMenu from "./admin/AdminMenu";
+import LogoutButton from "../LogoutButton";
 
 const drawerWidth = 240;
 
@@ -108,11 +109,7 @@ const Header = ({ content }) => {
             >
               ¡Bienvenido {loggedInUserEmail}!
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <LogoutButton />
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>

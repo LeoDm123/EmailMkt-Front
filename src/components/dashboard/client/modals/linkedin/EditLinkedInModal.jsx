@@ -194,7 +194,7 @@ const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
     );
 
     onClose();
-    resetActiveStep();
+    handleClose();
   };
 
   return (
@@ -234,7 +234,7 @@ const EditLinkedInModal = ({ open, onClose, campaignID, onLinkedInEdit }) => {
               <EditLinkedInFilterOneForm
                 CampaignTitle={formData.CampaignTitle}
                 CurrentCompanyNameFilter={formData.CurrentCompanyNameFilter}
-                formDataCompanyHeadcountFilter={formData.CompanyHeadcountFilter}
+                CompanyHeadcountFilter={formData.CompanyHeadcountFilter}
                 PastCompanyNameFilter={formData.PastCompanyNameFilter}
                 CompanyTypeFilter={formData.CompanyTypeFilter}
                 CompanyHQLocationFilter={formData.CompanyHQLocationFilter}

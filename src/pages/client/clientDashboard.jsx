@@ -34,8 +34,8 @@ const ClientDashboard = () => {
 
   const handleLinkedSection = () => {
     if (isZoomed) {
-      setMailSectionWitdh("5%");
-      setLinkedInSectionWitdh("95%");
+      setMailSectionWitdh("3%");
+      setLinkedInSectionWitdh("97%");
     } else {
       setMailSectionWitdh("50%");
       setLinkedInSectionWitdh("50%");
@@ -50,8 +50,8 @@ const ClientDashboard = () => {
 
   const handleMailSection = () => {
     if (isZoomed) {
-      setMailSectionWitdh("95%");
-      setLinkedInSectionWitdh("5%");
+      setMailSectionWitdh("97%");
+      setLinkedInSectionWitdh("3%");
     } else {
       setMailSectionWitdh("50%");
       setLinkedInSectionWitdh("50%");
@@ -73,7 +73,10 @@ const ClientDashboard = () => {
             </Grid>
             <Grid xl={12} className="d-flex">
               <Grid
-                sx={{ width: mailSectionWitdh, transition: "width 0.5s ease" }}
+                sx={{
+                  width: mailSectionWitdh,
+                  transition: "width 0.5s ease",
+                }}
                 className="p-2"
               >
                 <Paper
@@ -84,10 +87,16 @@ const ClientDashboard = () => {
                     height: 580,
                   }}
                 >
-                  <MailCampaignsList
-                    onMailCreation={onMailSubmit}
-                    zoom={handleMailZoomChange}
-                  />
+                  <Grid
+                    sx={{
+                      display: mailSectionWitdh === "3%" ? "none" : "block",
+                    }}
+                  >
+                    <MailCampaignsList
+                      onMailCreation={onMailSubmit}
+                      zoom={handleMailZoomChange}
+                    />
+                  </Grid>
                 </Paper>
               </Grid>
               <Grid
@@ -105,10 +114,16 @@ const ClientDashboard = () => {
                     height: 580,
                   }}
                 >
-                  <LinkedInCampaignsList
-                    onLinkedInCreation={onLinkedInSubmit}
-                    zoom={handleLinkedZoomChange}
-                  />
+                  <Grid
+                    sx={{
+                      display: linkedinSectionWitdh === "3%" ? "none" : "block",
+                    }}
+                  >
+                    <LinkedInCampaignsList
+                      onLinkedInCreation={onLinkedInSubmit}
+                      zoom={handleLinkedZoomChange}
+                    />
+                  </Grid>
                 </Paper>
               </Grid>
             </Grid>

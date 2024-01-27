@@ -111,49 +111,23 @@ const EditMailFilterForm = ({
       </Grid>
 
       <Grid className="d-flex flex-direction-row">
-        <FormControl variant="outlined" fullWidth className="mt-3">
-          <InputLabel>Job Title</InputLabel>
-          <Select
-            label="Job Title"
-            className="me-2"
-            value={JobTitlesFilter}
-            onChange={(e) =>
-              handleFormChange("JobTitlesFilter", e.target.value)
-            }
-          >
-            <MenuItem value="">
-              <em>Select</em>
-            </MenuItem>
-            <MenuItem value="Chief Excutive Officer">
-              Chief Excutive Officer
-            </MenuItem>
-            <MenuItem value="Chief Financial Officer">
-              Chief Financial Officer
-            </MenuItem>
-            <MenuItem value="Chief Operations Officer">
-              Chief Operations Officer
-            </MenuItem>
-          </Select>
-        </FormControl>
+        <TextField
+          fullWidth
+          label="Job Title"
+          variant="outlined"
+          className="mt-3 me-2"
+          value={JobTitlesFilter}
+          onChange={(e) => handleFormChange("JobTitlesFilter", e.target.value)}
+        />
 
-        <FormControl variant="outlined" fullWidth className="mt-3">
-          <InputLabel>Industries</InputLabel>
-          <Select
-            label="Industries"
-            className="ms-2"
-            value={IndustriesFilter}
-            onChange={(e) =>
-              handleFormChange("IndustriesFilter", e.target.value)
-            }
-          >
-            <MenuItem value="">
-              <em>Select</em>
-            </MenuItem>
-            <MenuItem value="Construction">Construction</MenuItem>
-            <MenuItem value="Health Services">Health Services</MenuItem>
-            <MenuItem value="Transport">Transport</MenuItem>
-          </Select>
-        </FormControl>
+        <TextField
+          fullWidth
+          label="Industries"
+          variant="outlined"
+          className="mt-3 ms-2"
+          value={IndustriesFilter}
+          onChange={(e) => handleFormChange("IndustriesFilter", e.target.value)}
+        />
       </Grid>
 
       <Grid className="w-100 d-flex flex-direction-row">

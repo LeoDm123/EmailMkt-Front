@@ -1,9 +1,36 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+import swal from "sweetalert";
 import Title from "../../../../Title";
 
 const AddLinkedInFilterTwoForm = ({ formData, handleFormChange }) => {
+  const handleYearsInCurrentCompanyChange = (value) => {
+    const yearsInCurrentPosition = formData.YearsInCurrentPositionFilter;
+    if (value >= yearsInCurrentPosition) {
+      handleFormChange("YearsInCurrentCompanyFilter", value);
+    } else {
+      SwAlertError();
+    }
+  };
+
+  const handleYearsInCurrentPositionChange = (value) => {
+    const yearsInCurrentCompany = formData.YearsInCurrentCompanyFilter;
+    if (value <= yearsInCurrentCompany) {
+      handleFormChange("YearsInCurrentPositionFilter", value);
+    } else {
+      SwAlertError();
+    }
+  };
+
+  const SwAlertError = () => {
+    swal({
+      title: "¡Error!",
+      text: "Years in current position can't be higher than years in current company",
+      icon: "error",
+    });
+  };
+
   return (
     <form id="registerForm" style={{ height: "70%" }}>
       <Grid>
@@ -63,9 +90,7 @@ const AddLinkedInFilterTwoForm = ({ formData, handleFormChange }) => {
             variant="outlined"
             className="mt-3 me-2"
             value={formData.YearsInCurrentCompanyFilter}
-            onChange={(e) =>
-              handleFormChange("YearsInCurrentCompanyFilter", e.target.value)
-            }
+            onChange={(e) => handleYearsInCurrentCompanyChange(e.target.value)}
           />
 
           <TextField
@@ -74,9 +99,7 @@ const AddLinkedInFilterTwoForm = ({ formData, handleFormChange }) => {
             variant="outlined"
             className="mt-3 ms-2"
             value={formData.YearsInCurrentPositionFilter}
-            onChange={(e) =>
-              handleFormChange("YearsInCurrentPositionFilter", e.target.value)
-            }
+            onChange={(e) => handleYearsInCurrentPositionChange(e.target.value)}
           />
         </Grid>
       </Grid>

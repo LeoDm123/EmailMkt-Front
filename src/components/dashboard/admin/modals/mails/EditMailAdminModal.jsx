@@ -47,6 +47,11 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
     status: "Pending",
   });
 
+  const handleClose = () => {
+    setActiveStep(0);
+    onClose();
+  };
+
   const editMailCampaign = async (
     CampaignTitle,
     NameFilter,
@@ -110,7 +115,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
         console.log(resp);
 
         SwAlertOk();
-        onClose();
+        handleClose();
         onMailEdit();
       }
     } catch (error) {
@@ -142,11 +147,6 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
-  };
-
-  const handleClose = () => {
-    setActiveStep(0);
-    onClose();
   };
 
   const handleFormChange = (field, value) => {
