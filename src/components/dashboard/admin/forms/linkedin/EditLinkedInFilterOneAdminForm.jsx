@@ -148,6 +148,7 @@ const EditLinkedInFilterOneAdminForm = ({
               <MenuItem value="Pending">Pending</MenuItem>
               <MenuItem value="Setting Up">Setting Up</MenuItem>
               <MenuItem value="Active">Active</MenuItem>
+              <MenuItem value="Paused">Paused</MenuItem>
               <MenuItem value="Closed">Closed</MenuItem>
             </Select>
           </FormControl>

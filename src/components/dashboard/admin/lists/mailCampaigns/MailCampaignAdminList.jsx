@@ -14,6 +14,7 @@ import DeleteButton from "../../../../DeleteButton";
 import EditMailCampaignAdminButton from "../../buttons/mails/EditMailCampaignAdminButton";
 import PersonalSwitch from "../../../../Switch";
 import Title from "../../../../Title";
+import formatStatus from "../../../../functions/formatStatus";
 
 const MailCampaignsAdminList = ({ onMailCreation, zoom }) => {
   const [mailCampaigns, setMailCampaigns] = useState([]);
@@ -154,7 +155,12 @@ const MailCampaignsAdminList = ({ onMailCreation, zoom }) => {
                 </TableCell>
                 <TableCell className="text-center">{campaign.date}</TableCell>
                 <TableCell className="text-center">{campaign.user}</TableCell>
-                <TableCell className="text-center">{campaign.status}</TableCell>
+                <TableCell
+                  className="text-center"
+                  sx={{ color: formatStatus(campaign.status) }}
+                >
+                  {campaign.status}
+                </TableCell>
                 <TableCell>
                   <Grid className="d-flex align-items-center justify-content-center">
                     <MailCampaignInfoButton campaignID={campaign._id} />

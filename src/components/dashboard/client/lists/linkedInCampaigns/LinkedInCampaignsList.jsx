@@ -14,6 +14,7 @@ import EditLinkedInCampaignButton from "../../buttons/linkedin/EditLinkedInCampa
 import LinkedCampaignInfoButton from "../../buttons/linkedin/LinkedInCampaignInfoButton";
 import PersonalSwitch from "../../../../Switch";
 import Title from "../../../../Title";
+import formatStatus from "../../../../functions/formatStatus";
 
 const LinkedInCampaignsList = ({ onLinkedInCreation, zoom }) => {
   const [linkedInCampaigns, setLinkedInCampaigns] = useState([]);
@@ -157,7 +158,12 @@ const LinkedInCampaignsList = ({ onLinkedInCreation, zoom }) => {
                   {campaign.linkedInCampaignName}
                 </TableCell>
                 <TableCell className="text-center">{campaign.date}</TableCell>
-                <TableCell className="text-center">{campaign.status}</TableCell>
+                <TableCell
+                  className="text-center"
+                  sx={{ color: formatStatus(campaign.status) }}
+                >
+                  {campaign.status}
+                </TableCell>
                 <TableCell>
                   <Grid className="d-flex align-items-center justify-content-center">
                     <LinkedCampaignInfoButton campaignID={campaign._id} />

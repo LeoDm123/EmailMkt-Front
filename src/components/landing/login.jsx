@@ -105,7 +105,7 @@ export const LogIn = () => {
           >
             <img
               src={logo}
-              className="w-75 d-flex justify-content-center mb-5"
+              className="w-100 d-flex justify-content-center mb-5"
               alt="Logo"
             />
             <Typography component="h1" variant="h5">
