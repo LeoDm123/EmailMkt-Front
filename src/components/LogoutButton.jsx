@@ -4,7 +4,7 @@ import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 
-const LogoutButton = ({ onDelete }) => {
+const LogoutButton = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {

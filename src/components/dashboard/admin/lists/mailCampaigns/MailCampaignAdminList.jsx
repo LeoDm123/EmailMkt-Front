@@ -15,6 +15,7 @@ import EditMailCampaignAdminButton from "../../buttons/mails/EditMailCampaignAdm
 import PersonalSwitch from "../../../../Switch";
 import Title from "../../../../Title";
 import formatStatus from "../../../../functions/formatStatus";
+import PrintButton from "../../../../PrintButton";
 
 const MailCampaignsAdminList = ({ onMailCreation, zoom }) => {
   const [mailCampaigns, setMailCampaigns] = useState([]);
@@ -115,7 +116,7 @@ const MailCampaignsAdminList = ({ onMailCreation, zoom }) => {
         <TableHead>
           <TableRow>
             <TableCell
-              sx={{ backgroundColor: "#E1E3E1", width: "20%" }}
+              sx={{ backgroundColor: "#E1E3E1", width: "25%" }}
               className="text-center fw-bold"
             >
               Campaign Name
@@ -133,13 +134,13 @@ const MailCampaignsAdminList = ({ onMailCreation, zoom }) => {
               User
             </TableCell>
             <TableCell
-              sx={{ backgroundColor: "#E1E3E1", width: "20%" }}
+              sx={{ backgroundColor: "#E1E3E1", width: "15%" }}
               className="text-center fw-bold"
             >
               Status
             </TableCell>
             <TableCell
-              sx={{ backgroundColor: "#E1E3E1", width: "20%" }}
+              sx={{ backgroundColor: "#E1E3E1", width: "25%" }}
               className="text-center fw-bold"
             >
               Actions
@@ -168,6 +169,7 @@ const MailCampaignsAdminList = ({ onMailCreation, zoom }) => {
                       onMailEdit={handleCampaignEdit}
                       campaignID={campaign._id}
                     />
+                    <PrintButton />
                     <DeleteButton
                       onDelete={() => handleDeleteCampaign(campaign._id)}
                     />

@@ -15,6 +15,7 @@ import EditLinkedCampaignAdminButton from "../../buttons/linkedin/EditLinkedInCa
 import PersonalSwitch from "../../../../Switch";
 import Title from "../../../../Title";
 import formatStatus from "../../../../functions/formatStatus";
+import PrintButton from "../../../../PrintButton";
 
 const LinkedInCampaignsAdminList = ({ onLinkedInCreation, zoom }) => {
   const [linkedInCampaigns, setLinkedInCampaigns] = useState([]);
@@ -145,7 +146,7 @@ const LinkedInCampaignsAdminList = ({ onLinkedInCreation, zoom }) => {
         <TableHead>
           <TableRow>
             <TableCell
-              sx={{ backgroundColor: "#E1E3E1", width: "20%" }}
+              sx={{ backgroundColor: "#E1E3E1", width: "25%" }}
               className="text-center fw-bold"
             >
               Campaign Name
@@ -163,7 +164,7 @@ const LinkedInCampaignsAdminList = ({ onLinkedInCreation, zoom }) => {
               User
             </TableCell>
             <TableCell
-              sx={{ backgroundColor: "#E1E3E1", width: "20%" }}
+              sx={{ backgroundColor: "#E1E3E1", width: "15%" }}
               className="text-center fw-bold"
             >
               Status
@@ -198,6 +199,7 @@ const LinkedInCampaignsAdminList = ({ onLinkedInCreation, zoom }) => {
                       onLinkedInEdit={handleCampaignEdit}
                       campaignID={campaign._id}
                     />
+                    <PrintButton />
                     <DeleteButton
                       onDelete={() => handleDeleteCampaign(campaign._id)}
                     />
