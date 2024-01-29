@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 import Header from "../../components/dashboard/Header";
 import AddMailButton from "../../components/dashboard/client/buttons/mail/AddMailButton";
 import AddLinkedInButton from "../../components/dashboard/client/buttons/linkedin/AddLinkedInButton";
-import MailCampaignsList from "../../components/dashboard/client/lists/mailCampaigns/mailCampaignsList";
+import MailCampaignsList from "../../components/dashboard/client/lists/mailCampaigns/MailCampaignsList";
 import LinkedInCampaignsList from "../../components/dashboard/client/lists/linkedInCampaigns/LinkedInCampaignsList";
 
 const defaultTheme = createTheme();
