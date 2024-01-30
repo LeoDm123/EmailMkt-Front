@@ -17,8 +17,6 @@ import EditMailFilterForm from "../../forms/mail/EditMailFilterForm";
 import EditMailSubjectAndMessageForm from "../../forms/mail/EditMailSubjectAndMessageForm";
 import EditMailOptionsForm from "../../forms/mail/EditMailOptionsForm";
 
-const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
-
 const steps = ["Filters", "Subject And Message", "Options"];
 
 const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
@@ -146,7 +144,6 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
   const handleClose = () => {
     setActiveStep(0);
     onClose();
-    console.log("onClose");
   };
 
   const handleFormChange = (field, value) => {
