@@ -45,25 +45,25 @@ function AdminMenu() {
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      <ListItemButton onClick={() => navigate("/AdminDashboard")}>
+      <ListItemButton onClick={() => navigate("/a/dashboard")}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate("/AdminDashboard")}>
+      <ListItemButton onClick={() => navigate("/a/dashboard")}>
         <ListItemIcon>
           <EmailIcon />
         </ListItemIcon>
         <ListItemText primary="Email" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate("/AdminDashboard")}>
+      <ListItemButton onClick={() => navigate("/a/dashboard")}>
         <ListItemIcon>
           <LinkedInIcon />
         </ListItemIcon>
         <ListItemText primary="LinkedIn" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate("/AdminPanel")}>
+      <ListItemButton onClick={() => navigate("/a/panel")}>
         <ListItemIcon>
           <SettingsIcon />
         </ListItemIcon>

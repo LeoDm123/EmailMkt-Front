@@ -46,10 +46,10 @@ export const LogIn = () => {
         const userRole = resp.data.user.role;
         if (userRole === "admin") {
           localStorage.setItem("loggedInUserRole", userRole);
-          navigate("/AdminDashboard");
+          navigate("/a/dashboard");
         } else if (userRole === "user") {
           localStorage.setItem("loggedInUserRole", userRole);
-          navigate("/ClientDashboard");
+          navigate("/c/dashboard");
         }
       } else {
         console.log(resp.data.msg);

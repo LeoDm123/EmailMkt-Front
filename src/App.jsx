@@ -9,9 +9,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/AdminDashboard" element={<AdminDashboard />} />
-        <Route path="/AdminPanel" element={<AdminPanel />} />
-        <Route path="/ClientDashboard" element={<ClientDashboard />} />
+        <Route path="/a/dashboard" element={<AdminDashboard />} />
+        <Route path="/a/panel" element={<AdminPanel />} />
+        <Route path="/c/dashboard" element={<ClientDashboard />} />
       </Routes>
     </BrowserRouter>
   );

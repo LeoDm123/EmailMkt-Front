@@ -45,19 +45,19 @@ function ClientMenu() {
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      <ListItemButton onClick={() => navigate("/ClientDashboard")}>
+      <ListItemButton onClick={() => navigate("/c/dashboard")}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate("/ClientDashboard")}>
+      <ListItemButton onClick={() => navigate("/c/dashboard")}>
         <ListItemIcon>
           <EmailIcon />
         </ListItemIcon>
         <ListItemText primary="Email" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate("/ClientDashboard")}>
+      <ListItemButton onClick={() => navigate("/c/dashboard")}>
         <ListItemIcon>
           <LinkedInIcon />
         </ListItemIcon>
