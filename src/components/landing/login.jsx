@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import serverAPI from "../../api/serverAPI";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logos/logo.png";
 import landing from "../../assets/imgs/landing-img.jpg";
 
@@ -22,7 +23,7 @@ export const LogIn = () => {
   const [userRole, setUserRole] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [redirectToDashboard, setRedirectToDashboard] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.removeItem("loggedInUserEmail");
@@ -43,10 +44,13 @@ export const LogIn = () => {
       if (resp.data.msg === "User logged") {
         console.log(resp.data.user);
         const userRole = resp.data.user.role;
-
-        localStorage.setItem("loggedInUserRole", userRole);
-
-        setRedirectToDashboard(true);
+        if (userRole === "admin") {
+          localStorage.setItem("loggedInUserRole", userRole);
+          navigate("/a/dashboard");
+        } else if (userRole === "user") {
+          localStorage.setItem("loggedInUserRole", userRole);
+          navigate("/c/dashboard");
+        }
       } else {
         console.log(resp.data.msg);
         setLoginError(resp.data.msg);
@@ -57,18 +61,6 @@ export const LogIn = () => {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (redirectToDashboard) {
-      const userRole = localStorage.getItem("loggedInUserRole");
-
-      if (userRole === "admin") {
-        window.location.href = "/a/dashboard";
-      } else if (userRole === "user") {
-        window.location.href = "/c/dashboard";
-      }
-    }
-  }, [redirectToDashboard]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
