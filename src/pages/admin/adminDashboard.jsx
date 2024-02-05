@@ -13,7 +13,8 @@ const AdminDashboard = () => {
   const [onLinkedInSubmit, setOnLinkedInSubmit] = useState(false);
   const [mailSectionHeight, setMailSectionHeight] = useState(310);
   const [linkedinSectionHeight, setLinkedInSectionHeight] = useState(310);
-  const [isZoomed, setIsZoomed] = useState(true);
+  const [isLinkedZoomed, setIsLinkedZoomed] = useState(true);
+  const [isMailZoomed, setIsMailZoomed] = useState(true);
 
   const handleMailSubmit = () => {
     setOnMailSubmit(!onMailSubmit);
@@ -24,13 +25,16 @@ const AdminDashboard = () => {
   };
 
   const handleLinkedZoomChange = () => {
-    setIsZoomed(!isZoomed);
-    console.log(isZoomed);
-    handleLinkedSection();
+    if (isMailZoomed === "true") {
+      setIsMailZoomed(!isMailZoomed);
+    } else {
+      setIsLinkedZoomed(!isLinkedZoomed);
+      handleLinkedSection();
+    }
   };
 
   const handleLinkedSection = () => {
-    if (isZoomed) {
+    if (isLinkedZoomed) {
       setMailSectionHeight(50);
       setLinkedInSectionHeight(570);
     } else {
@@ -40,13 +44,16 @@ const AdminDashboard = () => {
   };
 
   const handleMailZoomChange = () => {
-    setIsZoomed(!isZoomed);
-    console.log(isZoomed);
-    handleMailSection();
+    if (isLinkedZoomed === "true") {
+      setIsLinkedZoomed(!isLinkedZoomed);
+    } else {
+      setIsMailZoomed(!isMailZoomed);
+      handleMailSection();
+    }
   };
 
   const handleMailSection = () => {
-    if (isZoomed) {
+    if (isMailZoomed) {
       setMailSectionHeight(570);
       setLinkedInSectionHeight(50);
     } else {
