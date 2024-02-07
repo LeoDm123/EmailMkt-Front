@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+import getCurrentDate from "../../../../functions/getCurrentDate";
 
 const AddMailFilterForm = ({ formData, handleFormChange }) => {
   return (
@@ -18,11 +19,13 @@ const AddMailFilterForm = ({ formData, handleFormChange }) => {
       <Grid className="w-100 d-flex flex-direction-row">
         <TextField
           fullWidth
-          label="Name"
+          label="Start Date"
+          type="date"
           variant="outlined"
           className="mt-3 me-2"
-          value={formData.NameFilter}
-          onChange={(e) => handleFormChange("NameFilter", e.target.value)}
+          defaultValue={getCurrentDate()}
+          value={formData.StartDateFilter}
+          onChange={(e) => handleFormChange("StartDateFilter", e.target.value)}
         />
 
         <TextField

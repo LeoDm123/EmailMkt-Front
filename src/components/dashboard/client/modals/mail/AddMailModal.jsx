@@ -51,7 +51,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
   const createMailCampaign = async (
     loggedInUserEmail,
     CampaignTitle,
-    NameFilter,
+    StartDateFilter,
     EmployeesNrFilter,
     JobTitlesFilter,
     IndustriesFilter,
@@ -78,7 +78,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
       const resp = await serverAPI.post("/mails/createMailCampaign", {
         loggedInUserEmail,
         CampaignTitle,
-        NameFilter,
+        StartDateFilter,
         EmployeesNrFilter,
         JobTitlesFilter,
         IndustriesFilter,
@@ -153,7 +153,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
     createMailCampaign(
       loggedInUserEmail,
       formData.CampaignTitle,
-      formData.NameFilter,
+      formData.StartDateFilter,
       formData.EmployeesNrFilter,
       formData.JobTitlesFilter,
       formData.IndustriesFilter,
@@ -176,7 +176,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
       formData.BasicWarming,
       formData.AdvancedWarming
     );
-
+    0;
     onClose();
   };
 

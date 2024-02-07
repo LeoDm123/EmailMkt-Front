@@ -2,15 +2,12 @@ import React from "react";
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import serverAPI from "../../../../../api/serverAPI";
+import formatDate from "../../../../functions/formatDate";
 
 const EditMailFilterForm = ({
   CampaignTitle,
-  NameFilter,
+  StartDateFilter,
   EmployeesNrFilter,
   JobTitlesFilter,
   IndustriesFilter,
@@ -32,8 +29,8 @@ const EditMailFilterForm = ({
 
         handleFormChange("CampaignTitle", campaignData.mailCampaignName);
         handleFormChange(
-          "NameFilter",
-          campaignData.mailCampaignFilters[0]?.Name
+          "StartDateFilter",
+          campaignData.mailCampaignFilters[0]?.StartDate
         );
         handleFormChange(
           "EmployeesNrFilter",
@@ -90,11 +87,12 @@ const EditMailFilterForm = ({
       <Grid className="w-100 d-flex flex-direction-row">
         <TextField
           fullWidth
-          label="Name"
+          label="Start Date"
+          type="date"
           variant="outlined"
           className="mt-3 me-2"
-          value={NameFilter}
-          onChange={(e) => handleFormChange("NameFilter", e.target.value)}
+          value={StartDateFilter || ""}
+          onChange={(e) => handleFormChange("StartDateFilter", e.target.value)}
         />
 
         <TextField

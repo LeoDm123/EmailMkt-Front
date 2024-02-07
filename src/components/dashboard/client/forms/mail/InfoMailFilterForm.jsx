@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import serverAPI from "../../../../../api/serverAPI";
+import formatDate from "../../../../functions/formatDate";
 
 const AddMailFilterForm = ({ campaignID }) => {
   const [formData, setFormData] = useState({});
@@ -17,7 +18,9 @@ const AddMailFilterForm = ({ campaignID }) => {
 
         setFormData({
           "Campaign Name": campaignData.mailCampaignName,
-          Name: campaignData.mailCampaignFilters[0]?.Name,
+          "Start Date": formatDate(
+            campaignData.mailCampaignFilters[0]?.StartDate
+          ),
           "# of Employees": campaignData.mailCampaignFilters[1]?.EmployeesNr,
           "Job Title": campaignData.mailCampaignFilters[2]?.JobTitles,
           Industry: campaignData.mailCampaignFilters[3]?.Industries,
