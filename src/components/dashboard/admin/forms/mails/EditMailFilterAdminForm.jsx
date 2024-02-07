@@ -10,7 +10,7 @@ import serverAPI from "../../../../../api/serverAPI";
 
 const EditMailFilterAdminForm = ({
   CampaignTitle,
-  NameFilter,
+  StartDateFilter,
   EmployeesNrFilter,
   JobTitlesFilter,
   IndustriesFilter,
@@ -34,8 +34,8 @@ const EditMailFilterAdminForm = ({
         handleFormChange("status", campaignData.status);
         handleFormChange("CampaignTitle", campaignData.mailCampaignName);
         handleFormChange(
-          "NameFilter",
-          campaignData.mailCampaignFilters[0]?.Name
+          "StartDateFilter",
+          campaignData.mailCampaignFilters[0]?.StartDate
         );
         handleFormChange(
           "EmployeesNrFilter",
@@ -92,11 +92,12 @@ const EditMailFilterAdminForm = ({
       <Grid className="w-100 d-flex flex-direction-row">
         <TextField
           fullWidth
-          label="Name"
+          type="date"
+          label="Start Date"
           variant="outlined"
           className="mt-3 me-2"
-          value={NameFilter}
-          onChange={(e) => handleFormChange("NameFilter", e.target.value)}
+          value={StartDateFilter || ""}
+          onChange={(e) => handleFormChange("StartDateFilter", e.target.value)}
         />
 
         <TextField

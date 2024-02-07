@@ -29,7 +29,7 @@ const EditMailSubjectAndMessageAdminForm = ({
         );
         handleFormChange(
           "Variant",
-          campaignData.mailCampaignSubjectAndMessage[1]?.Variant
+          campaignData.mailCampaignSubjectAndMessage[2]?.Variant
         );
       } catch (error) {
         console.error("Error fetching data:", error);

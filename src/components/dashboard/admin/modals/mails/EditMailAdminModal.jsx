@@ -22,7 +22,7 @@ const steps = ["Filters", "Subject And Message", "Options"];
 const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
   const [formData, setFormData] = useState({
     CampaignTitle: "",
-    NameFilter: "",
+    StartDateFilter: "",
     EmployeesNrFilter: "",
     JobTitlesFilter: "",
     IndustriesFilter: "",
@@ -54,7 +54,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
 
   const editMailCampaign = async (
     CampaignTitle,
-    NameFilter,
+    StartDateFilter,
     EmployeesNrFilter,
     JobTitlesFilter,
     IndustriesFilter,
@@ -83,7 +83,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
         `/mails/editMailCampaignByID/${campaignID}`,
         {
           CampaignTitle,
-          NameFilter,
+          StartDateFilter,
           EmployeesNrFilter,
           JobTitlesFilter,
           IndustriesFilter,
@@ -154,7 +154,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
   const handleFormSubmit = () => {
     editMailCampaign(
       formData.CampaignTitle,
-      formData.NameFilter,
+      formData.StartDateFilter,
       formData.EmployeesNrFilter,
       formData.JobTitlesFilter,
       formData.IndustriesFilter,
@@ -218,7 +218,7 @@ const EditMailAdminModal = ({ open, onClose, campaignID, onMailEdit }) => {
             {activeStep === 0 && (
               <EditMailFilterAdminForm
                 CampaignTitle={formData.CampaignTitle}
-                NameFilter={formData.NameFilter}
+                StartDateFilter={formData.StartDateFilter}
                 EmployeesNrFilter={formData.EmployeesNrFilter}
                 JobTitlesFilter={formData.JobTitlesFilter}
                 IndustriesFilter={formData.IndustriesFilter}
