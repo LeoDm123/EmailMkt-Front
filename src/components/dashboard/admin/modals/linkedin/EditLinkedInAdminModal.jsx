@@ -124,8 +124,6 @@ const EditLinkedInAdminModal = ({
       if (resp.data.msg === "Internal server error") {
         SwAlertError();
       } else {
-        console.log(resp);
-
         SwAlertOk();
         onClose();
         onLinkedInEdit();
@@ -171,8 +169,6 @@ const EditLinkedInAdminModal = ({
   };
 
   const handleFormSubmit = () => {
-    console.log("Form submitted:", formData);
-
     editLinkedInCampaign(
       formData.CampaignTitle,
       formData.CurrentCompanyNameFilter,

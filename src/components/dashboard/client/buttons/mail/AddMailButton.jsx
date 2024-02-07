@@ -13,7 +13,6 @@ export default function AddMailButton({ onMailCreation }) {
 
   const handleCloseModal = () => {
     setModalOpen(false);
-    console.log("fffffffffff");
   };
 
   return (

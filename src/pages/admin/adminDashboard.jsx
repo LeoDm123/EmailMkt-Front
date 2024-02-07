@@ -16,14 +16,6 @@ const AdminDashboard = () => {
   const [isLinkedZoomed, setIsLinkedZoomed] = useState(true);
   const [isMailZoomed, setIsMailZoomed] = useState(true);
 
-  const handleMailSubmit = () => {
-    setOnMailSubmit(!onMailSubmit);
-  };
-
-  const handleLinkedInSubmit = () => {
-    setOnLinkedInSubmit(!onLinkedInSubmit);
-  };
-
   const handleLinkedZoomChange = () => {
     if (isMailZoomed === "true") {
       setIsMailZoomed(!isMailZoomed);

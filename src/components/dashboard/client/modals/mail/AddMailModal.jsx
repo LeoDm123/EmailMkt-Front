@@ -105,8 +105,6 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
       if (resp.data.msg === "Internal server error") {
         SwAlertError();
       } else {
-        console.log(resp);
-
         SwAlertOk();
         onClose();
         onMailCreation();
@@ -152,8 +150,6 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
   };
 
   const handleFormSubmit = () => {
-    console.log("Form submitted:", formData);
-
     createMailCampaign(
       loggedInUserEmail,
       formData.CampaignTitle,

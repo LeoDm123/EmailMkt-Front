@@ -11,7 +11,6 @@ const InfoLinkedInFilterTwoForm = ({ campaignID }) => {
   useEffect(() => {
     const fetchLinkedInCampaignsByID = async () => {
       try {
-        console.log(campaignID);
         const resp = await serverAPI.get(
           `/linkedin/fetchLinkedInCampaignsByID/${campaignID}`
         );

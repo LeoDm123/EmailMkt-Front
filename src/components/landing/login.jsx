@@ -42,7 +42,6 @@ export const LogIn = () => {
       localStorage.setItem("loggedInUserEmail", userEmail);
 
       if (resp.data.msg === "User logged") {
-        console.log(resp.data.user);
         const userRole = resp.data.user.role;
         if (userRole === "admin") {
           localStorage.setItem("loggedInUserRole", userRole);
@@ -52,7 +51,6 @@ export const LogIn = () => {
           navigate("/c/dashboard");
         }
       } else {
-        console.log(resp.data.msg);
         setLoginError(resp.data.msg);
       }
     } catch (error) {

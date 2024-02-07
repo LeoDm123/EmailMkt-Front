@@ -23,12 +23,10 @@ const EditLinkedInFilterOneAdminForm = ({
   useEffect(() => {
     const fetchLinkedInCampaignsByID = async () => {
       try {
-        console.log(campaignID);
         const resp = await serverAPI.get(
           `/linkedin/fetchLinkedInCampaignsByID/${campaignID}`
         );
         const campaignData = resp.data;
-        console.log("data", campaignData);
 
         handleFormChange("status", campaignData.status);
         handleFormChange("CampaignTitle", campaignData.linkedInCampaignName);

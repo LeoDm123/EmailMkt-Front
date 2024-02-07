@@ -104,8 +104,6 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
       if (resp.data.msg === "Internal server error") {
         SwAlertError();
       } else {
-        console.log(resp);
-
         SwAlertOk();
         handleClose();
         onMailEdit();
@@ -151,8 +149,6 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
   };
 
   const handleFormSubmit = () => {
-    console.log("Form submitted:", formData);
-
     editMailCampaign(
       formData.CampaignTitle,
       formData.NameFilter,

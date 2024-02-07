@@ -79,7 +79,6 @@ const LinkedInCampaignsList = ({ onLinkedInCreation, zoom }) => {
       dangerMode: true,
     }).then((willCancel) => {
       if (willCancel) {
-        console.log(campaignId);
         deleteCampaign(campaignId);
       }
     });

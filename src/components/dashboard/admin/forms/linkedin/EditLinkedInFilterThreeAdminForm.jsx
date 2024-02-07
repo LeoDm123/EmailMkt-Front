@@ -22,7 +22,6 @@ const EditLinkedInFilterThreeAdminForm = ({
   useEffect(() => {
     const fetchLinkedInCampaignsByID = async () => {
       try {
-        console.log(campaignID);
         const resp = await serverAPI.get(
           `/linkedin/fetchLinkedInCampaignsByID/${campaignID}`
         );

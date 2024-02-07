@@ -76,7 +76,6 @@ const LinkedInCampaignsAdminList = ({ onLinkedInCreation, zoom }) => {
       dangerMode: true,
     }).then((willCancel) => {
       if (willCancel) {
-        console.log(campaignId);
         deleteCampaign(campaignId);
       }
     });
@@ -199,7 +198,7 @@ const LinkedInCampaignsAdminList = ({ onLinkedInCreation, zoom }) => {
                       onLinkedInEdit={handleCampaignEdit}
                       campaignID={campaign._id}
                     />
-                    <PrintButton />
+                    <PrintButton campaignID={campaign._id} />
                     <DeleteButton
                       onDelete={() => handleDeleteCampaign(campaign._id)}
                     />

@@ -28,7 +28,6 @@ const ClientDashboard = () => {
 
   const handleLinkedZoomChange = () => {
     setIsZoomed(!isZoomed);
-    console.log(isZoomed);
     handleLinkedSection();
   };
 
@@ -44,7 +43,6 @@ const ClientDashboard = () => {
 
   const handleMailZoomChange = () => {
     setIsZoomed(!isZoomed);
-    console.log(isZoomed);
     handleMailSection();
   };
 

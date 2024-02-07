@@ -70,7 +70,6 @@ const MailCampaignsAdminList = ({ onMailCreation, zoom }) => {
       dangerMode: true,
     }).then((willCancel) => {
       if (willCancel) {
-        console.log(campaignId);
         deleteCampaign(campaignId);
       }
     });

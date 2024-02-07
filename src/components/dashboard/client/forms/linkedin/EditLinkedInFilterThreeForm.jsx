@@ -22,7 +22,7 @@ const EditLinkedInFilterThreeForm = ({
   useEffect(() => {
     const fetchLinkedInCampaignsByID = async () => {
       try {
-        console.log(campaignID);
+        campaignID;
         const resp = await serverAPI.get(
           `/linkedin/fetchLinkedInCampaignsByID/${campaignID}`
         );

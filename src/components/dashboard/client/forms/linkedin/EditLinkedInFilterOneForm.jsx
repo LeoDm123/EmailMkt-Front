@@ -18,12 +18,10 @@ const EditLinkedInFilterOneForm = ({
   useEffect(() => {
     const fetchLinkedInCampaignsByID = async () => {
       try {
-        console.log(campaignID);
         const resp = await serverAPI.get(
           `/linkedin/fetchLinkedInCampaignsByID/${campaignID}`
         );
         const campaignData = resp.data;
-        console.log(campaignData);
 
         handleFormChange("CampaignTitle", campaignData.linkedInCampaignName);
         handleFormChange(

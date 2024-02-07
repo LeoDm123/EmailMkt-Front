@@ -27,8 +27,6 @@ const AddUserModal = ({ open, onClose, onUserCreation }) => {
       if (resp.data.msg === "The user is already registered") {
         SwAlertError();
       } else {
-        console.log(resp);
-
         setUserName("");
         setUserEmail("");
         setUserPassword("");

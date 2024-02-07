@@ -117,8 +117,6 @@ const AddLinkedInModal = ({ open, onClose, onLinkedInCreation }) => {
       if (resp.data.msg === "Internal server error") {
         SwAlertError();
       } else {
-        console.log(resp);
-
         SwAlertOk();
         onClose();
         onLinkedInCreation();
@@ -164,8 +162,6 @@ const AddLinkedInModal = ({ open, onClose, onLinkedInCreation }) => {
   };
 
   const handleFormSubmit = () => {
-    console.log("Form submitted:", formData);
-
     createMailCampaign(
       loggedInUserEmail,
       formData.CampaignTitle,
