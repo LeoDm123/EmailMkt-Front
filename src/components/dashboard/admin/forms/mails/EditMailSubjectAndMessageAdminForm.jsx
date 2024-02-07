@@ -14,7 +14,6 @@ const EditMailSubjectAndMessageAdminForm = ({
   useEffect(() => {
     const fetchMailCampaignsByID = async () => {
       try {
-        console.log(campaignID);
         const resp = await serverAPI.get(
           `/mails/fetchMailCampaignsByID/${campaignID}`
         );
