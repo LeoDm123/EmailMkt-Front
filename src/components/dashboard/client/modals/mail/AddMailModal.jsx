@@ -16,6 +16,7 @@ import Title from "../../../../Title";
 import AddMailFilterForm from "../../forms/mail/AddMailFilterForm";
 import AddMailSubjectAndMessageForm from "../../forms/mail/AddMailSubjectAndMessageForm";
 import AddMailOptionsForm from "../../forms/mail/AddMailOptionsForm";
+import getCurrentDate from "../../../../functions/getCurrentDate";
 
 const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
 
@@ -24,7 +25,7 @@ const steps = ["Filters", "Subject And Message", "Options"];
 const AddMailModal = ({ open, onClose, onMailCreation }) => {
   const [formData, setFormData] = useState({
     CampaignTitle: "",
-    NameFilter: "",
+    StartDateFilter: getCurrentDate(),
     EmployeesNrFilter: "",
     JobTitlesFilter: "",
     IndustriesFilter: "",
@@ -35,7 +36,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
     LocationFilter: "",
     Subject: "",
     Message: "",
-    Variant: "",
+    Variant: [],
     NoHtml: false,
     RemoveContacts: false,
     OnlyVerified: false,
@@ -176,7 +177,7 @@ const AddMailModal = ({ open, onClose, onMailCreation }) => {
       formData.BasicWarming,
       formData.AdvancedWarming
     );
-    0;
+    console.log(formData);
     onClose();
   };
 

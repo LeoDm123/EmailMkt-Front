@@ -23,7 +23,6 @@ const AddMailFilterForm = ({ formData, handleFormChange }) => {
           type="date"
           variant="outlined"
           className="mt-3 me-2"
-          defaultValue={getCurrentDate()}
           value={formData.StartDateFilter}
           onChange={(e) => handleFormChange("StartDateFilter", e.target.value)}
         />
