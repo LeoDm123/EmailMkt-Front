@@ -57,9 +57,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
     RevenueFilter,
     DepartmentFilter,
     LocationFilter,
-    Subject,
-    Message,
-    Variant,
+    Stages,
     NoHtml,
     RemoveContacts,
     OnlyVerified,
@@ -85,9 +83,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
           RevenueFilter,
           DepartmentFilter,
           LocationFilter,
-          Subject,
-          Message,
-          Variant,
+          Stages,
           NoHtml,
           RemoveContacts,
           OnlyVerified,
@@ -160,9 +156,7 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
       formData.RevenueFilter,
       formData.DepartmentFilter,
       formData.LocationFilter,
-      formData.Subject,
-      formData.Message,
-      formData.Variant,
+      formData.Stages,
       formData.NoHtml,
       formData.RemoveContacts,
       formData.OnlyVerified,
@@ -229,9 +223,6 @@ const EditMailModal = ({ open, onClose, campaignID, onMailEdit }) => {
             )}
             {activeStep === 1 && (
               <EditMailSubjectAndMessageForm
-                Subject={formData.Subject}
-                Message={formData.Message}
-                Variant={formData.Variant}
                 handleFormChange={handleFormChange}
                 campaignID={campaignID}
               />

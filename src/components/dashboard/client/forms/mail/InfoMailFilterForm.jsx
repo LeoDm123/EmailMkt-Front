@@ -39,7 +39,7 @@ const AddMailFilterForm = ({ campaignID }) => {
   }, [campaignID]);
 
   return (
-    <Grid sx={{ height: "70%" }}>
+    <Grid sx={{ height: "70%", marginBottom: 2 }}>
       <Grid container spacing={2}>
         {Object.entries(formData).map(([key, value], index) => (
           <Grid item xs={12} sm={6} key={key}>
