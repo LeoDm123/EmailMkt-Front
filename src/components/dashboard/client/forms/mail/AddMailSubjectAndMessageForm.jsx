@@ -62,6 +62,34 @@ const AddMailSubjectAndMessageForm = ({ handleFormChange }) => {
     handleFormChange("Stages", newStages);
   };
 
+  const deleteStage = (currentTab) => {
+    swal({
+      title: "¿Do you wish to delete the current stage?",
+      text: "Once deleted, it cannot be recovered",
+      icon: "warning",
+      buttons: ["No", "Yes"],
+      dangerMode: true,
+    }).then((willCancel) => {
+      if (willCancel) {
+        handleDeleteStage(currentTab);
+      }
+    });
+  };
+
+  const deleteVariant = (currentTab, variantIndex) => {
+    swal({
+      title: "¿Do you wish to delete the current variant?",
+      text: "Once deleted, it cannot be recovered",
+      icon: "warning",
+      buttons: ["No", "Yes"],
+      dangerMode: true,
+    }).then((willCancel) => {
+      if (willCancel) {
+        handleDeleteVariant(currentTab, variantIndex);
+      }
+    });
+  };
+
   return (
     <form id="messageForm" style={{ height: "70%" }}>
       <Grid>
@@ -77,7 +105,7 @@ const AddMailSubjectAndMessageForm = ({ handleFormChange }) => {
           <Grid className="d-flex justify-content-between align-items-center">
             <AddButton onClick={handleAddStage} />
             {stages.length > 1 && (
-              <DeleteButton onDelete={() => handleDeleteStage(currentTab)} />
+              <DeleteButton onDelete={() => deleteStage(currentTab)} />
             )}
           </Grid>
         </Grid>
@@ -155,9 +183,7 @@ const AddMailSubjectAndMessageForm = ({ handleFormChange }) => {
 
                 <Grid>
                   <DeleteButton
-                    onDelete={() =>
-                      handleDeleteVariant(currentTab, variantIndex)
-                    }
+                    onDelete={() => deleteVariant(currentTab, variantIndex)}
                   />
                 </Grid>
               </Grid>
