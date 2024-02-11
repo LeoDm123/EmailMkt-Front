@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DeleteButton from "../../../../DeleteButton";
+import swal from "sweetalert";
 import { DividerTitle } from "../../../../Dividers";
 import AddButton from "../../../../AddButton";
 import Tabs from "@mui/material/Tabs";
@@ -161,7 +162,7 @@ const EditMailSubjectAndMessageAdminForm = ({
               fullWidth
               label="Subject"
               variant="outlined"
-              value={stages[currentTab].Subject}
+              value={stages[currentTab]?.Subject}
               onChange={(e) => handleStageChange("Subject", e.target.value)}
             />
           </Grid>
@@ -172,7 +173,7 @@ const EditMailSubjectAndMessageAdminForm = ({
               variant="outlined"
               multiline
               minRows={5}
-              value={stages[currentTab].Message}
+              value={stages[currentTab]?.Message}
               onChange={(e) => handleStageChange("Message", e.target.value)}
             />
           </Grid>
@@ -186,7 +187,7 @@ const EditMailSubjectAndMessageAdminForm = ({
                   fullWidth
                   label={`Variant ${variantIndex + 1} - Subject`}
                   variant="outlined"
-                  value={variant.Subject}
+                  value={variant?.Subject}
                   onChange={(e) =>
                     handleVariantsChange(
                       currentTab,
@@ -201,7 +202,7 @@ const EditMailSubjectAndMessageAdminForm = ({
                   className="mx-2 w-25"
                   label={`Days To Start`}
                   variant="outlined"
-                  value={variant.DaysToStart}
+                  value={variant?.DaysToStart}
                   onChange={(e) =>
                     handleVariantsChange(
                       currentTab,
@@ -225,7 +226,7 @@ const EditMailSubjectAndMessageAdminForm = ({
                   variant="outlined"
                   multiline
                   minRows={5}
-                  value={variant.Message}
+                  value={variant?.Message}
                   onChange={(e) =>
                     handleVariantsChange(
                       currentTab,
